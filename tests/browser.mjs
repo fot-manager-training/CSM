@@ -8,7 +8,7 @@ const send=(method,params={})=>new Promise((resolve,reject)=>{const id=++seq;que
 const evaluate=async expression=>{const r=await send('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(JSON.stringify(r.exceptionDetails));return r.result.value;};
 const wait=async expression=>{for(let i=0;i<80;i++){if(await evaluate(expression))return;await new Promise(r=>setTimeout(r,50));}throw Error('Timed out: '+expression);};
 try{
- await send('Runtime.enable');await send('Page.enable');await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});
+ await send('Runtime.enable');await send('Page.enable');await send('Emulation.setEmulatedMedia',{features:[]});await send('Emulation.setTouchEmulationEnabled',{enabled:false});await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});
  await send('Page.navigate',{url:process.env.APP_URL || 'http://127.0.0.1:3000/'});await wait('document.querySelectorAll(".event-card").length===5');
  assert.equal(await evaluate('document.title'),'DTaaS · Северо-Запад — цифровая трансформация');
  assert.equal(await evaluate('document.querySelectorAll(".circle-cover").length'),5);
@@ -82,7 +82,7 @@ try{
  assert.equal(await evaluate(`Promise.all([300,400,700].map(weight=>document.fonts.load(weight+' 18px "SB Sans Display"'))).then(result=>result.every(fonts=>fonts.length>0&&fonts.every(font=>font.status==='loaded')))`),true);
  assert.match(await evaluate('getComputedStyle(document.body).fontFamily'),/SB Sans Display/);
  assert.equal(await evaluate('Promise.all([...document.querySelectorAll(".brand img,.cybercat")].map(img=>img.decode().then(()=>img.naturalWidth>0))).then(values=>values.every(Boolean))'),true);
- assert.equal(await evaluate(`import('./media.js?v=art-drag-20261105').then(async ({caseImages,sceneImages})=>{const urls=[...Object.values(caseImages),...Object.values(sceneImages)];const loaded=await Promise.all(urls.map(url=>new Promise(resolve=>{const image=new Image();image.onload=()=>resolve(image.naturalWidth>0);image.onerror=()=>resolve(false);image.src=url;})));return urls.length===22&&loaded.every(Boolean);})`),true,'all 22 new illustrations must load from the Pages subpath');
+ assert.equal(await evaluate(`import('./media.js?v=cat3d-20261105').then(async ({caseImages,sceneImages})=>{const urls=[...Object.values(caseImages),...Object.values(sceneImages)];const loaded=await Promise.all(urls.map(url=>new Promise(resolve=>{const image=new Image();image.onload=()=>resolve(image.naturalWidth>0);image.onerror=()=>resolve(false);image.src=url;})));return urls.length===22&&loaded.every(Boolean);})`),true,'all 22 new illustrations must load from the Pages subpath');
  assert.equal(await evaluate('document.querySelectorAll(".case-cover img").length===document.querySelectorAll(".case-card").length'),true);
  assert.equal(await evaluate('document.querySelectorAll(".partner-cover img").length===document.querySelectorAll(".partner-card").length'),true);
  await evaluate('location.hash="event/aij"');await wait('document.getElementById("event-dialog").open');await evaluate('document.getElementById("dialog-close").click();document.getElementById("reset").click();document.getElementById("grid-view").click();window.scrollTo(0,0)');

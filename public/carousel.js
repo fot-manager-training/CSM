@@ -1,4 +1,4 @@
-import {eventImages} from './media.js?v=art-drag-20261105';
+import {eventImages} from './media.js?v=cat3d-20261105';
 const safe=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const modulo=(value,length)=>((value%length)+length)%length;
 
@@ -16,9 +16,9 @@ export class EventCarousel {
     this.stage.addEventListener('lostpointercapture',event=>{if(event.target===this.stage&&this.gesture?.id===event.pointerId)this.pointerEnd(event,true);});
     this.stage.addEventListener('dragstart',event=>event.preventDefault());
     this.stage.addEventListener('click',event=>{if(performance.now()<this.suppressUntil){event.preventDefault();event.stopImmediatePropagation();}},true);
-    this.stage.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch'){this.hovered=true;this.snap(this.position);}});
+    this.stage.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch'){this.hovered=true;if(this.target===null)this.snap(this.position);}});
     this.stage.addEventListener('pointerleave',()=>{this.hovered=false;this.schedule();});
-    this.stage.addEventListener('focusin',()=>{this.focused=true;if(!this.gesture)this.snap(this.position);});
+    this.stage.addEventListener('focusin',()=>{this.focused=true;if(!this.gesture&&this.target===null)this.snap(this.position);});
     this.stage.addEventListener('focusout',()=>requestAnimationFrame(()=>{this.focused=this.stage.contains(document.activeElement);this.schedule();}));
     this.stage.addEventListener('keydown',event=>this.keyDown(event));
     this.stage.addEventListener('wheel',event=>this.wheel(event),{passive:false});

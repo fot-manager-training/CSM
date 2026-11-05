@@ -1,4 +1,4 @@
-import {caseImages,sceneImages,partnerImage} from './media.js?v=art-drag-20261105';
+import {caseImages,sceneImages,partnerImage} from './media.js?v=cat3d-20261105';
 import {cases,partners,technologies,filterCases,filterPartners} from './catalog-data.js';
 const source='https://sber-northwest-casebook.tenderlion1.chatgpt.site/';
 const $=id=>document.getElementById(id);
