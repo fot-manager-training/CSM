@@ -1,4 +1,6 @@
-import {events, filterEvents, calendarText, sourceUrl} from './data.js';
+import {events, filterEvents, calendarText} from './data.js';
+import {initCatalog,openCatalogRoute} from './catalog.js';
+import './motion.js';
 const $ = id => document.getElementById(id);
 let saved=[];
 try { const value=JSON.parse(localStorage.getItem('dtaas-favorites')||'[]'); if(Array.isArray(value)) saved=value.filter(id=>events.some(e=>e.id===id)); } catch {}
@@ -57,17 +59,14 @@ function renderCalendar(list){
  $('calendar').innerHTML=`<div class="calendar-heading"><button id="prev-month" aria-label="Предыдущий месяц" ${calendarMonth===11?'disabled':''}>←</button><h3>${name[0].toUpperCase()+name.slice(1)} 2026</h3><button id="next-month" aria-label="Следующий месяц" ${calendarMonth===12?'disabled':''}>→</button></div><div class="calendar-week">${['ПН','ВТ','СР','ЧТ','ПТ','СБ','ВС'].map(x=>`<span>${x}</span>`).join('')}</div><div class="calendar-days">${cells}</div>`;
  $('prev-month').onclick=()=>{calendarMonth=11;render();};$('next-month').onclick=()=>{calendarMonth=12;render();};
 }
-function renderSources(){
- $('cases-view').innerHTML=`<div class="source-panel"><div class="source-icon" aria-hidden="true">◈</div><div><h3>Реальные кейсы. Практический опыт.</h3><p>Для этого раздела выбран кейсбук Северо-Запада. Сейчас источник недоступен для загрузки, поэтому подтверждённые карточки решений ещё не добавлены.</p><a class="primary-button" href="${sourceUrl}#practice" target="_blank" rel="noopener noreferrer">Перейти к исходному кейсбуку ↗</a></div></div><p class="source-note">Карточки появятся после получения материалов из источника. Результаты внедрений, названия компаний и показатели не добавляются без подтверждения.</p><div class="source-topics"><div class="source-topic"><span>01 / КОНТЕКСТ</span><h3>Задача бизнеса</h3><p>Отправная точка каждого будущего кейса.</p></div><div class="source-topic"><span>02 / ПРАКТИКА</span><h3>Цифровое решение</h3><p>Технологии и подход к внедрению.</p></div><div class="source-topic"><span>03 / ЭФФЕКТ</span><h3>Измеримый результат</h3><p>Подтверждённые данные из кейсбука.</p></div></div>`;
- $('partners-view').innerHTML=`<div class="source-panel"><div class="source-icon" aria-hidden="true">↗</div><div><h3>Технологии объединяют.</h3><p>Здесь будут представлены партнёры из кейсбука Северо-Запада: их компетенции, решения и ссылки. Список ожидает подтверждения — исходный сайт пока не удалось загрузить.</p><a class="primary-button" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">Открыть сайт-источник ↗</a></div></div><p class="source-note">Мы не указываем компании как партнёров без подтверждения в предоставленных материалах.</p>`;
-}
 function route(){
- const hash=location.hash.slice(1);const eventId=hash.startsWith('event/')?hash.slice(6):null;const page=labels[hash]?hash:'events';
+ const hash=location.hash.slice(1);const eventId=hash.startsWith('event/')?hash.slice(6):null;const page=hash.startsWith('case/')?'cases':hash.startsWith('partner/')?'partners':labels[hash]?hash:'events';
  ['events','cases','partners'].forEach(x=>$(x+'-view').hidden=x!==page);
  document.querySelectorAll('[data-page]').forEach(x=>{x.classList.toggle('active',x.dataset.page===page);if(x.dataset.page===page)x.setAttribute('aria-current','page');else x.removeAttribute('aria-current');});
  const [eyebrow,title,description]=labels[page];$('section-eyebrow').textContent=eyebrow;$('section-title').innerHTML=`${title}<span class="title-dot">.</span>`;$('section-description').textContent=description;$('year-label').hidden=page!=='events';
  if(eventId)openEvent(eventId);else if($('event-dialog').open)$('event-dialog').close();
- if(hash&& !eventId)requestAnimationFrame(()=>$('content').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
+ openCatalogRoute(hash);
+ if(hash&& !eventId&&!hash.startsWith('case/')&&!hash.startsWith('partner/'))requestAnimationFrame(()=>$('content').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
 }
 function reset(){Object.assign(state,{category:'all',query:'',region:'all',month:'all',savedOnly:false});$('search').value='';$('region').value='all';$('month').value='all';render();}
 document.addEventListener('click',e=>{const saveButton=e.target.closest('[data-save]');if(saveButton){save(saveButton.dataset.save);return;}const open=e.target.closest('[data-open]');if(open)openEvent(open.dataset.open);});
@@ -80,4 +79,4 @@ $('grid-view').onclick=()=>setLayout('grid');$('calendar-view').onclick=()=>setL
 $('dialog-close').onclick=()=>$('event-dialog').close();$('event-dialog').addEventListener('click',e=>{if(e.target===$('event-dialog')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
 $('event-dialog').addEventListener('close',()=>{currentEvent=null;if(location.hash.startsWith('#event/'))history.replaceState(null,'','#events');});
 window.addEventListener('hashchange',route);window.addEventListener('storage',e=>{if(e.key==='dtaas-favorites'){try{const value=JSON.parse(e.newValue||'[]');saved=Array.isArray(value)?value.filter(id=>events.some(x=>x.id===id)):[];state.saved=saved;render();updateDialogSave();}catch{}}});
-renderSources();render();route();
+initCatalog({notify,iconize});render();route();
