@@ -1,8 +1,8 @@
-import {events, filterEvents, calendarText} from './data.js';
-import {initCatalog,openCatalogRoute} from './catalog.js';
-import './motion.js?v=elements-20261105';
-import {eventImages} from './media.js';
-import {initShowcases,renderEventRail} from './showcase.js';
+import {events, filterEvents, calendarText} from './data.js?v=art-drag-20261105';
+import {initCatalog,openCatalogRoute} from './catalog.js?v=art-drag-20261105';
+import './motion.js?v=art-drag-20261105';
+import {eventImages} from './media.js?v=art-drag-20261105';
+import {initShowcases,renderEventRail} from './showcase.js?v=art-drag-20261105';
 const $ = id => document.getElementById(id);
 let saved=[];
 try { const value=JSON.parse(localStorage.getItem('dtaas-favorites')||'[]'); if(Array.isArray(value)) saved=value.filter(id=>events.some(e=>e.id===id)); } catch {}

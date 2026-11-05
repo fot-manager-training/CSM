@@ -12,8 +12,47 @@ try{
  await send('Page.navigate',{url:process.env.APP_URL || 'http://127.0.0.1:3000/'});await wait('document.querySelectorAll(".event-card").length===5');
  assert.equal(await evaluate('document.title'),'DTaaS · Северо-Запад — цифровая трансформация');
  assert.equal(await evaluate('document.querySelectorAll(".circle-cover").length'),5);
- await evaluate('document.getElementById("circle-next").click()');assert.equal(await evaluate('document.getElementById("circle-position").textContent'),'2 / 5');
+ await evaluate('document.getElementById("circle-motion").click();document.getElementById("circle-stage").scrollIntoView({block:"center",behavior:"instant"})');
+ let bounds=await evaluate('document.getElementById("circle-stage").getBoundingClientRect().toJSON()');
+ const mouseStart={x:bounds.x+bounds.width/2,y:bounds.y+bounds.height/2};
+ await send('Input.dispatchMouseEvent',{type:'mouseMoved',...mouseStart});
+ await send('Input.dispatchMouseEvent',{type:'mousePressed',...mouseStart,button:'left',buttons:1,clickCount:1});
+ for(let i=1;i<=10;i++)await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:mouseStart.x-i*14,y:mouseStart.y,button:'left',buttons:1});
+ await new Promise(r=>setTimeout(r,140));
+ await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:mouseStart.x-140,y:mouseStart.y,button:'left',buttons:0,clickCount:1});
+ await wait('document.getElementById("circle-stage").dataset.currentId==="murmansk"');
+ assert.equal(await evaluate('document.getElementById("event-dialog").open'),false,'dragging must not open an event');
+ await new Promise(r=>setTimeout(r,600));
+ assert.equal(await evaluate('document.getElementById("circle-position").textContent'),'2 / 5');
  await evaluate('document.querySelector(".circle-cover.is-current").click()');await wait('document.getElementById("event-dialog").open');assert.match(await evaluate('document.getElementById("dialog-title").textContent'),/Мурманск/);await evaluate('document.getElementById("dialog-close").click()');
+ await evaluate('document.getElementById("circle-stage").focus()');
+ for(const key of ['Home','ArrowLeft'])await send('Input.dispatchKeyEvent',{type:'keyDown',key,code:key});
+ await wait('document.getElementById("circle-stage").dataset.currentId==="aij"');
+ await new Promise(r=>setTimeout(r,500));
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'ArrowRight',code:'ArrowRight'});
+ await wait('document.getElementById("circle-stage").dataset.currentId==="kaliningrad"');
+ await new Promise(r=>setTimeout(r,600));
+ await send('Emulation.setDeviceMetricsOverride',{width:390,height:1000,deviceScaleFactor:1,mobile:true});
+ await send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:1});
+ await evaluate('document.getElementById("circle-stage").scrollIntoView({block:"center",behavior:"instant"})');
+ bounds=await evaluate('document.getElementById("circle-stage").getBoundingClientRect().toJSON()');
+ const touchStart={x:bounds.x+bounds.width/2+45,y:bounds.y+bounds.height/2};
+ await send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[touchStart]});
+ for(let i=1;i<=10;i++)await send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:touchStart.x-i*9,y:touchStart.y}]});
+ await new Promise(r=>setTimeout(r,140));await send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+ await wait('document.getElementById("circle-stage").dataset.currentId==="murmansk"');
+ assert.equal(await evaluate('document.getElementById("event-dialog").open'),false,'swiping must not open a card');
+ await send('Emulation.setTouchEmulationEnabled',{enabled:false});
+ await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});
+ await evaluate('document.getElementById("circle-stage").scrollIntoView({block:"center",behavior:"instant"});document.getElementById("saved-button").focus({preventScroll:true})');
+ await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:2,y:2});
+ await evaluate('document.getElementById("circle-motion").click()');
+ await new Promise(r=>setTimeout(r,1200));
+ const beforeRotation=await evaluate('document.querySelector(".circle-cover").style.getPropertyValue("--circle-x")');
+ await new Promise(r=>setTimeout(r,350));
+ assert.notEqual(await evaluate('document.querySelector(".circle-cover").style.getPropertyValue("--circle-x")'),beforeRotation,'autoplay must resume after a swipe and focus leaves');
+ await evaluate('document.getElementById("circle-motion").click()');
+
  await evaluate('document.querySelectorAll("[data-expand-case]")[1].click()');assert.equal(await evaluate('document.querySelectorAll("[data-expand-case][aria-expanded=true]").length'),1);assert.equal(await evaluate('document.querySelector("[data-expand-case][aria-expanded=true]").dataset.expandCase'),'case-02');
  await evaluate('document.querySelector(".accordion-item.is-expanded .accordion-copy a").click()');await wait('document.getElementById("catalog-dialog").open');assert.match(await evaluate('document.getElementById("catalog-dialog-body").textContent'),/Показатели MVP/);await evaluate('document.getElementById("catalog-close").click();location.hash="events"');await wait('!document.getElementById("events-view").hidden');
  await evaluate('document.querySelector("[data-practice-category=Финансы]").click()');assert.equal(await evaluate('document.querySelectorAll(".accordion-item").length'),2);await evaluate('document.querySelector("[data-practice-category=all]").click()');
@@ -43,6 +82,9 @@ try{
  assert.equal(await evaluate(`Promise.all([300,400,700].map(weight=>document.fonts.load(weight+' 18px "SB Sans Display"'))).then(result=>result.every(fonts=>fonts.length>0&&fonts.every(font=>font.status==='loaded')))`),true);
  assert.match(await evaluate('getComputedStyle(document.body).fontFamily'),/SB Sans Display/);
  assert.equal(await evaluate('Promise.all([...document.querySelectorAll(".brand img,.cybercat")].map(img=>img.decode().then(()=>img.naturalWidth>0))).then(values=>values.every(Boolean))'),true);
+ assert.equal(await evaluate(`import('./media.js?v=art-drag-20261105').then(async ({caseImages,sceneImages})=>{const urls=[...Object.values(caseImages),...Object.values(sceneImages)];const loaded=await Promise.all(urls.map(url=>new Promise(resolve=>{const image=new Image();image.onload=()=>resolve(image.naturalWidth>0);image.onerror=()=>resolve(false);image.src=url;})));return urls.length===22&&loaded.every(Boolean);})`),true,'all 22 new illustrations must load from the Pages subpath');
+ assert.equal(await evaluate('document.querySelectorAll(".case-cover img").length===document.querySelectorAll(".case-card").length'),true);
+ assert.equal(await evaluate('document.querySelectorAll(".partner-cover img").length===document.querySelectorAll(".partner-card").length'),true);
  await evaluate('location.hash="event/aij"');await wait('document.getElementById("event-dialog").open');await evaluate('document.getElementById("dialog-close").click();document.getElementById("reset").click();document.getElementById("grid-view").click();window.scrollTo(0,0)');
  await evaluate('document.getElementById("toast").classList.remove("visible")');await new Promise(r=>setTimeout(r,700));
  let shot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true});await writeFile('artifacts/desktop.png',Buffer.from(shot.data,'base64'));
@@ -56,5 +98,5 @@ try{
  }
  await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});assert.equal(await evaluate('getComputedStyle(document.querySelector(".orbit")).animationName'),'none');await wait('document.querySelector(".hero-wave").animationsPaused()');
  await send('Emulation.setEmulatedMedia',{features:[]});
- assert.deepEqual(errors,[]);console.log('PASS: circular carousel, accordion, partner previews and catalog/event flows; fonts and covers; responsive at 390/768/1440; reduced motion; no runtime errors.');
+ assert.deepEqual(errors,[]);console.log('PASS: real mouse drag, touch swipe, infinite keyboard wrap, no accidental opens; all catalog/event flows; fonts and covers; responsive at 390/768/1440; reduced motion; no runtime errors.');
 }finally{ws.close();}
