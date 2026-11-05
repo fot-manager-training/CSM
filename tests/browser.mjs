@@ -11,12 +11,16 @@ try{
  await send('Runtime.enable');await send('Page.enable');await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});
  await send('Page.navigate',{url:process.env.APP_URL || 'http://127.0.0.1:3000/'});await wait('document.querySelectorAll(".event-card").length===5');
  assert.equal(await evaluate('document.title'),'DTaaS · Северо-Запад — цифровая трансформация');
- assert.equal(await evaluate('document.querySelectorAll(".mosaic-tile").length'),8);
- await evaluate('document.querySelector(".mosaic-cases").click()');await wait('!document.getElementById("cases-view").hidden');await evaluate('location.hash="events"');await wait('!document.getElementById("events-view").hidden');
- await evaluate('document.querySelector(".mosaic-partners").click()');await wait('!document.getElementById("partners-view").hidden');
- await evaluate('location.hash="events"');await wait('!document.getElementById("events-view").hidden');
+ assert.equal(await evaluate('document.querySelectorAll(".circle-cover").length'),5);
+ await evaluate('document.getElementById("circle-next").click()');assert.equal(await evaluate('document.getElementById("circle-position").textContent'),'2 / 5');
+ await evaluate('document.querySelector(".circle-cover.is-current").click()');await wait('document.getElementById("event-dialog").open');assert.match(await evaluate('document.getElementById("dialog-title").textContent'),/Мурманск/);await evaluate('document.getElementById("dialog-close").click()');
+ await evaluate('document.querySelectorAll("[data-expand-case]")[1].click()');assert.equal(await evaluate('document.querySelectorAll("[data-expand-case][aria-expanded=true]").length'),1);assert.equal(await evaluate('document.querySelector("[data-expand-case][aria-expanded=true]").dataset.expandCase'),'case-02');
+ await evaluate('document.querySelector(".accordion-item.is-expanded .accordion-copy a").click()');await wait('document.getElementById("catalog-dialog").open');assert.match(await evaluate('document.getElementById("catalog-dialog-body").textContent'),/Показатели MVP/);await evaluate('document.getElementById("catalog-close").click();location.hash="events"');await wait('!document.getElementById("events-view").hidden');
+ await evaluate('document.querySelector("[data-practice-category=Финансы]").click()');assert.equal(await evaluate('document.querySelectorAll(".accordion-item").length'),2);await evaluate('document.querySelector("[data-practice-category=all]").click()');
+ await evaluate('document.getElementById("partner-strip-next").click()');await wait('document.getElementById("partner-strip").scrollLeft>0');await wait('!document.getElementById("partner-strip-prev").disabled');await evaluate('document.getElementById("partner-strip-prev").click()');await wait('document.getElementById("partner-strip").scrollLeft<2');
+ await evaluate('document.querySelector(".partner-profile").click()');await wait('document.getElementById("catalog-dialog").open');assert.match(await evaluate('document.getElementById("catalog-dialog-body").textContent'),/РАМАКС/);await evaluate('document.getElementById("catalog-close").click();location.hash="events"');await wait('!document.getElementById("events-view").hidden');
  await evaluate('localStorage.clear()');await send('Page.reload');await wait('document.querySelectorAll(".event-card").length===5 && document.getElementById("saved-count").textContent==="0"');
- await evaluate('document.querySelector("[data-category=forum]").click()');assert.equal(await evaluate('document.querySelectorAll(".event-card").length'),1);
+ await evaluate('document.querySelector("[data-category=forum]").click()');assert.equal(await evaluate('document.querySelectorAll(".event-card").length'),1);assert.equal(await evaluate('document.querySelectorAll(".circle-cover").length'),1);
  await evaluate('document.getElementById("reset").click();document.getElementById("search").value="Мурманск";document.getElementById("search").dispatchEvent(new Event("input"))');assert.equal(await evaluate('document.querySelectorAll(".event-card").length'),1);
  await evaluate('document.getElementById("reset").click();document.querySelector("[data-save=kaliningrad]").click()');assert.equal(await evaluate('JSON.parse(localStorage.getItem("dtaas-favorites"))[0]'),'kaliningrad');
  await evaluate('document.getElementById("saved-button").click()');assert.equal(await evaluate('document.querySelectorAll(".event-card").length'),1);
@@ -50,7 +54,7 @@ try{
    if(width===390||width===1440){await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});await evaluate('window.scrollTo({top:0,behavior:"instant"})');await new Promise(r=>setTimeout(r,50));const shot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true});await writeFile(`artifacts/${page}-${width}.png`,Buffer.from(shot.data,'base64'));await send('Emulation.setEmulatedMedia',{features:[]});}
   }
  }
- await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});assert.equal(await evaluate('getComputedStyle(document.querySelector(".orbit")).animationName'),'none');
+ await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});assert.equal(await evaluate('getComputedStyle(document.querySelector(".orbit")).animationName'),'none');await wait('document.querySelector(".hero-wave").animationsPaused()');
  await send('Emulation.setEmulatedMedia',{features:[]});
- assert.deepEqual(errors,[]);console.log('PASS: mosaic navigation; all catalog/event flows; fonts and brand images; responsive at 390/768/1440; reduced motion; no runtime errors.');
+ assert.deepEqual(errors,[]);console.log('PASS: circular carousel, accordion, partner previews and catalog/event flows; fonts and covers; responsive at 390/768/1440; reduced motion; no runtime errors.');
 }finally{ws.close();}
