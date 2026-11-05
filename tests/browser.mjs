@@ -11,6 +11,10 @@ try{
  await send('Runtime.enable');await send('Page.enable');await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});
  await send('Page.navigate',{url:process.env.APP_URL || 'http://127.0.0.1:3000/'});await wait('document.querySelectorAll(".event-card").length===5');
  assert.equal(await evaluate('document.title'),'DTaaS · Северо-Запад — цифровая трансформация');
+ assert.equal(await evaluate('document.querySelectorAll(".mosaic-tile").length'),8);
+ await evaluate('document.querySelector(".mosaic-cases").click()');await wait('!document.getElementById("cases-view").hidden');await evaluate('location.hash="events"');await wait('!document.getElementById("events-view").hidden');
+ await evaluate('document.querySelector(".mosaic-partners").click()');await wait('!document.getElementById("partners-view").hidden');
+ await evaluate('location.hash="events"');await wait('!document.getElementById("events-view").hidden');
  await evaluate('localStorage.clear()');await send('Page.reload');await wait('document.querySelectorAll(".event-card").length===5 && document.getElementById("saved-count").textContent==="0"');
  await evaluate('document.querySelector("[data-category=forum]").click()');assert.equal(await evaluate('document.querySelectorAll(".event-card").length'),1);
  await evaluate('document.getElementById("reset").click();document.getElementById("search").value="Мурманск";document.getElementById("search").dispatchEvent(new Event("input"))');assert.equal(await evaluate('document.querySelectorAll(".event-card").length'),1);
@@ -48,5 +52,5 @@ try{
  }
  await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});assert.equal(await evaluate('getComputedStyle(document.querySelector(".orbit")).animationName'),'none');
  await send('Emulation.setEmulatedMedia',{features:[]});
- assert.deepEqual(errors,[]);console.log('PASS: events and catalog navigation, filters, pagination, saved cases, details, local fonts (300/400/700), all sections responsive at 390/768/1440, reduced motion, no runtime errors.');
+ assert.deepEqual(errors,[]);console.log('PASS: mosaic navigation; all catalog/event flows; fonts and brand images; responsive at 390/768/1440; reduced motion; no runtime errors.');
 }finally{ws.close();}

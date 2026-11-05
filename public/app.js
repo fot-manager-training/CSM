@@ -1,6 +1,6 @@
 import {events, filterEvents, calendarText} from './data.js';
 import {initCatalog,openCatalogRoute} from './catalog.js';
-import './motion.js';
+import './motion.js?v=mosaic-20261105';
 const $ = id => document.getElementById(id);
 let saved=[];
 try { const value=JSON.parse(localStorage.getItem('dtaas-favorites')||'[]'); if(Array.isArray(value)) saved=value.filter(id=>events.some(e=>e.id===id)); } catch {}

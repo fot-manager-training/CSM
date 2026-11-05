@@ -1,12 +1,11 @@
-const hero=document.querySelector('.hero');
-const art=document.querySelector('.hero-art');
+const mosaic=document.querySelector('.mosaic');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const pointer=matchMedia('(hover: hover) and (pointer: fine)');
+const fine=matchMedia('(pointer: fine)');
 let frame=0;
-function reset(){cancelAnimationFrame(frame);art.style.setProperty('--tilt-x','0deg');art.style.setProperty('--tilt-y','0deg');art.style.setProperty('--drift-x','0px');art.style.setProperty('--drift-y','0px');}
-hero.addEventListener('pointermove',event=>{
- if(reduced.matches||!pointer.matches)return;
- const r=hero.getBoundingClientRect();const x=(event.clientX-r.left)/r.width-.5;const y=(event.clientY-r.top)/r.height-.5;
- cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{art.style.setProperty('--tilt-x',`${-y*8}deg`);art.style.setProperty('--tilt-y',`${x*10}deg`);art.style.setProperty('--drift-x',`${x*10}px`);art.style.setProperty('--drift-y',`${y*10}px`);});
+function reset(){cancelAnimationFrame(frame);mosaic.style.setProperty('--eye-x','0px');mosaic.style.setProperty('--eye-y','0px');}
+mosaic.addEventListener('pointermove',event=>{
+ if(reduced.matches||!fine.matches)return;
+ const r=mosaic.getBoundingClientRect();const x=Math.max(-7,Math.min(7,((event.clientX-r.left)/r.width-.5)*14));const y=Math.max(-4,Math.min(4,((event.clientY-r.top)/r.height-.5)*8));
+ cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{mosaic.style.setProperty('--eye-x',x+'px');mosaic.style.setProperty('--eye-y',y+'px');});
 },{passive:true});
-hero.addEventListener('pointerleave',reset);reduced.addEventListener('change',reset);
+mosaic.addEventListener('pointerleave',reset);reduced.addEventListener('change',reset);
