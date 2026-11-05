@@ -34,6 +34,7 @@ try{
  await evaluate('document.getElementById("partner-reset").click()');
  assert.equal(await evaluate(`Promise.all([300,400,700].map(weight=>document.fonts.load(weight+' 18px "SB Sans Display"'))).then(result=>result.every(fonts=>fonts.length>0&&fonts.every(font=>font.status==='loaded')))`),true);
  assert.match(await evaluate('getComputedStyle(document.body).fontFamily'),/SB Sans Display/);
+ assert.equal(await evaluate('Promise.all([...document.querySelectorAll(".brand img,.cybercat")].map(img=>img.decode().then(()=>img.naturalWidth>0))).then(values=>values.every(Boolean))'),true);
  await evaluate('location.hash="event/aij"');await wait('document.getElementById("event-dialog").open');await evaluate('document.getElementById("dialog-close").click();document.getElementById("reset").click();document.getElementById("grid-view").click();window.scrollTo(0,0)');
  await evaluate('document.getElementById("toast").classList.remove("visible")');await new Promise(r=>setTimeout(r,700));
  let shot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true});await writeFile('artifacts/desktop.png',Buffer.from(shot.data,'base64'));

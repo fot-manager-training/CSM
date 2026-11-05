@@ -2,50 +2,57 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#173c2d">
+  <meta name="theme-color" content="#faf9f6">
   <meta name="description" content="DTaaS Северо-Запад — пространство цифровой трансформации. Мероприятия, кейсбук и партнёры.">
   <title>DTaaS · Северо-Запад — цифровая трансформация</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preload" href="./fonts/SBSansDisplay-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./theme.css">
   <script type="module" src="./app.js"></script>
 </head>
 <body>
   <header class="header"><div class="container header-inner">
-    <a class="brand" href="#" aria-label="DTaaS — на главную"><span class="brand-mark">↗</span><span>DTaaS<span class="brand-region">СЕВЕРО-ЗАПАД</span></span></a>
+    <a class="brand" href="#" aria-label="Сбер · DTaaS — на главную"><img class="sber-logo" src="./assets/sber.png" alt="Сбер" width="140" height="48"><span class="brand-divider" aria-hidden="true"></span><img class="dtaas-logo" src="./assets/dtaas.png" alt="DTaaS" width="142" height="48"></a>
     <nav aria-label="Основная навигация"><a href="#events" class="nav-link active" data-page="events">Мероприятия</a><a href="#cases" class="nav-link" data-page="cases">Кейсбук</a><a href="#partners" class="nav-link" data-page="partners">Партнёры</a></nav>
-    <button class="saved-button" id="saved-button" aria-label="Показать избранные мероприятия"><span>♡</span> <span class="saved-label">Избранное</span><b id="saved-count">0</b></button>
+    <button class="saved-button" id="saved-button" aria-label="Показать избранные мероприятия"><span>♡</span> <span class="saved-label">Мои события</span><b id="saved-count">0</b></button>
   </div></header>
   <main>
-    <section class="hero"><div class="container hero-inner">
-      <div class="hero-copy"><div class="eyebrow"><i></i> ПЛАТФОРМА ЦИФРОВОЙ ТРАНСФОРМАЦИИ</div>
-      <h1>Технологии.<br>Люди. <span>Возможности.</span></h1>
-      <p>Объединяем бизнес и технологии Северо-Запада.<br>От первого знакомства — к новым решениям.</p>
-      <a class="primary-button" href="#events" id="hero-cta">Найти своё событие <span>↗</span></a>
-      <div class="hero-bottom"><span class="small-line"></span> БУДУЩЕЕ БЛИЖЕ, ЧЕМ КАЖЕТСЯ</div></div>
+    <section class="hero"><div class="hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="intro-dot"></span> ЦИФРОВОЙ СЕВЕРО-ЗАПАД</div>
+        <h1>Большие идеи.<br><span>Реальные</span><br>возможности<span class="heading-dot">.</span></h1>
+        <p>Объединяем людей и технологии. Встречайтесь, находите решения и создавайте будущее своего бизнеса.</p>
+        <div class="hero-actions"><a class="primary-button" href="#events" id="hero-cta">Найти своё событие <span>↗</span></a><a class="hero-secondary" href="#cases">Открыть кейсбук <span>↗</span></a></div>
+      </div>
       <div class="hero-art" aria-hidden="true">
-        <div class="art-grid"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
-        <div class="glass-core"><span>↗</span></div><div class="art-dot dot-one"></div><div class="art-dot dot-two"></div>
-        <span class="float-tag tag-ai"><i>✳</i> Искусственный интеллект</span><span class="float-tag tag-digital"><i>◈</i> Цифровая трансформация</span>
-        <span class="art-coordinate">59°56′ N &nbsp; 30°19′ E</span><span class="art-caption">CONNECTING THE FUTURE</span>
+        <span class="mascot-eyebrow">HELLO, DIGITAL WORLD!</span>
+        <svg class="mascot-line" viewBox="0 0 480 480" fill="none"><path d="M490 90C230-30 480 470 170 370S-90 140 100 240 370 530 500 380" stroke="#faf9f6" stroke-width="14"/></svg>
+        <img class="cybercat orbit" src="./assets/cybercat.png" alt="" width="1400" height="1100" fetchpriority="high">
+        <div class="mascot-caption"><span class="caption-star"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2v36M2 20h36M7 7l26 26M7 33 33 7M12 3l16 34M3 12l34 16M3 28l34-16M12 37 28 3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span>На одной волне<br><b>с будущим</b></span><span>↗</span></div>
+        <div class="mascot-stamp">БУДУЩЕЕ<br>УЖЕ РЯДОМ<span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2v36M2 20h36M7 7l26 26M7 33 33 7M12 3l16 34M3 12l34 16M3 28l34-16M12 37 28 3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span></div>
       </div>
     </div></section>
-    <div class="ticker" aria-hidden="true"><div>ОТ ИДЕИ К ВНЕДРЕНИЮ <span>✳</span> НОВЫЕ СВЯЗИ <span>✳</span> РЕАЛЬНЫЕ РЕШЕНИЯ <span>✳</span> ЦИФРОВОЙ СЕВЕРО-ЗАПАД <span>✳</span> ОТ ИДЕИ К ВНЕДРЕНИЮ <span>✳</span> НОВЫЕ СВЯЗИ <span>✳</span> РЕАЛЬНЫЕ РЕШЕНИЯ <span>✳</span></div></div>
+    <div class="quick-links container" aria-label="Разделы платформы">
+      <a href="#events"><span class="quick-index">01</span><span class="quick-text">Мероприятия<small>Встречи, которые меняют взгляд</small></span><span class="quick-number">05</span><span class="quick-arrow">↗</span></a>
+      <a href="#cases"><span class="quick-index">02</span><span class="quick-text">Кейсбук<small>Опыт цифровой трансформации</small></span><span class="quick-number">20</span><span class="quick-arrow">↗</span></a>
+      <a href="#partners"><span class="quick-index">03</span><span class="quick-text">Партнёры<small>Экспертиза для ваших задач</small></span><span class="quick-number">68</span><span class="quick-arrow">↗</span></a>
+    </div>
     <section class="content-section container" id="content" aria-labelledby="section-title">
-      <div class="section-top"><div><div class="eyebrow section-eyebrow" id="section-eyebrow">ВСТРЕЧАЕМСЯ, ЧТОБЫ МЕНЯТЬ</div><h2 id="section-title">В центре событий<span class="title-dot">.</span></h2><p class="section-description" id="section-description">Идеи, которые вдохновляют. Встречи, которые открывают возможности.</p></div><div class="year-label" id="year-label"><span></span> СЕЗОН 2026</div></div>
+      <div class="section-top"><div><div class="eyebrow section-eyebrow" id="section-eyebrow">АФИША СЕВЕРО-ЗАПАДА</div><h2 id="section-title">Ближайшие события<span class="title-dot">.</span></h2><p class="section-description" id="section-description">Цифровые дни, большие идеи и новые знакомства.</p></div><div class="year-label" id="year-label"><span></span> СЕЗОН 2026</div></div>
       <div id="events-view">
         <div class="toolbar"><div class="category-tabs" aria-label="Формат мероприятий"><button class="category active" data-category="all">Все события <span>5</span></button><button class="category" data-category="digital">Цифровые дни</button><button class="category" data-category="forum">Форумы</button><button class="category" data-category="accelerator">Акселераторы</button></div><div class="view-toggle" aria-label="Вид мероприятий"><button id="grid-view" class="active" aria-label="Карточки" aria-pressed="true">▦</button><button id="calendar-view" aria-label="Календарь" aria-pressed="false">▤</button></div></div>
         <div class="filter-row"><label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Событие, город или тема" aria-label="Поиск событий"></label><label class="select-field"><span>⌖</span><select id="region" aria-label="Регион"><option value="all">Все регионы</option><option>Калининград</option><option>Мурманск</option><option>Ленинградская область</option><option value="unknown">Место уточняется</option></select></label><label class="select-field"><span>▦</span><select id="month" aria-label="Месяц"><option value="all">Все даты</option><option value="11">Ноябрь</option><option value="12">Декабрь</option></select></label><button class="reset-button" id="reset">Сбросить <span>↺</span></button></div>
-        <div class="results-line"><span id="results-count" aria-live="polite">5 событий для новых возможностей</span><span class="results-note">Встречаемся офлайн. Мыслим без границ.</span></div>
+        <div class="results-line"><span id="results-count" aria-live="polite">5 событий для новых возможностей</span><span class="results-note">НОЯБРЬ — ДЕКАБРЬ 2026</span></div>
         <div class="events-grid" id="events-grid"></div>
         <div class="calendar" id="calendar" hidden></div>
         <div class="empty-state" id="empty-events" hidden><span>⌕</span><h3>Пока ничего не нашлось</h3><p>Попробуйте другой город или измените фильтры.</p><button class="primary-button" id="empty-reset">Показать все события ↗</button></div>
       </div>
       <div id="cases-view" hidden></div><div id="partners-view" hidden></div>
     </section>
-    <section class="connection container"><div class="connection-icon" aria-hidden="true">✳</div><div><span class="eyebrow">БОЛЬШЕ, ЧЕМ ПРОСТО ВСТРЕЧИ</span><h2>Следующий шаг — вместе.</h2><p>Откройте практики цифровой трансформации и найдите точки роста для своего бизнеса.</p></div><a class="outline-button" href="#cases">Открыть кейсбук <span>↗</span></a></section>
+    <section class="connection container"><div class="connection-icon" aria-hidden="true">↗</div><div><span class="eyebrow">ОТ ЗНАКОМСТВА К РЕЗУЛЬТАТУ</span><h2 id="connection-title">Найдите решение для своего бизнеса.</h2><p id="connection-text">20 проектов — от ИИ-агентов до автоматизации производства.</p></div><a class="outline-button" id="connection-link" href="#cases">Смотреть кейсы <span>↗</span></a></section>
   </main>
-  <footer class="container footer"><a class="brand" href="#"><span class="brand-mark">↗</span><span>DTaaS<span class="brand-region">СЕВЕРО-ЗАПАД</span></span></a><span>Территория цифровых возможностей</span><span>© 2026 DTaaS СЗБ</span><a href="#" class="back-top" aria-label="Наверх">↑</a></footer>
+  <footer class="container footer"><a class="brand" href="#" aria-label="Сбер · DTaaS — на главную"><img class="sber-logo" src="./assets/sber.png" alt="Сбер" width="140" height="48"><span class="brand-divider" aria-hidden="true"></span><img class="dtaas-logo" src="./assets/dtaas.png" alt="DTaaS" width="142" height="48"></a><span>Территория цифровых возможностей</span><span>© 2026 DTaaS СЗБ</span><a href="#" class="back-top" aria-label="Наверх">↑</a></footer>
   <dialog id="event-dialog" aria-labelledby="dialog-title"><button class="dialog-close" id="dialog-close" aria-label="Закрыть">×</button><div id="dialog-body"></div></dialog>
   <div id="toast" role="status" class="toast"></div>
 </body>
