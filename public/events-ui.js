@@ -1,5 +1,5 @@
 import {events,filterEvents,calendarText} from './data.js';
-import {eventImages} from './media.js';
+import {eventImages} from './media.js?v=home-20261106';
 import {EventCarousel} from './carousel.js?v=pages-20261106';
 const $=id=>document.getElementById(id);
 let iconize=()=>{},notify=()=>{},carousel;

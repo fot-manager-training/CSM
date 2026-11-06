@@ -21,6 +21,7 @@ html{scroll-padding-top:110px}
 .header[data-menu-open="true"] .nav-link{animation:menu-oval-arrive .38s cubic-bezier(.2,.8,.2,1) both}
 .header[data-menu-open="true"] .nav-link:nth-child(2){animation-delay:35ms}
 .header[data-menu-open="true"] .nav-link:nth-child(3){animation-delay:70ms}
+ .header[data-menu-open="true"] .nav-link:nth-child(4){animation-delay:105ms}
 @keyframes menu-oval-arrive{from{opacity:0;translate:0 -12px}to{opacity:1;translate:0 0}}
 @media(max-width:1100px){.header .header-inner{padding:21px 25px}}
 @media(max-width:760px){.header{height:74px}.header .header-inner{padding:20px 15px;gap:10px}.header-actions{gap:10px}.header .menu-toggle{width:76px;height:33px;min-height:33px;padding:7px 10px;gap:6px;font-size:9px}.menu-toggle svg{width:15px;height:15px}.header .main-navigation{top:57px;right:0;width:225px;max-height:calc(100svh - 70px);padding-right:18px}.header .main-navigation .nav-link{font-size:11px;padding:11px 20px}.header .saved-label{display:none}}

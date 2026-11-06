@@ -8,23 +8,23 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preload" href="./fonts/SBSansDisplay-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="./site.css?v=pages-20261106">
-  <link rel="stylesheet" href="./navigation.css?v=pages-20261106">
-  <script type="module" src="./app.js?v=pages-20261106"></script>
+  <link rel="stylesheet" href="./navigation.css?v=home-20261106">
+  <script type="module" src="./app.js?v=home-20261106"></script>
 </head>
 <body data-page="partners">
   <header class="header" data-menu-open="false"><div class="container header-inner">
-    <a class="brand" href="./events.html" aria-label="Сбер · DTaaS — на главную"><img class="sber-logo" src="./assets/sber.png" alt="Сбер" width="140" height="48"><span class="brand-divider" aria-hidden="true"></span><img class="dtaas-logo" src="./assets/dtaas.png" alt="DTaaS" width="142" height="48"></a>
+    <a class="brand" href="./index.html" aria-label="Сбер · DTaaS — на главную"><img class="sber-logo" src="./assets/sber.png" alt="Сбер" width="140" height="48"><span class="brand-divider" aria-hidden="true"></span><img class="dtaas-logo" src="./assets/dtaas.png" alt="DTaaS" width="142" height="48"></a>
     <div class="header-actions">
       <button class="saved-button" id="saved-button" aria-label="Показать избранные мероприятия"><span>♡</span> <span class="saved-label">Мои события</span><b id="saved-count">0</b></button>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="Развернуть меню" title="Развернуть меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="menu-line-one" d="M5 8h14"/><path class="menu-line-two" d="M5 16h14"/></svg><span>Меню</span></button>
     </div>
-    <nav class="main-navigation" id="site-navigation" aria-label="Основная навигация" aria-hidden="true" inert><a href="./events.html" class="nav-link" data-page="events">Мероприятия</a><a href="./cases.html" class="nav-link" data-page="cases">Кейсы</a><a href="./partners.html" class="nav-link active" data-page="partners" aria-current="page">Партнёры</a></nav>
+    <nav class="main-navigation" id="site-navigation" aria-label="Основная навигация" aria-hidden="true" inert><a href="./index.html" class="nav-link" data-page="home">Главная</a><a href="./events.html" class="nav-link" data-page="events">Мероприятия</a><a href="./cases.html" class="nav-link" data-page="cases">Кейсы</a><a href="./partners.html" class="nav-link active" data-page="partners" aria-current="page">Партнёры</a></nav>
   </div></header>
   <main id="main-content">
-    <section class="page-heading container" aria-labelledby="page-title"><div><div class="breadcrumbs"><a href="./events.html">DTaaS Северо-Запад</a><span>/</span><span>Партнёры</span></div><span class="eyebrow">ЭКОСИСТЕМА / 68 КОМПАНИЙ</span><h1 id="page-title">Партнёры для ваших задач</h1><p>Вендоры и интеграторы. Найдите команду по технологии и компетенциям.</p></div></section>
+    <section class="page-heading container" aria-labelledby="page-title"><div><div class="breadcrumbs"><a href="./index.html">DTaaS Северо-Запад</a><span>/</span><span>Партнёры</span></div><span class="eyebrow">ЭКОСИСТЕМА / 68 КОМПАНИЙ</span><h1 id="page-title">Партнёры для ваших задач</h1><p>Вендоры и интеграторы. Найдите команду по технологии и компетенциям.</p></div></section>
     <section class="content-section container" id="content" aria-label="Каталог партнёры"><div id="partners-view"></div></section>
   </main>
-  <footer class="container footer"><a class="brand" href="#" aria-label="Сбер · DTaaS — на главную"><img class="sber-logo" src="./assets/sber.png" alt="Сбер" width="140" height="48"><span class="brand-divider" aria-hidden="true"></span><img class="dtaas-logo" src="./assets/dtaas.png" alt="DTaaS" width="142" height="48"></a><span>Территория цифровых возможностей</span><span>© 2026 DTaaS СЗБ</span><a href="#" class="back-top" aria-label="Наверх">↑</a></footer>
+  <footer class="container footer"><a class="brand" href="./index.html" aria-label="Сбер · DTaaS — на главную"><img class="sber-logo" src="./assets/sber.png" alt="Сбер" width="140" height="48"><span class="brand-divider" aria-hidden="true"></span><img class="dtaas-logo" src="./assets/dtaas.png" alt="DTaaS" width="142" height="48"></a><span>Территория цифровых возможностей</span><span>© 2026 DTaaS СЗБ</span><a href="#" class="back-top" aria-label="Наверх">↑</a></footer>
   <dialog id="event-dialog" aria-labelledby="dialog-title"><button class="dialog-close" id="dialog-close" aria-label="Закрыть">×</button><div id="dialog-body"></div></dialog>
   <div id="toast" role="status" class="toast"></div>
 </body>

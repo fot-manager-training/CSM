@@ -1,4 +1,4 @@
-import {initNavigation} from './navigation.js?v=pages-20261106';
+import {initNavigation} from './navigation.js?v=home-20261106';
 const $=id=>document.getElementById(id);
 const page=document.body.dataset.page;
 function iconize(root=document.body){
@@ -10,19 +10,27 @@ function notify(text){$('toast').textContent=text;$('toast').classList.add('visi
 
 function updateSavedCount(){try{const saved=JSON.parse(localStorage.getItem('dtaas-favorites')||'[]');$('saved-count').textContent=Array.isArray(saved)?saved.length:0;}catch{$('saved-count').textContent='0';}}
 // Keep older shared links working while each section now has a standalone URL.
-function migrateLegacyRoute(){const hash=location.hash.slice(1);const target=hash.startsWith('event/')?'events':hash.startsWith('case/')?'cases':hash.startsWith('partner/')?'partners':['events','cases','partners'].includes(hash)?hash:null;if(target&&target!==page){location.replace(`./${target}.html${hash.includes('/')?'#'+hash:''}`);return true;}return false;}
+function migrateLegacyRoute(){const hash=location.hash.slice(1);const target=hash.startsWith('event/')?'events':hash.startsWith('case/')?'cases':hash.startsWith('partner/')?'partners':['home','events','cases','partners'].includes(hash)?hash:null;if(target&&target!==page){location.replace(`./${target==='home'?'index':target}.html${hash.includes('/')?'#'+hash:''}`);return true;}return false;}
 initNavigation();updateSavedCount();iconize();
 window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
- if(page==='events'){
-  const {initEvents,routeEvent}=await import('./events-ui.js?v=pages-20261106');
+ if(page==='home'){
+  $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
+  const {initHome}=await import('./home.js?v=home-20261106');initHome({iconize});
+  window.addEventListener('hashchange',migrateLegacyRoute);
+ }else if(page==='events'){
+  const {initEvents,routeEvent}=await import('./events-ui.js?v=home-20261106');
   initEvents({iconize,notify});routeEvent();window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())routeEvent();});
-  const loadMascot=()=>import('./cybercat.js?v=pages-20261106').then(({initCybercat})=>initCybercat()).catch(()=>{});
-  if('requestIdleCallback' in window)requestIdleCallback(loadMascot,{timeout:1200});else setTimeout(loadMascot,0);
+
  }else{
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=pages-20261106');
+  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=home-20261106');
   initCatalog({iconize,notify});openCatalogRoute(location.hash.slice(1));
   window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())openCatalogRoute(location.hash.slice(1));});
  }
+}
+
+if(['home','events'].includes(page)){
+ const loadMascot=()=>import('./cybercat.js?v=home-20261106').then(({initCybercat})=>initCybercat()).catch(()=>{});
+ if('requestIdleCallback' in window)requestIdleCallback(loadMascot,{timeout:1200});else setTimeout(loadMascot,0);
 }
