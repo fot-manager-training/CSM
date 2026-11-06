@@ -1,3 +1,4 @@
+import {initNavigation} from './navigation.js?v=menu-20261106';
 import {events, filterEvents, calendarText} from './data.js?v=cat3d-20261105';
 import {initCatalog,openCatalogRoute} from './catalog.js?v=cat3d-20261105';
 import './motion.js?v=cat3d-20261105';
@@ -78,7 +79,7 @@ $('grid-view').onclick=()=>setLayout('grid');$('calendar-view').onclick=()=>setL
 $('dialog-close').onclick=()=>$('event-dialog').close();$('event-dialog').addEventListener('click',e=>{if(e.target===$('event-dialog')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
 $('event-dialog').addEventListener('close',()=>{currentEvent=null;if(location.hash.startsWith('#event/'))history.replaceState(null,'','#events');});
 window.addEventListener('hashchange',route);window.addEventListener('storage',e=>{if(e.key==='dtaas-favorites'){try{const value=JSON.parse(e.newValue||'[]');saved=Array.isArray(value)?value.filter(id=>events.some(x=>x.id===id)):[];state.saved=saved;render();updateDialogSave();}catch{}}});
-initCatalog({notify,iconize});initShowcases({iconize});render();route();
+initNavigation();initCatalog({notify,iconize});initShowcases({iconize});render();route();
 
 // Build the local 3D mascot after the catalogs have become interactive.
 const loadMascot=()=>import('./cybercat.js?v=cat3d-20261105').then(({initCybercat})=>initCybercat()).catch(()=>{});
