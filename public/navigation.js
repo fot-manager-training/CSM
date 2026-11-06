@@ -16,7 +16,8 @@ export function initNavigation(){
  toggle.addEventListener('click',()=>setOpen(!open));
  toggle.addEventListener('keydown',event=>{
   if(!['ArrowDown','ArrowUp'].includes(event.key))return;
-  event.preventDefault();setOpen(true);links[event.key==='ArrowDown'?0:links.length-1].focus({preventScroll:true});
+  event.preventDefault();setOpen(true);const index=event.key==='ArrowDown'?0:links.length-1;
+  requestAnimationFrame(()=>{if(open)links[index].focus({preventScroll:true});});
  });
  navigation.addEventListener('keydown',event=>{
   if(!['ArrowDown','ArrowUp','Home','End'].includes(event.key))return;
@@ -28,7 +29,7 @@ export function initNavigation(){
  navigation.addEventListener('click',event=>{
   const link=event.target.closest('a');if(!link)return;
   setOpen(false,{returnFocus:navigation.contains(document.activeElement)});
-  if(location.hash===link.hash)document.getElementById('content').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  if(new URL(link.href).pathname===location.pathname)document.getElementById('content').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
  });
  const inside=target=>navigation.contains(target)||toggle.contains(target);
  document.addEventListener('pointerdown',event=>{if(open&&!inside(event.target))setOpen(false);});

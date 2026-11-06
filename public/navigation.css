@@ -1,22 +1,23 @@
-/* Reference: social-project c9418df, floating blue ovals and lime selection. */
-html{scroll-padding-top:20px}
-.header{position:relative;top:auto;height:88px;z-index:50;backdrop-filter:none;border:0;background:#e1ecfc}
+/* Reference: social-project c9418df, floating blue ovals, using the shared site palette. */
+html{scroll-padding-top:110px}
+.header{position:fixed;inset:0 0 auto;height:88px;z-index:50;backdrop-filter:none;border:0;background:transparent;pointer-events:none}
 .header .header-inner{position:relative;display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:16px;width:100%;max-width:none;height:100%;padding:22px 40px;margin:0}
+.header .brand,.header-actions{pointer-events:auto}
 .header-actions{display:flex;align-items:center;gap:18px;margin-left:auto;flex-shrink:0}
-.header .menu-toggle{display:flex;align-items:center;justify-content:center;gap:10px;flex-shrink:0;width:106px;height:36px;min-height:36px;padding:9px 15px;border:1px solid #6b91f16b;border-radius:30px;background:#194ed9;color:white;font-size:10px;font-weight:700;line-height:1.5;transition:background .18s,transform .22s}
+.header .menu-toggle{display:flex;align-items:center;justify-content:center;gap:10px;flex-shrink:0;width:106px;height:36px;min-height:36px;padding:9px 15px;border:1px solid #6b91f16b;border-radius:30px;background:var(--accent);color:white;font-size:10px;font-weight:700;line-height:1.5;transition:background .18s,transform .22s}
 .menu-toggle svg{width:18px;height:18px;flex-shrink:0}
-.header .menu-toggle:hover{background:#2d60e4;transform:scale(1.05)}
+.header .menu-toggle:hover{background:var(--accent-hover);transform:scale(1.05)}
 .menu-toggle path{transform-origin:center;transition:transform .25s}
 .header[data-menu-open="true"] .menu-line-one{transform:translateY(4px) rotate(45deg)}
 .header[data-menu-open="true"] .menu-line-two{transform:translateY(-4px) rotate(-45deg)}
-.header .main-navigation{position:absolute;inset:69px 20px auto auto;display:flex;width:235px;height:auto;min-width:0;max-height:calc(100svh - 85px);flex-direction:column;align-items:flex-end;gap:8px;padding:16px 16px 22px;margin:0;overflow-x:hidden;overflow-y:auto;background:transparent;border:0;border-radius:0;box-shadow:none;transform-origin:top right;transition:opacity .2s ease,transform .32s cubic-bezier(.2,.8,.2,1),visibility .2s;visibility:hidden;opacity:0;transform:translateY(-18px);pointer-events:none;scrollbar-width:none}
+.header .main-navigation{position:absolute;inset:69px 20px auto auto;display:flex;width:235px;height:auto;min-width:0;max-height:calc(100svh - 85px);flex-direction:column;align-items:flex-end;gap:8px;padding:16px 16px 22px;margin:0;overflow-x:hidden;overflow-y:auto;background:transparent;border:0;border-radius:0;box-shadow:none;transform-origin:top right;transition:opacity .2s ease,transform .32s cubic-bezier(.2,.8,.2,1);visibility:hidden;opacity:0;transform:translateY(-18px);pointer-events:none;scrollbar-width:none}
 .header[data-menu-open="true"] .main-navigation{visibility:visible;opacity:1;transform:translateY(0);pointer-events:auto}
-.header .main-navigation .nav-link{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:auto;min-height:41px;max-width:100%;padding:12px 21px;white-space:nowrap;font-size:11px;font-weight:400;line-height:1.5;color:white;background:#194ed9;border:1px solid #7b9aef55;border-radius:30px;box-shadow:0 5px 16px #00298818;transform-origin:right center;transition:transform .22s ease,background .18s,color .18s}
+.header .main-navigation .nav-link{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:auto;min-height:41px;max-width:100%;padding:12px 21px;white-space:nowrap;font-size:11px;font-weight:400;line-height:1.5;color:white;background:var(--accent);border:1px solid #7b9aef55;border-radius:30px;box-shadow:0 5px 16px #00298818;transform-origin:right center;transition:transform .22s ease,background .18s,color .18s}
 .header .main-navigation .nav-link:first-child{padding-left:21px}
 .header .main-navigation .nav-link:after{display:none}
-.header .main-navigation .nav-link.active{background:#baff00;border-color:#baff00;color:#112774;font-weight:700;box-shadow:none}
-.header .main-navigation .nav-link:hover,.header .main-navigation .nav-link:focus-visible{transform:scale(1.08);background:#baff00;border-color:#baff00;color:#112774}
-.header .main-navigation .nav-link:focus-visible,.header .menu-toggle:focus-visible{outline:3px solid #6292ff;outline-offset:4px}
+.header .main-navigation .nav-link.active{background:var(--accent-soft);border-color:#b9ccff;color:var(--accent);font-weight:700;box-shadow:none}
+.header .main-navigation .nav-link:hover,.header .main-navigation .nav-link:focus-visible{transform:scale(1.08);background:var(--accent-soft);border-color:#b9ccff;color:var(--accent)}
+.header .main-navigation .nav-link:focus-visible,.header .menu-toggle:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
 .header[data-menu-open="true"] .nav-link{animation:menu-oval-arrive .38s cubic-bezier(.2,.8,.2,1) both}
 .header[data-menu-open="true"] .nav-link:nth-child(2){animation-delay:35ms}
 .header[data-menu-open="true"] .nav-link:nth-child(3){animation-delay:70ms}

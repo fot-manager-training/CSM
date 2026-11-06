@@ -46,21 +46,27 @@ export function initCybercat(){
  solid(rounded(1.5,.85,.22),.025,.035,chrome,[0,0,-.68]);
  for(const y of [-.14,0,.14])solid(rounded(.65,.025,.01),.02,.008,graphite,[0,y,-.73]);
  solid(rounded(.18,.04,.015),.015,.008,neon,[0,-.31,-.73]);
- const reduced=matchMedia('(prefers-reduced-motion: reduce)');let visible=false,frame=0,lastTime=0,drag=null,inertia=0,paused=false;
- let yaw=-.38,pitch=-.08;const defaultYaw=yaw,defaultPitch=pitch;
- const render=()=>{cat.rotation.set(pitch,yaw,0);renderer.render(scene,camera);host.dataset.rotation=yaw.toFixed(3);};
- const schedule=()=>{if(!frame&&visible&&!document.hidden&&!host.classList.contains('webgl-lost')&&(drag||Math.abs(inertia)>.0001||(!paused&&!reduced.matches)))frame=requestAnimationFrame(tick);};
- function tick(time){frame=0;const dt=lastTime?Math.min(40,time-lastTime):16;lastTime=time;if(!drag){if(Math.abs(inertia)>.0001){yaw+=inertia*dt;inertia*=Math.exp(-dt/180);}else if(!paused&&!reduced.matches)yaw+=dt*.00018;}render();schedule();}
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let visible=false,frame=0,lastTime=0,touch=null;
+ const neutral={yaw:-.12,pitch:-.04};let yaw=neutral.yaw,pitch=neutral.pitch,target={...neutral};
+ const render=()=>{cat.rotation.set(pitch,yaw,0);renderer.render(scene,camera);host.dataset.rotation=yaw.toFixed(4);host.dataset.pitch=pitch.toFixed(4);};
+ const unsettled=()=>Math.abs(target.yaw-yaw)+Math.abs(target.pitch-pitch)>.0001;
+ function schedule(){if(!frame&&visible&&!document.hidden&&!host.classList.contains('webgl-lost')&&unsettled())frame=requestAnimationFrame(tick);}
+ function tick(time){frame=0;const dt=lastTime?Math.min(100,time-lastTime):16;lastTime=time;const amount=1-Math.exp(-dt/90);yaw+=(target.yaw-yaw)*amount;pitch+=(target.pitch-pitch)*amount;if(!unsettled()){yaw=target.yaw;pitch=target.pitch;lastTime=0;}render();schedule();}
+ function lookAt(next){target={yaw:THREE.MathUtils.clamp(next.yaw,-.6,.6),pitch:THREE.MathUtils.clamp(next.pitch,-.32,.32)};if(reduced.matches){yaw=target.yaw;pitch=target.pitch;if(visible&&!document.hidden)render();}else schedule();}
+ function follow(event){const bounds=host.getBoundingClientRect();lookAt({yaw:(event.clientX-bounds.x-bounds.width/2)/Math.max(160,innerWidth*.42)*.55,pitch:(event.clientY-bounds.y-bounds.height/2)/Math.max(150,innerHeight*.38)*.3});}
  const resize=()=>{const {width,height}=host.getBoundingClientRect();if(!width||!height)return;renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix();render();};
  new ResizeObserver(resize).observe(host);
- new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;lastTime=0;if(!visible&&frame){cancelAnimationFrame(frame);frame=0;}schedule();},{threshold:.1}).observe(host);
- host.addEventListener('pointerdown',event=>{if(event.button!==0||!event.isPrimary)return;drag={id:event.pointerId,x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,moved:false,last:event.timeStamp};inertia=0;host.classList.add('is-rotating');host.focus({preventScroll:true});schedule();});
- host.addEventListener('pointermove',event=>{if(!drag||drag.id!==event.pointerId)return;const dx=event.clientX-drag.x,dy=event.clientY-drag.y;if(!drag.moved){if(event.pointerType==='touch'&&Math.abs(event.clientY-drag.startY)>Math.abs(event.clientX-drag.startX)&&Math.abs(event.clientY-drag.startY)>8){drag=null;host.classList.remove('is-rotating');schedule();return;}if(Math.hypot(event.clientX-drag.startX,event.clientY-drag.startY)<4)return;drag.moved=true;host.setPointerCapture(event.pointerId);}yaw+=dx*.014;pitch=THREE.MathUtils.clamp(pitch+dy*.01,-.7,.65);inertia=reduced.matches?0:THREE.MathUtils.clamp(dx*.014/Math.max(8,event.timeStamp-drag.last),-.015,.015);drag.x=event.clientX;drag.y=event.clientY;drag.last=event.timeStamp;if(event.cancelable)event.preventDefault();render();});
- const release=event=>{if(!drag||drag.id!==event.pointerId)return;drag=null;host.classList.remove('is-rotating');if(host.hasPointerCapture(event.pointerId))host.releasePointerCapture(event.pointerId);schedule();};
- host.addEventListener('pointerup',release);host.addEventListener('pointercancel',release);host.addEventListener('lostpointercapture',event=>{if(event.target===host)release(event);});
- const reset=()=>{yaw=defaultYaw;pitch=defaultPitch;inertia=0;render();schedule();};host.addEventListener('dblclick',reset);
- host.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home',' '].includes(event.key))return;event.preventDefault();paused=event.key===' '?!paused:true;inertia=0;if(event.key==='ArrowLeft')yaw-=.2;if(event.key==='ArrowRight')yaw+=.2;if(event.key==='ArrowUp')pitch=Math.max(-.7,pitch-.15);if(event.key==='ArrowDown')pitch=Math.min(.65,pitch+.15);if(event.key==='Home')reset();render();schedule();});
- const motionChange=()=>{inertia=0;lastTime=0;if(reduced.matches&&frame){cancelAnimationFrame(frame);frame=0;}render();schedule();};reduced.addEventListener('change',motionChange);
+ new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;lastTime=0;if(!visible&&frame){cancelAnimationFrame(frame);frame=0;}if(visible)render();schedule();},{threshold:.1}).observe(host);
+ // Look at the pointer; never add time-based spin or release inertia.
+ window.addEventListener('pointermove',event=>{if(event.pointerType==='mouse'||event.pointerType==='pen')follow(event);else if(touch===event.pointerId)follow(event);},{passive:true});
+ document.documentElement.addEventListener('pointerleave',()=>lookAt(neutral));
+ host.addEventListener('pointerdown',event=>{if(event.pointerType==='touch'){touch=event.pointerId;follow(event);}});
+ const release=event=>{if(touch===event.pointerId){touch=null;lookAt(neutral);}};
+ window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
+ host.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home'].includes(event.key))return;event.preventDefault();const next={...target};if(event.key==='ArrowLeft')next.yaw-=.15;if(event.key==='ArrowRight')next.yaw+=.15;if(event.key==='ArrowUp')next.pitch-=.1;if(event.key==='ArrowDown')next.pitch+=.1;lookAt(event.key==='Home'?neutral:next);});
+ host.addEventListener('dblclick',()=>lookAt(neutral));
+ reduced.addEventListener('change',()=>{if(frame)cancelAnimationFrame(frame);frame=0;lastTime=0;yaw=target.yaw;pitch=target.pitch;if(visible)render();});
  document.addEventListener('visibilitychange',()=>{lastTime=0;if(document.hidden&&frame){cancelAnimationFrame(frame);frame=0;}schedule();});
  renderer.domElement.addEventListener('webglcontextlost',event=>{event.preventDefault();host.classList.add('webgl-lost');if(frame)cancelAnimationFrame(frame);frame=0;host.querySelector('img')?.removeAttribute('aria-hidden');});
  renderer.domElement.addEventListener('webglcontextrestored',()=>{host.classList.remove('webgl-lost');resize();schedule();});
