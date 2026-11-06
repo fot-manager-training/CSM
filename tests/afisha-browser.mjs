@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {browser} from './browser-support.mjs';
+const b=await browser(),count=()=>b.evaluate('document.querySelectorAll(".event-card").length');
+try{
+ await b.viewport(1440,1100);await b.navigate('events.html','document.querySelectorAll(".date-day").length===30&&document.querySelectorAll(".event-card").length===5');
+ await b.click('[data-day="2026-11-27"]');assert.equal(await count(),1);assert.match(await b.evaluate('document.getElementById("events-grid").textContent'),/AI Journey/);
+ await b.click('[data-day="2026-11-28"]');assert.equal(await count(),1);assert.equal(await b.evaluate('document.querySelector(".date-day[aria-pressed=true]").dataset.day'),'2026-11-28');
+ await b.click('[data-day="2026-11-29"]');assert.equal(await count(),0);assert.equal(await b.evaluate('document.getElementById("empty-events").hidden'),false);assert.equal(await b.evaluate('document.querySelector(".afisha-spotlight").hidden'),true);
+ await b.click('#date-all');assert.equal(await count(),5);
+ await b.click('#date-month-next');assert.equal(await count(),1);assert.equal(await b.evaluate('document.querySelectorAll(".date-day").length'),31);assert.match(await b.evaluate('document.getElementById("events-grid").textContent'),/Королевский/);
+ await b.click('[data-day="2026-12-10"]');assert.equal(await count(),1);await b.click('#all-filters');assert.equal(await b.evaluate('document.getElementById("event-filters").hidden'),false);
+ await b.evaluate('document.getElementById("event-type").value="digital";document.getElementById("event-type").dispatchEvent(new Event("change"))');assert.equal(await count(),0);
+ await b.evaluate('document.getElementById("reset").click();document.getElementById("event-type").value="accelerator";document.getElementById("event-type").dispatchEvent(new Event("change"));document.getElementById("region").value="Санкт-Петербург";document.getElementById("region").dispatchEvent(new Event("change"))');assert.equal(await count(),1);assert.equal(await b.evaluate('document.querySelector("[data-category=accelerator]").getAttribute("aria-pressed")'),'true');
+ await b.evaluate('document.getElementById("reset").click();document.querySelector(".afisha-spotlight").scrollIntoView({block:"center",behavior:"instant"})');await b.delay(150);await b.click('#spotlight-next');await b.wait('document.getElementById("spotlight-track").scrollLeft>20');await b.wait('!document.getElementById("spotlight-prev").disabled');await b.click('#spotlight-prev');await b.wait('document.getElementById("spotlight-track").scrollLeft<2');
+ await b.viewport(390);await b.evaluate('document.getElementById("date-track").scrollIntoView({block:"center",behavior:"instant"});document.getElementById("date-track").scrollLeft=0');await b.delay(100);
+ const rect=await b.bounds('#date-track'),point={x:rect.x+rect.width*.75,y:rect.y+rect.height/2};
+ await b.send('Input.dispatchMouseEvent',{type:'mouseMoved',...point});await b.send('Input.dispatchMouseEvent',{type:'mousePressed',...point,button:'left',buttons:1,clickCount:1});
+ for(let i=1;i<=8;i++)await b.send('Input.dispatchMouseEvent',{type:'mouseMoved',x:point.x-i*10,y:point.y,button:'left',buttons:1});
+ await b.send('Input.dispatchMouseEvent',{type:'mouseReleased',x:point.x-80,y:point.y,button:'left',buttons:0,clickCount:1});assert.ok(await b.evaluate('document.getElementById("date-track").scrollLeft')>40);assert.equal(await b.evaluate('document.querySelector(".date-day[aria-pressed=true]")===null'),true,'drag must not select a date');
+ await b.delay(450);await b.send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:1});const before=await b.evaluate('document.getElementById("date-track").scrollLeft');
+ await b.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[point]});for(let i=1;i<=8;i++)await b.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:point.x-i*10,y:point.y}]});await b.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await b.wait(`document.getElementById("date-track").scrollLeft>${before+20}`);assert.equal(await b.evaluate('document.querySelector(".date-day[aria-pressed=true]")===null'),true,'touch scrolling must not pick a day');await b.send('Emulation.setTouchEmulationEnabled',{enabled:false});
+ for(const width of [320,390,768,1440]){await b.viewport(width);await b.evaluate('window.scrollTo({top:0,behavior:"instant"})');await b.delay(120);assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth'),true,`afisha overflow ${width}`);if(width===390||width===1440)await b.screenshot(`afisha-final-${width}`);}
+ assert.deepEqual(b.errors,[]);console.log('PASS: clickable dates incl. both AIJ days, empty date, month switch, combined type/city/date filters, reset, large card navigation, real mouse/touch date scrolling without accidental selection, 320/390/768/1440.');
+}finally{b.close();}

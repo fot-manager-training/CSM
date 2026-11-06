@@ -7,9 +7,10 @@
   <meta name="description" content="Цифровые дни, форумы и встречи, которые открывают новые возможности.">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preload" href="./fonts/SBSansDisplay-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="./site.css?v=pages-20261106">
-  <link rel="stylesheet" href="./navigation.css?v=home-20261106">
-  <script type="module" src="./app.js?v=home-20261106"></script>
+  <link rel="stylesheet" href="./site.css?v=afisha-20261106">
+  <link rel="stylesheet" href="./navigation.css?v=afisha-20261106">
+  <link rel="stylesheet" href="./afisha.css?v=afisha-20261106">
+  <script type="module" src="./app.js?v=afisha-20261106"></script>
 </head>
 <body data-page="events">
   <header class="header" data-menu-open="false"><div class="container header-inner">
@@ -20,27 +21,26 @@
     </div>
     <nav class="main-navigation" id="site-navigation" aria-label="Основная навигация" aria-hidden="true" inert><a href="./index.html" class="nav-link" data-page="home">Главная</a><a href="./events.html" class="nav-link active" data-page="events" aria-current="page">Мероприятия</a><a href="./cases.html" class="nav-link" data-page="cases">Кейсы</a><a href="./partners.html" class="nav-link" data-page="partners">Партнёры</a></nav>
   </div></header>
-  <main id="main-content">
-    <section class="page-heading container" aria-labelledby="page-title"><div><div class="breadcrumbs"><a href="./index.html">DTaaS Северо-Запад</a><span>/</span><span>Мероприятия</span></div><span class="eyebrow">АФИША / НОЯБРЬ — ДЕКАБРЬ 2026</span><h1 id="page-title">Афиша Северо-Запада</h1><p>Цифровые дни, форумы и встречи, которые открывают новые возможности.</p></div>        <div class="hero-mascot" id="cybercat-viewer" tabindex="0" role="img" aria-roledescription="Интерактивная 3D-модель" aria-label="Киберкот DTaaS следит за курсором. На телефоне проведите по коту. Стрелки — направление взгляда, Home — прямо."><img class="cybercat orbit" src="./assets/cybercat.png" alt="Киберкот DTaaS" width="1400" height="1100" fetchpriority="high"><span class="cybercat-hint" aria-hidden="true">Слежу за курсором</span></div>
-</section>
-    <section class="featured-events container" aria-label="В центре внимания">
-      <button class="feature-event" data-open="aij"><img src="./assets/events/aij.webp" alt="" width="1536" height="1024"><span class="feature-copy"><span class="feature-label">В ЦЕНТРЕ ВНИМАНИЯ · 27–28 НОЯБРЯ</span><strong>AI Journey</strong><span>Два дня в мире искусственного интеллекта <b>↗</b></span></span></button>
-      <button class="feature-event" data-open="kaliningrad"><img src="./assets/events/kaliningrad.webp" alt="" width="1536" height="1024"><span class="feature-copy"><span class="feature-label">ЦИФРОВОЙ ДЕНЬ · 19 НОЯБРЯ</span><strong>Калининград</strong><span>Новые возможности для бизнеса региона <b>↗</b></span></span></button>
-    </section>
-    <section class="content-section container" id="content" aria-labelledby="section-title"><div class="section-top"><h2 id="section-title">Все мероприятия</h2><span class="section-count">5 событий</span></div>
-      <div id="events-view">
-        <div class="toolbar"><div class="category-tabs" aria-label="Формат мероприятий"><button class="category active" data-category="all">Все события <span>5</span></button><button class="category" data-category="digital">Цифровые дни</button><button class="category" data-category="forum">Форумы</button><button class="category" data-category="accelerator">Акселераторы</button></div><div class="view-toggle" aria-label="Вид мероприятий"><button id="grid-view" class="active" aria-label="Карточки" aria-pressed="true">▦</button><button id="calendar-view" aria-label="Календарь" aria-pressed="false">▤</button></div></div>
-        <div class="filter-row"><label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Событие, город или тема" aria-label="Поиск событий"></label><label class="select-field"><span>⌖</span><select id="region" aria-label="Регион"><option value="all">Все регионы</option><option>Калининград</option><option>Мурманск</option><option>Ленинградская область</option><option>Санкт-Петербург</option><option value="unknown">Место уточняется</option></select></label><label class="select-field"><span>▦</span><select id="month" aria-label="Месяц"><option value="all">Все даты</option><option value="11">Ноябрь</option><option value="12">Декабрь</option></select></label><button class="reset-button" id="reset">Сбросить <span>↺</span></button></div>
-        <div class="results-line"><span id="results-count" aria-live="polite">5 событий для новых возможностей</span><span class="results-note">НОЯБРЬ — ДЕКАБРЬ 2026</span></div>
-        <div class="events-grid" id="events-grid"></div>
-        <div class="calendar" id="calendar" hidden></div>
-        <div class="empty-state" id="empty-events" hidden><span>⌕</span><h3>Пока ничего не нашлось</h3><p>Попробуйте другой город или измените фильтры.</p><button class="primary-button" id="empty-reset">Показать все события ↗</button></div>
-      </div>
-    </section>
-    <section class="event-discovery container" aria-labelledby="discovery-title">
-      <div class="discovery-heading"><h2 id="discovery-title">События на одной волне</h2><p>Знакомства, идеи и технологии,<br>которые расширяют возможности.</p></div>
-      <div class="discovery-layout"><div hidden class="discovery-categories" aria-label="Формат события"><button data-category="all" class="active">Все события <span>↗</span></button><button data-category="digital">Цифровые дни <span>↗</span></button><button data-category="forum">Форумы <span>↗</span></button><button data-category="accelerator">Акселераторы <span>↗</span></button></div><div class="circle-carousel"><div class="circle-toolbar"><span>Афиша / 2026</span><div><span id="circle-position"></span><button id="circle-motion" aria-label="Приостановить вращение" aria-pressed="false"></button></div></div><div class="circle-stage" id="circle-stage" tabindex="0" role="region" aria-roledescription="карусель" aria-label="Мероприятия. Перетаскивайте мышью, листайте свайпом или клавишами влево и вправо."></div><p class="circle-hint">Потяните, чтобы выбрать своё событие</p><div class="circle-caption" id="circle-caption" aria-live="polite"></div></div></div>
-    </section>
+  <main id="main-content" class="afisha-page">
+    <div id="events-view">
+      <section class="afisha-search container" aria-labelledby="page-title">
+        <h1 id="page-title">Афиша</h1>
+        <label class="search-field afisha-search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="События, города и темы" aria-label="Поиск событий"></label>
+        <label class="select-field afisha-region"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><select id="region" aria-label="Регион"><option value="all">Все города</option><option>Калининград</option><option>Мурманск</option><option>Ленинградская область</option><option>Санкт-Петербург</option><option value="unknown">Место уточняется</option></select></label>
+      </section>
+      <nav class="afisha-categories container" aria-label="Категории мероприятий"><button class="active" data-category="all">Все события</button><button data-category="digital">Цифровые дни</button><button data-category="forum">Форумы</button><button data-category="accelerator">Акселераторы</button></nav>
+      <section class="afisha-banner container" aria-label="Анонс события"><button class="afisha-announcement" data-open="aij"><img src="./assets/events/aij.webp" alt="" width="1536" height="1024"><span class="announcement-copy"><strong>AI Journey</strong><span>27–28 ноября · два дня об искусственном интеллекте</span></span><span class="announcement-action">О событии ↗</span></button></section>
+      <section class="datebar container" aria-label="Выбор даты">
+        <div class="datebar-heading"><span id="datebar-month">Ноябрь</span><div><button id="date-month-prev" class="date-month-nav" aria-label="Предыдущий месяц">←</button><button id="date-month-next" class="date-month-nav" aria-label="Следующий месяц">→</button></div></div>
+        <div class="datebar-line"><button id="date-all" class="date-all" aria-pressed="true">Все<br>даты</button><div id="date-track" class="date-track" aria-label="Дни месяца"></div></div>
+      </section>
+      <section class="afisha-filter-area container" aria-label="Фильтры мероприятий">
+        <div class="afisha-filterbar"><button id="all-filters" class="afisha-filter-button" aria-expanded="false" aria-controls="event-filters"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg>Все фильтры<span id="active-filter-count" hidden></span></button><label class="afisha-type"><select id="event-type" aria-label="Тип события"><option value="all">Тип события</option><option value="digital">Цифровые дни</option><option value="forum">Форумы</option><option value="accelerator">Акселераторы</option></select></label><div class="view-toggle" aria-label="Вид мероприятий"><button id="grid-view" class="active" aria-label="Карточки" aria-pressed="true">▦</button><button id="calendar-view" aria-label="Календарь" aria-pressed="false">▤</button></div></div>
+        <div id="event-filters" class="event-filter-panel" hidden><label class="select-field"><select id="month" aria-label="Месяц"><option value="all">Все месяцы</option><option value="11">Ноябрь</option><option value="12">Декабрь</option></select></label><button id="reset" class="reset-button">Сбросить фильтры ↺</button></div>
+      </section>
+      <section class="afisha-spotlight container" aria-label="Подборка мероприятий"><div id="spotlight-track" class="spotlight-track"></div><button id="spotlight-prev" class="spotlight-nav" aria-label="Предыдущее событие">‹</button><button id="spotlight-next" class="spotlight-nav" aria-label="Следующее событие">›</button></section>
+      <section class="content-section container" id="content" aria-labelledby="section-title"><div class="section-top"><h2 id="section-title">Все мероприятия</h2></div><span id="results-count" class="visually-hidden" role="status"></span><div class="events-grid" id="events-grid"></div><div class="calendar" id="calendar" hidden></div><div class="empty-state" id="empty-events" hidden><span>⌕</span><h3>На эту дату событий пока нет</h3><p>Выберите другую дату или измените фильтры.</p><button class="primary-button" id="empty-reset">Все события ↗</button></div></section>
+    </div>
   </main>
   <footer class="container footer"><a class="brand" href="./index.html" aria-label="Сбер · DTaaS — на главную"><img class="sber-logo" src="./assets/sber.png" alt="Сбер" width="140" height="48"><span class="brand-divider" aria-hidden="true"></span><img class="dtaas-logo" src="./assets/dtaas.png" alt="DTaaS" width="142" height="48"></a><span>Территория цифровых возможностей</span><span>© 2026 DTaaS СЗБ</span><a href="#" class="back-top" aria-label="Наверх">↑</a></footer>
   <dialog id="event-dialog" aria-labelledby="dialog-title"><button class="dialog-close" id="dialog-close" aria-label="Закрыть">×</button><div id="dialog-body"></div></dialog>

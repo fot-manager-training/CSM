@@ -1,4 +1,4 @@
-import {initNavigation} from './navigation.js?v=home-20261106';
+import {initNavigation} from './navigation.js?v=afisha-20261106';
 const $=id=>document.getElementById(id);
 const page=document.body.dataset.page;
 function iconize(root=document.body){
@@ -16,21 +16,16 @@ window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
  if(page==='home'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initHome}=await import('./home.js?v=home-20261106');initHome({iconize});
+  const {initHome}=await import('./home.js?v=afisha-20261106');initHome({iconize});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else if(page==='events'){
-  const {initEvents,routeEvent}=await import('./events-ui.js?v=home-20261106');
+  const {initEvents,routeEvent}=await import('./events-ui.js?v=afisha-20261106');
   initEvents({iconize,notify});routeEvent();window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())routeEvent();});
 
  }else{
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=home-20261106');
+  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=afisha-20261106');
   initCatalog({iconize,notify});openCatalogRoute(location.hash.slice(1));
   window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())openCatalogRoute(location.hash.slice(1));});
  }
-}
-
-if(['home','events'].includes(page)){
- const loadMascot=()=>import('./cybercat.js?v=home-20261106').then(({initCybercat})=>initCybercat()).catch(()=>{});
- if('requestIdleCallback' in window)requestIdleCallback(loadMascot,{timeout:1200});else setTimeout(loadMascot,0);
 }

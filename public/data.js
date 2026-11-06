@@ -7,9 +7,9 @@ export const events = [
   { id:'aij', title:'AI Journey', posterTitle:'AI<br>JOURNEY', city:null, category:'forum', type:'Форум', start:'2026-11-27', end:'2026-11-28', date:'27–28 ноября', summary:'Два дня в мире искусственного интеллекта.', background:'#29242f', color:'#edddff', art:'ai', description:'AIJ — событие об искусственном интеллекте 27 и 28 ноября. Даты указаны по вашему календарю событий; программа, место проведения и регистрация требуют подтверждения.' }
 ];
 export const sourceUrl = 'https://sber-northwest-casebook.tenderlion1.chatgpt.site/';
-export function filterEvents(items, { category='all', query='', region='all', month='all', savedOnly=false, saved=[] }={}) {
+export function filterEvents(items, { category='all', query='', region='all', month='all', day='all', savedOnly=false, saved=[] }={}) {
   const normalized = query.trim().toLocaleLowerCase('ru');
-  return items.filter(e => (category==='all'||e.category===category) && (region==='all'||(region==='unknown' ? !e.city : e.city===region)) && (month==='all'||e.start.slice(5,7)===month) && (!savedOnly||saved.includes(e.id)) && (!normalized||`${e.title} ${e.city||''} ${e.summary} ${e.type} ${e.id==='aij'?'AIJ искусственный интеллект':''}`.toLocaleLowerCase('ru').includes(normalized)));
+  return items.filter(e => (category==='all'||e.category===category) && (region==='all'||(region==='unknown' ? !e.city : e.city===region)) && (month==='all'||e.start.slice(5,7)===month) && (day==='all'||(e.start<=day&&e.end>=day)) && (!savedOnly||saved.includes(e.id)) && (!normalized||`${e.title} ${e.city||''} ${e.summary} ${e.type} ${e.id==='aij'?'AIJ искусственный интеллект':''}`.toLocaleLowerCase('ru').includes(normalized)));
 }
 export function calendarText(e) {
   const dayAfter = new Date(e.end+'T00:00:00Z'); dayAfter.setUTCDate(dayAfter.getUTCDate()+1);

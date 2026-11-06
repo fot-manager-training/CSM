@@ -10,7 +10,7 @@ export async function browser(){
  const delay=ms=>new Promise(r=>setTimeout(r,ms));
  const wait=async expression=>{for(let i=0;i<120;i++){if(await evaluate(expression))return;await delay(50);}throw Error('Timed out: '+expression);};
  const viewport=(width,height=1000)=>send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<500});
- const navigate=async(path,ready)=>{await send('Page.navigate',{url:new URL(path,base).href});await wait(ready||'document.readyState==="complete"');};
+ const navigate=async(path,ready)=>{await send('Page.navigate',{url:new URL(path,base).href});await wait(`document.body&&(${ready||'document.readyState==="complete"'})`);};
  const bounds=selector=>evaluate(`document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect().toJSON()`);
  const click=async selector=>{const b=await bounds(selector),p={x:b.x+b.width/2,y:b.y+b.height/2};await send('Input.dispatchMouseEvent',{type:'mouseMoved',...p});await send('Input.dispatchMouseEvent',{type:'mousePressed',...p,button:'left',buttons:1,clickCount:1});await send('Input.dispatchMouseEvent',{type:'mouseReleased',...p,button:'left',buttons:0,clickCount:1});};
  const key=key=>send('Input.dispatchKeyEvent',{type:'keyDown',key,code:key});

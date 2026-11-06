@@ -7,3 +7,7 @@ test('calendar exports two full days of AIJ with exclusive end date',()=>{const 
 test('one-day event has following day as calendar end',()=>{assert.match(calendarText(events[0]),/DTEND;VALUE=DATE:20261120/);});
 
 test('Saint Petersburg is used for the accelerator in filters and calendar exports',()=>{const royal=events.find(e=>e.id==='royal');assert.equal(royal.city,'Санкт-Петербург');assert.equal(filterEvents(events,{region:'Санкт-Петербург'})[0].id,'royal');assert.match(calendarText(royal),/LOCATION:Санкт-Петербург/);});
+
+test('date selection includes both AIJ dates and combines with other filters',()=>{
+ assert.equal(filterEvents(events,{day:'2026-11-27'})[0].id,'aij');assert.equal(filterEvents(events,{day:'2026-11-28'})[0].id,'aij');assert.equal(filterEvents(events,{day:'2026-11-29'}).length,0);assert.equal(filterEvents(events,{day:'2026-12-10',region:'Санкт-Петербург',category:'accelerator'})[0].id,'royal');assert.equal(filterEvents(events,{day:'2026-12-10',category:'digital'}).length,0);
+});

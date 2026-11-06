@@ -1,24 +1,24 @@
 import {events,filterEvents,calendarText} from './data.js';
-import {eventImages} from './media.js?v=home-20261106';
-import {EventCarousel} from './carousel.js?v=pages-20261106';
+import {eventImages} from './media.js?v=afisha-20261106';
+import {initAfisha} from './afisha.js?v=afisha-20261106';
 const $=id=>document.getElementById(id);
-let iconize=()=>{},notify=()=>{},carousel;
+let iconize=()=>{},notify=()=>{},afisha;
 let saved=[];
 try { const value=JSON.parse(localStorage.getItem('dtaas-favorites')||'[]'); if(Array.isArray(value)) saved=value.filter(id=>events.some(e=>e.id===id)); } catch {}
-const state={category:'all',query:'',region:'all',month:'all',savedOnly:false,saved};
+const state={category:'all',query:'',region:'all',month:'all',day:'all',savedOnly:false,saved};
 let layout='grid',calendarMonth=11,currentEvent=null;
 function poster(e,dialog=false){return `<div class="${dialog?'dialog-poster':'event-poster'}" ${dialog?'':`data-open="${e.id}"`}><img class="event-cover" src="${eventImages[e.id]}" alt="Иллюстрация: ${e.title}" width="1536" height="1024" ${dialog?'':'loading="lazy"'}><span class="poster-badge">${e.type}</span>${dialog?'':`<button class="favorite ${saved.includes(e.id)?'is-saved':''}" data-save="${e.id}" aria-label="${saved.includes(e.id)?'Убрать из избранного':'Добавить в избранное'}: ${e.title}" aria-pressed="${saved.includes(e.id)}">${saved.includes(e.id)?'♥':'♡'}</button>`}</div>`;}
 function card(e,i){return `<article class="event-card" style="animation-delay:${i*45}ms">${poster(e)}<div class="event-info"><div class="event-meta"><span class="date">${e.date}</span><span class="meta-dot"></span><span>${e.city||'Место уточняется'}</span></div><h3 class="event-title"><button data-open="${e.id}">${e.title}</button></h3><p class="event-summary">${e.summary}</p><div class="event-bottom"><span>${e.type}</span><button data-open="${e.id}">Подробнее <span>↗</span></button></div></div></article>`;}
 function render(){
  const list=filterEvents(events,state).sort((a,b)=>a.start.localeCompare(b.start));
- carousel?.setItems(list);
+ afisha?.render(list);
  $('events-grid').innerHTML=list.map(card).join('');
  $('events-grid').dataset.count=list.length;
  $('events-grid').hidden=layout!=='grid'; $('calendar').hidden=layout!=='calendar';
  $('empty-events').hidden=list.length>0||layout==='calendar';
- const n=list.length; const noun=n===1?'событие':n>=2&&n<=4?'события':'событий';
- $('results-count').textContent=`${n} ${noun}${state.savedOnly?' в избранном':' для новых возможностей'}`;
- $('section-title').textContent=state.savedOnly?'Мои события':'Все мероприятия';document.querySelector('.section-count').textContent=`${n} ${noun}`;
+ const n=list.length;
+ $('results-count').textContent=`Найдено: ${n}`;
+ $('section-title').textContent=state.savedOnly?'Мои события':'Все мероприятия';
  $('saved-count').textContent=saved.length;
  $('saved-button').classList.toggle('active',state.savedOnly);
  $('saved-button').setAttribute('aria-pressed',String(state.savedOnly));
@@ -44,16 +44,16 @@ function renderCalendar(list){
  const name=new Intl.DateTimeFormat('ru',{month:'long'}).format(first);const now=new Date();
  const cells=Array.from({length:Math.ceil((offset+days)/7)*7},(_,i)=>{const day=i-offset+1;if(day<1||day>days)return '<div class="calendar-day is-blank"></div>';const date=`2026-${String(calendarMonth).padStart(2,'0')}-${String(day).padStart(2,'0')}`;const today=now.getFullYear()===2026&&now.getMonth()===calendarMonth-1&&now.getDate()===day;return `<div class="calendar-day ${today?'today':''}"><span>${day}</span>${list.filter(e=>date>=e.start&&date<=e.end).map(e=>`<button class="calendar-event" data-open="${e.id}">${e.title}</button>`).join('')}</div>`;}).join('');
  $('calendar').innerHTML=`<div class="calendar-heading"><button id="prev-month" aria-label="Предыдущий месяц" ${calendarMonth===11?'disabled':''}>←</button><h3>${name[0].toUpperCase()+name.slice(1)} 2026</h3><button id="next-month" aria-label="Следующий месяц" ${calendarMonth===12?'disabled':''}>→</button></div><div class="calendar-week">${['ПН','ВТ','СР','ЧТ','ПТ','СБ','ВС'].map(x=>`<span>${x}</span>`).join('')}</div><div class="calendar-days">${cells}</div>`;
- $('prev-month').onclick=()=>{calendarMonth=11;render();};$('next-month').onclick=()=>{calendarMonth=12;render();};
+ $('prev-month').onclick=()=>{calendarMonth=11;state.month='11';state.day='all';$('month').value='11';render();};$('next-month').onclick=()=>{calendarMonth=12;state.month='12';state.day='all';$('month').value='12';render();};
 }
 
 export function initEvents(callbacks){
 iconize=callbacks.iconize;notify=callbacks.notify;
-carousel=new EventCarousel({stage:$('circle-stage'),caption:$('circle-caption'),counter:$('circle-position'),motion:$('circle-motion')});
-function reset(){Object.assign(state,{category:'all',query:'',region:'all',month:'all',savedOnly:false});$('search').value='';$('region').value='all';$('month').value='all';render();}
+afisha=initAfisha({state,onChange:render,images:eventImages,iconize,setMonth:value=>{calendarMonth=value;}});
+function reset(){Object.assign(state,{category:'all',query:'',region:'all',month:'all',day:'all',savedOnly:false});$('search').value='';$('region').value='all';$('month').value='all';afisha.reset();render();}
 document.addEventListener('click',e=>{const saveButton=e.target.closest('[data-save]');if(saveButton){save(saveButton.dataset.save);return;}const open=e.target.closest('[data-open]');if(open)openEvent(open.dataset.open);});
 document.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{state.category=b.dataset.category;render();});
-$('search').oninput=e=>{state.query=e.target.value;render();};$('region').onchange=e=>{state.region=e.target.value;render();};$('month').onchange=e=>{state.month=e.target.value;if(state.month!=='all')calendarMonth=Number(state.month);render();};
+$('search').oninput=e=>{state.query=e.target.value;render();};$('region').onchange=e=>{state.region=e.target.value;render();};$('month').onchange=e=>{state.month=e.target.value;state.day='all';if(state.month!=='all')calendarMonth=Number(state.month);render();};
 $('reset').onclick=reset;$('empty-reset').onclick=reset;
 $('saved-button').onclick=()=>{state.savedOnly=!state.savedOnly;$('content').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});render();};
 function setLayout(value){layout=value;$('grid-view').classList.toggle('active',value==='grid');$('calendar-view').classList.toggle('active',value==='calendar');$('grid-view').setAttribute('aria-pressed',String(value==='grid'));$('calendar-view').setAttribute('aria-pressed',String(value==='calendar'));render();}
