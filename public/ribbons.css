@@ -1,0 +1,12 @@
+/* Decorative ribbons follow the same lettering and palette as the hero wave. */
+.ribbon-surface{position:relative;isolation:isolate}
+main.ribbon-surface{overflow:clip}
+.ribbon-layer{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;user-select:none;opacity:.62;mask-image:linear-gradient(180deg,transparent,#000 48px,#000 calc(100% - 48px),transparent);-webkit-mask-image:linear-gradient(180deg,transparent,#000 48px,#000 calc(100% - 48px),transparent)}
+.background-ribbon{position:absolute;left:0;width:100%;pointer-events:none;overflow:visible}
+.background-ribbon use{stroke:#bdd1fa}
+.background-ribbon text{font-family:'SB Sans Display',Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;fill:#fff;dominant-baseline:middle}
+.case-showcase>.ribbon-layer{opacity:.58}
+.partner-showcase-cap>.ribbon-layer{opacity:.52}
+/* Absolute decorative layers never become targets for the pointer or the keyboard. */
+.ribbon-layer *{pointer-events:none}
+@media(max-width:760px){.ribbon-layer{opacity:.5}.background-ribbon{min-width:900px;width:calc(100% + 520px);left:50%;transform:translateX(-50%)}.background-ribbon text{font-size:14px}.case-showcase>.ribbon-layer,.partner-showcase-cap>.ribbon-layer{opacity:.45}}

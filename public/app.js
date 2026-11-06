@@ -1,3 +1,4 @@
+import {initRibbons} from './ribbons.js?v=ribbons-20261106';
 import {initNavigation} from './navigation.js?v=afisha-20261106';
 const $=id=>document.getElementById(id);
 const page=document.body.dataset.page;
@@ -11,7 +12,7 @@ function notify(text){$('toast').textContent=text;$('toast').classList.add('visi
 function updateSavedCount(){try{const saved=JSON.parse(localStorage.getItem('dtaas-favorites')||'[]');$('saved-count').textContent=Array.isArray(saved)?saved.length:0;}catch{$('saved-count').textContent='0';}}
 // Keep older shared links working while each section now has a standalone URL.
 function migrateLegacyRoute(){const hash=location.hash.slice(1);const target=hash.startsWith('event/')?'events':hash.startsWith('case/')?'cases':hash.startsWith('partner/')?'partners':['home','events','cases','partners'].includes(hash)?hash:null;if(target&&target!==page){location.replace(`./${target==='home'?'index':target}.html${hash.includes('/')?'#'+hash:''}`);return true;}return false;}
-initNavigation();updateSavedCount();iconize();
+initNavigation();updateSavedCount();iconize();initRibbons();
 window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
  if(page==='home'){
