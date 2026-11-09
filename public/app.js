@@ -16,7 +16,7 @@ window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
  if(page==='home'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initHome}=await import('./home.js?v=afisha-20261106');initHome({iconize});
+  const {initHome}=await import('./home.js?v=cases-20261109');initHome({iconize});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else if(page==='events'){
   const {initEvents,routeEvent}=await import('./events-ui.js?v=afisha-20261106');
@@ -24,7 +24,7 @@ if(!migrateLegacyRoute()){
 
  }else{
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=afisha-20261106');
+  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=cases-20261109');
   initCatalog({iconize,notify});openCatalogRoute(location.hash.slice(1));
   window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())openCatalogRoute(location.hash.slice(1));});
  }

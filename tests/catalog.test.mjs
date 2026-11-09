@@ -37,3 +37,36 @@ test('unknown fields and original identifiers stay unchanged',()=>{
  assert.equal(partners.find(p=>p.name==='РАУ ИТ').inn,'780156260');
  assert.ok(partners.every(p=>p.gigaCowork==='не уточнено'));
 });
+test('presentation supplements enrich existing cases without duplicating clients or changing IDs',()=>{
+ const supplements=cases.filter(c=>c.sourceDocument);
+ assert.equal(supplements.length,19);
+ assert.equal(new Set(cases.map(c=>c.id)).size,20);
+ assert.equal(supplements.reduce((total,c)=>total+c.metrics.length,0),47);
+ for(const c of supplements){
+  assert.equal(c.sourceDocument.title,'Заявки все 2026.pptx');
+  assert.ok(c.sourceDocument.slides.length&&c.sourceDocument.slides.every(n=>n>=1&&n<=6));
+  assert.ok(c.stage&&c.details.length>=2);
+  assert.ok(c.metrics.every(m=>m.value&&m.description&&m.context));
+ }
+ assert.equal(cases.find(c=>c.id==='case-23').sourceDocument,undefined);
+});
+test('new metrics preserve pilot outcomes, targets and the tax-reporting time baseline',()=>{
+ const get=id=>cases.find(c=>c.id===id);
+ assert.ok(get('case-02').metrics.some(m=>m.value==='+30%'&&m.context==='Показатели MVP'));
+ assert.ok(get('case-19').metrics.some(m=>m.value==='10% → 0,01%'&&m.context==='Результаты пилота'));
+ const pnt=get('case-17');assert.equal(pnt.metrics.find(m=>m.description==='Подготовка налогового отчёта.').value,'30% от текущего времени');
+ assert.ok(pnt.metrics.filter(m=>/ввод|налогового отчёта|классификация/.test(m.description)).every(m=>m.context==='Целевые показатели'));
+ assert.ok(['case-03','case-11','case-12'].every(id=>get(id).metrics.every(m=>m.context==='Целевые показатели')));
+});
+test('HR-Link projects and unquantified training remain separate',()=>{
+ const hr=cases.filter(c=>c.client==='HR-Link');assert.equal(hr.length,2);
+ assert.ok(hr.find(c=>c.id==='case-14').metrics.every(m=>m.context==='Качественный эффект'));
+ assert.equal(hr.find(c=>c.id==='case-15').metrics.length,6);
+ assert.ok(hr.find(c=>c.id==='case-15').metrics.every(m=>m.context==='Пилот и ожидаемые показатели'));
+ assert.equal(cases.find(c=>c.id==='case-16').metrics.length,0);
+});
+test('search finds newly supplied processes and secondary outcomes',()=>{
+ assert.deepEqual(filterCases({query:'эскроу'}).map(c=>c.id),['case-18']);
+ assert.deepEqual(filterCases({query:'0,01%'}).map(c=>c.id),['case-19']);
+ assert.deepEqual(filterCases({query:'Лабораторией нейронаук'}).map(c=>c.id),['case-08']);
+});
