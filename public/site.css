@@ -33,3 +33,16 @@ dialog{width:min(670px,calc(100% - 32px));max-height:90svh;padding:0;border:0;bo
 .case-results strong{display:block;font-size:26px;font-weight:400;letter-spacing:-.6px;line-height:1.2;color:var(--accent)}
 .case-results dd span{display:block;margin-top:9px;font-size:12px;line-height:1.65;color:#516486}
 @media(max-width:520px){.case-results{grid-template-columns:1fr}.case-results strong{font-size:25px}}
+
+/* Verified business contacts and registry details in partner profiles. */
+.partner-role{min-width:0;overflow-wrap:anywhere;line-height:1.6}
+.partner-industry-preview{font-size:10px;line-height:1.65;color:var(--muted);margin:0 0 18px}
+.partner-contacts{display:grid;gap:12px;margin:0 0 22px}
+.partner-contact{display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:18px;border-radius:12px;background:var(--surface);min-width:0}
+.partner-contact h4{font-size:14px;line-height:1.5;margin:0 0 3px;overflow-wrap:anywhere}
+.partner-contact a,.partner-contact span{font-size:13px;line-height:1.6;overflow-wrap:anywhere;max-width:100%}
+.partner-contact a{color:var(--accent)}
+.partner-contact a:hover{text-decoration:underline}
+.partner-region-note,.partner-field-note{font-size:10px;line-height:1.6;color:var(--muted)}
+.partner-region-note{margin:-10px 0 20px}
+.partner-field-note{display:block;margin-top:5px}

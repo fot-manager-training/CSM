@@ -1,12 +1,13 @@
-import {cases,partners} from './content.js?v=cases-20261109';
+import {cases,partners} from './content.js?v=partners-20261109';
 export {cases,partners};
 const normalize=value=>String(value??'').toLocaleLowerCase('ru').replaceAll('ё','е').trim();
-export const technologies=[...new Set(partners.flatMap(p=>p.tags).concat(['Биометрия','Блокчейн','Видеоаналитика и видеонаблюдение','Интернет-вещей (IoT)','Контроль доступа','Кибербезопасность','Роботы и дроны','RPA','Дополненная и виртуальная реальность (AR/VR)','Аудиоаналитика']))].sort((a,b)=>a.localeCompare(b,'ru'));
+export const technologies=[...new Set(partners.flatMap(p=>[...p.tags,...(p.products||[])]).concat(['Биометрия','Блокчейн','Видеоаналитика и видеонаблюдение','Интернет-вещей (IoT)','Контроль доступа','Кибербезопасность','Роботы и дроны','RPA','Дополненная и виртуальная реальность (AR/VR)','Аудиоаналитика']))].sort((a,b)=>a.localeCompare(b,'ru'));
+export const partnerRoles=[...new Set(partners.flatMap(p=>p.roles?.length?p.roles:[p.role]))].sort((a,b)=>a.localeCompare(b,'ru'));
 export function filterPartners({query='',role='all',technology='all',accreditation='all'}={}){
  const q=normalize(query);return partners.filter(p=>{
-  const text=normalize([p.name,p.inn,p.description,...p.tags,p.role,p.region].join(' '));
+  const text=normalize([p.name,p.inn,p.description,p.expertise,...p.tags,...(p.products||[]),...(p.industries||[]),...(p.contacts||[]).flatMap(c=>[c.name,c.email,c.phone]),p.website,p.role,p.region].join(' '));
   const tech=normalize(technology==='1С'?'1С':technology==='Чат-боты и голосовые ассистенты'?'Чат-боты':technology);
-  return (!q||text.includes(q))&&(role==='all'||p.role.includes(role))&&(technology==='all'||normalize(p.description+' '+p.tags.join(' ')).includes(tech))&&(accreditation==='all'||p.accreditation===accreditation);
+  return (!q||text.includes(q))&&(role==='all'||(p.roles?.length?p.roles.includes(role):p.role===role))&&(technology==='all'||normalize([p.description,...p.tags,...(p.products||[])].join(' ')).includes(tech))&&(accreditation==='all'||p.accreditation===accreditation);
  });
 }
 export function filterCases({query='',category='all',status='all',savedOnly=false,saved=[]}={}){

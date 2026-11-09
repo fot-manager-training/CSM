@@ -1,4 +1,4 @@
-import {cases,partners} from './content.js?v=cases-20261109';
+import {cases,partners} from './content.js?v=partners-20261109';
 import {caseImages,partnerImage} from './media.js?v=home-20261106';
 import {EventCarousel} from './carousel.js?v=home-20261106';
 const $=id=>document.getElementById(id);
