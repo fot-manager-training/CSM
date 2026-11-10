@@ -1,3 +1,4 @@
+import './motion.js?v=ribbon-motion-20261110';
 import {initNavigation} from './navigation.js?v=afisha-20261106';
 const $=id=>document.getElementById(id);
 const page=document.body.dataset.page;
@@ -16,7 +17,7 @@ window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
  if(page==='home'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initHome}=await import('./home.js?v=events-20261110');initHome({iconize});
+  const {initHome}=await import('./home.js?v=ribbon-motion-20261110');initHome({iconize});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else if(page==='events'){
   const {initEvents,routeEvent}=await import('./events-ui.js?v=events-20261110');

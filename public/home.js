@@ -1,6 +1,5 @@
 import {events,filterEvents} from './data.js?v=events-20261110';
 import {initShowcases,renderEventRail} from './showcase.js?v=events-20261110';
-import './motion.js';
 export function initHome({iconize}){
  initShowcases({iconize});renderEventRail(events);
  const buttons=[...document.querySelectorAll('.discovery-categories [data-category]')];
