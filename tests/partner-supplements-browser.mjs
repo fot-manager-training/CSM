@@ -19,6 +19,8 @@ try{
   await b.viewport(width);
   for(const id of ['partner-1','partner-3','partner-10','partner-64','partner-68']){
    await b.navigate(`partners.html#partner/${id}`,'document.getElementById("catalog-dialog")?.open');
+   assert.doesNotMatch(await b.evaluate('document.getElementById("catalog-dialog-body").textContent'),/Источник:|Сайт-источник|Партнеры\.xlsx/);
+   assert.equal(await b.evaluate('document.querySelector("#catalog-dialog .catalog-detail-portfolio,#catalog-dialog .dialog-actions .outline-button")===null'),true);
    assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth'),true,`page overflow ${width}`);
    assert.equal(await b.evaluate('document.getElementById("catalog-dialog").scrollWidth<=document.getElementById("catalog-dialog").clientWidth'),true,`dialog overflow ${id} at ${width}`);
    assert.equal(await b.evaluate('[...document.querySelectorAll("#catalog-dialog a")].every(a=>["https:","http:","mailto:","tel:"].includes(new URL(a.href).protocol))'),true);
@@ -32,5 +34,5 @@ try{
  }
  await b.viewport(390);await b.navigate('index.html','document.querySelectorAll(".partner-profile").length===8');assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth'),true);
  assert.deepEqual(b.errors,[]);
- console.log('PASS: contact/industry/product/role search, full 68 records, business links and source, unknown fields preserved, invalid registry INN marked, desktop and 320/390 dialogs, home layout, no runtime errors.');
+ console.log('PASS: contact/industry/product/role search, full 68 records, business links without source references, unknown fields preserved, invalid registry INN marked, desktop and 320/390 dialogs, home layout, no runtime errors.');
 }finally{b.close();}

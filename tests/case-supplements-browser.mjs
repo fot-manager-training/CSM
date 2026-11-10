@@ -16,14 +16,11 @@ try{
   for(const [id,count] of [['case-02',2],['case-15',6],['case-17',6],['case-16',0],['case-23',0]]){
    await b.navigate(`cases.html#case/${id}`,'document.getElementById("catalog-dialog")?.open');
    assert.equal(await b.evaluate('document.querySelectorAll(".case-results>div").length'),count);
-   if(id!=='case-23'){
-    assert.match(await b.evaluate('document.getElementById("catalog-dialog-body").textContent'),/Заявки все 2026.pptx · слайд/);
-    assert.equal(await b.evaluate('document.querySelector("#catalog-dialog .dialog-actions a")===null'),true,'new document must not link to the old source');
-   }
+   assert.doesNotMatch(await b.evaluate('document.getElementById("catalog-dialog-body").textContent'),/Заявки все 2026\.pptx|Источник|Практика из СберПро/);
+   assert.equal(await b.evaluate('document.querySelector("#catalog-dialog .dialog-actions a,.catalog-detail-portfolio")===null'),true);
    if(id==='case-15')assert.equal(await b.evaluate('[...document.querySelectorAll(".case-results dt")].every(x=>x.textContent==="Пилот и ожидаемые показатели")'),true);
    if(id==='case-17')assert.match(await b.evaluate('document.querySelector(".case-results").textContent'),/30% от текущего времени/);
    if(id==='case-16')assert.match(await b.evaluate('document.getElementById("catalog-dialog-body").textContent'),/Количественные метрики не указаны/);
-   if(id==='case-23')assert.equal(await b.evaluate('document.querySelector("#catalog-dialog .dialog-actions a").textContent.trim()'),'Источник');
    assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth'),true,`page overflow ${id} at ${width}`);
    assert.equal(await b.evaluate('document.getElementById("catalog-dialog").scrollWidth<=document.getElementById("catalog-dialog").clientWidth'),true,`dialog overflow ${id} at ${width}`);
    if(id==='case-17'&&width!==320){await b.evaluate('document.querySelector(".case-results").scrollIntoView({block:"start",behavior:"instant"})');await b.screenshot(`case-supplements-${width}`);}
@@ -34,5 +31,5 @@ try{
  const wasSaved=await b.evaluate('document.getElementById("catalog-dialog-save").getAttribute("aria-pressed")');await b.click('#catalog-dialog-save');assert.equal(await b.evaluate('document.getElementById("catalog-dialog-save").getAttribute("aria-pressed")'),wasSaved==='true'?'false':'true');
  await b.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27,nativeVirtualKeyCode:27});await b.send('Input.dispatchKeyEvent',{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27,nativeVirtualKeyCode:27});await b.wait('!document.getElementById("catalog-dialog").open');
  assert.deepEqual(b.errors,[]);
- console.log('PASS: new outcome search, complete result lists, source attribution, mixed target/pilot context, no fabricated numbers, original Samokat source, save/close, desktop and 320/390 mobile dialogs.');
+ console.log('PASS: new outcome search, complete result lists, source references removed, mixed target/pilot context, no fabricated numbers, Samokat without external source link, save/close, desktop and 320/390 mobile dialogs.');
 }finally{b.close();}

@@ -1,6 +1,5 @@
 import {caseImages,partnerImage} from './media.js?v=pages-20261106';
 import {cases,partners,technologies,partnerRoles,caseIndustries,filterCases,filterPartners} from './catalog-data.js?v=catalog-theme-20261109';
-const source='https://sber-northwest-casebook.tenderlion1.chatgpt.site/';
 const $=id=>document.getElementById(id);
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let notify=()=>{},iconize=()=>{},selected=null;
@@ -46,8 +45,7 @@ function caseDetails(c){
  const description=(c.details||[c.description]).map(text=>`<p class="dialog-description">${escape(text)}</p>`).join('');
  const stage=c.stage?`<section class="case-project-stage"><h3>Этап проекта</h3><p>${escape(c.stage)}</p></section>`:'';
  const metrics=c.metrics?.length?`<h3 class="detail-subtitle">Показатели проекта</h3><dl class="case-results">${c.metrics.map(metric=>`<div><dt>${escape(metric.context)}</dt><dd><strong>${escape(metric.value)}</strong><span>${escape(metric.description)}</span></dd></div>`).join('')}</dl>`:`<div class="case-metric detail-metric"><span class="metric-context">${escape(c.metricKind)}</span><strong>${escape(c.metricValue)}</strong><span class="metric-description">${escape(c.metricDescription)}</span></div>`;
- const attribution=c.sourceDocument?`${escape(c.sourceDocument.title)} · ${c.sourceDocument.slides.length===1?'слайд':'слайды'} ${c.sourceDocument.slides.join(', ')}`:escape(c.source);
- return `${c.industry?`<p class="case-detail-industry">Отрасль: ${escape(c.industry)}</p>`:''}${description}${tags(c.tags)}${stage}${metrics}<p class="catalog-detail-portfolio">${escape(c.portfolio)}<br>${attribution}</p>`;
+ return `${c.industry?`<p class="case-detail-industry">Отрасль: ${escape(c.industry)}</p>`:''}${description}${tags(c.tags)}${stage}${metrics}`;
 }
 function safeWebsite(value){
  try{const url=new URL(value);return ['https:','http:'].includes(url.protocol)?url.href:'';}catch{return '';}
@@ -61,9 +59,7 @@ function partnerDetails(p){
   const phone=contact.phone?.replace(/[^+0-9]/g,'')||'';
   return `<section class="partner-contact"><h4>${escape(contact.name||'Контактное лицо')}</h4>${email?`<a href="mailto:${escape(encodeURIComponent(email))}">${escape(contact.email)}</a>`:contact.email?`<span>${escape(contact.email)}</span>`:''}${phone?`<a href="tel:${escape(phone)}">${escape(contact.phone)}</a>`:''}</section>`;
  }).join('')}</div>`:'';
- const sourceUrl=safeWebsite(p.sourceRecord?.url)||`${source}#partners`;
- const attribution=p.sourceRecord?`<p class="catalog-detail-portfolio">Источник: ${escape(p.sourceRecord.registry)} · ${p.sourceRecord.rows.length===1?'строка':'строки'} ${p.sourceRecord.rows.join(', ')}</p>`:'';
- return `<dl class="detail-list"><div><dt>ИНН</dt><dd>${escape(p.inn)}${p.innNeedsReview?'<small class="partner-field-note">Требует уточнения в реестре</small>':''}</dd></div><div><dt>АККРЕДИТАЦИЯ</dt><dd>${escape(p.accreditation)}</dd></div><div><dt>РЕГИОН ПО РЕЕСТРУ</dt><dd>${escape(p.region)}</dd></div><div><dt>GIGA COWORK</dt><dd>${escape(p.gigaCowork)}</dd></div></dl>${p.regionMeaning?`<p class="partner-region-note">${escape(p.regionMeaning)}</p>`:''}<h3 class="detail-subtitle">Направления работы</h3><p class="dialog-description">${escape(p.role)}</p><h3 class="detail-subtitle">Технологии и компетенции</h3><p class="dialog-description">${escape(p.expertise||p.description)}</p>${tags(p.tags)}${products}${industries}${contacts}${attribution}<div class="dialog-actions">${website?`<a class="primary-button" href="${escape(website)}" target="_blank" rel="noopener noreferrer">Сайт партнёра ↗</a>`:''}<a class="outline-button" href="${escape(sourceUrl)}" target="_blank" rel="noopener noreferrer">Сайт-источник ↗</a></div>`;
+ return `<dl class="detail-list"><div><dt>ИНН</dt><dd>${escape(p.inn)}${p.innNeedsReview?'<small class="partner-field-note">Требует уточнения в реестре</small>':''}</dd></div><div><dt>АККРЕДИТАЦИЯ</dt><dd>${escape(p.accreditation)}</dd></div><div><dt>РЕГИОН ПО РЕЕСТРУ</dt><dd>${escape(p.region)}</dd></div><div><dt>GIGA COWORK</dt><dd>${escape(p.gigaCowork)}</dd></div></dl>${p.regionMeaning?`<p class="partner-region-note">${escape(p.regionMeaning)}</p>`:''}<h3 class="detail-subtitle">Направления работы</h3><p class="dialog-description">${escape(p.role)}</p><h3 class="detail-subtitle">Технологии и компетенции</h3><p class="dialog-description">${escape(p.expertise||p.description)}</p>${tags(p.tags)}${products}${industries}${contacts}${website?`<div class="dialog-actions"><a class="primary-button" href="${escape(website)}" target="_blank" rel="noopener noreferrer">Сайт партнёра ↗</a></div>`:''}`;
 }
 export function openCatalogRoute(hash){
  const kind=hash.startsWith('case/')?'case':hash.startsWith('partner/')?'partner':null;const dialog=$('catalog-dialog');if(!dialog)return;
@@ -71,7 +67,7 @@ export function openCatalogRoute(hash){
  const id=hash.slice(kind.length+1);const item=(kind==='case'?cases:partners).find(x=>x.id===id);if(!item)return;
  selected={kind,id};
  if(kind==='case'){
-  const c=item;$('catalog-dialog-body').innerHTML=`<div class="catalog-dialog-banner has-art"><img src="${caseImages[c.id]}" alt="Иллюстрация к кейсу" width="1200" height="800"><span class="eyebrow">КЕЙСБУК / ${escape(c.category.toUpperCase())}</span><span class="catalog-dialog-number">${c.number}</span><span class="catalog-dialog-client">${escape(c.client)}</span></div><div class="dialog-content"><h2 id="catalog-dialog-title">${escape(c.title)}</h2>${caseDetails(c)}<div class="dialog-actions"><button class="primary-button" id="catalog-dialog-save" data-case-save="${c.id}"></button>${c.sourceDocument?'':`<a class="outline-button" href="${source}#practice" target="_blank" rel="noopener noreferrer">Источник ↗</a>`}</div></div>`;updateSaveButton();
+  const c=item;$('catalog-dialog-body').innerHTML=`<div class="catalog-dialog-banner has-art"><img src="${caseImages[c.id]}" alt="Иллюстрация к кейсу" width="1200" height="800"><span class="eyebrow">КЕЙСБУК / ${escape(c.category.toUpperCase())}</span><span class="catalog-dialog-number">${c.number}</span><span class="catalog-dialog-client">${escape(c.client)}</span></div><div class="dialog-content"><h2 id="catalog-dialog-title">${escape(c.title)}</h2>${caseDetails(c)}<div class="dialog-actions"><button class="primary-button" id="catalog-dialog-save" data-case-save="${c.id}"></button></div></div>`;updateSaveButton();
  }else{
   const p=item;$('catalog-dialog-body').innerHTML=`<div class="catalog-dialog-banner partner-banner has-art"><img src="${partnerImage(p)}" alt="Тематическая иллюстрация компетенций" width="1200" height="800"><span class="eyebrow">ПАРТНЁР / ${escape(p.role.toUpperCase())}</span><span class="catalog-dialog-client">${escape(p.name)}</span></div><div class="dialog-content"><h2 id="catalog-dialog-title">Компетенции партнёра</h2>${partnerDetails(p)}</div>`;
  }
