@@ -1,5 +1,5 @@
 // Promotional illustrations, not photographs of the announced venues or events.
-export const eventImages=Object.fromEntries(['kaliningrad','murmansk','lenoblast','royal','aij'].map(id=>[id,`./assets/events/${id==='royal'?'royal-spb':id}.webp`]));
+export const eventImages=Object.fromEntries(['kaliningrad','murmansk','lenoblast','royal','aij','business-dinner','dss-spb'].map(id=>[id,`./assets/events/${id==='royal'?'royal-spb':id}.webp`]));
 
 // Editorial concept art. These illustrations do not depict client premises or partner staff.
 export const caseImages=Object.fromEntries([...Array.from({length:19},(_,i)=>String(i+1).padStart(2,'0')),'23'].map(number=>[`case-${number}`,`./assets/cases/case-${number}.webp`]));

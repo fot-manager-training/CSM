@@ -7,10 +7,10 @@
   <meta name="description" content="Цифровые дни, форумы и встречи, которые открывают новые возможности.">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preload" href="./fonts/SBSansDisplay-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="./site.css?v=partners-20261109">
+  <link rel="stylesheet" href="./site.css?v=events-20261110">
   <link rel="stylesheet" href="./navigation.css?v=afisha-20261106">
   <link rel="stylesheet" href="./afisha.css?v=afisha-20261106">
-  <script type="module" src="./app.js?v=no-sources-20261110"></script>
+  <script type="module" src="./app.js?v=events-20261110"></script>
 </head>
 <body data-page="events">
   <header class="header" data-menu-open="false"><div class="container header-inner">
@@ -28,13 +28,13 @@
         <label class="search-field afisha-search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="События, города и темы" aria-label="Поиск событий"></label>
         <label class="select-field afisha-region"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><select id="region" aria-label="Регион"><option value="all">Все города</option><option>Калининград</option><option>Мурманск</option><option>Ленинградская область</option><option>Санкт-Петербург</option><option value="unknown">Место уточняется</option></select></label>
       </section>
-      <nav class="afisha-categories container" aria-label="Категории мероприятий"><button class="active" data-category="all">Все события</button><button data-category="digital">Цифровые дни</button><button data-category="forum">Форумы</button><button data-category="accelerator">Акселераторы</button></nav>
+      <nav class="afisha-categories container" aria-label="Категории мероприятий"><button class="active" data-category="all">Все события</button><button data-category="digital">Цифровые дни</button><button data-category="forum">Форумы</button><button data-category="accelerator">Акселераторы</button><button data-category="business">Бизнес-встречи</button><button data-category="education">Обучение</button></nav>
       <section class="datebar container" aria-label="Выбор даты">
         <div class="datebar-heading"><span id="datebar-month">Ноябрь</span><div><button id="date-month-prev" class="date-month-nav" aria-label="Предыдущий месяц">←</button><button id="date-month-next" class="date-month-nav" aria-label="Следующий месяц">→</button></div></div>
         <div class="datebar-line"><button id="date-all" class="date-all" aria-pressed="true">Все<br>даты</button><div id="date-track" class="date-track" aria-label="Дни месяца"></div></div>
       </section>
       <section class="afisha-filter-area container" aria-label="Фильтры мероприятий">
-        <div class="afisha-filterbar"><button id="all-filters" class="afisha-filter-button" aria-expanded="false" aria-controls="event-filters"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg>Все фильтры<span id="active-filter-count" hidden></span></button><label class="afisha-type"><select id="event-type" aria-label="Тип события"><option value="all">Тип события</option><option value="digital">Цифровые дни</option><option value="forum">Форумы</option><option value="accelerator">Акселераторы</option></select></label><div class="view-toggle" aria-label="Вид мероприятий"><button id="grid-view" class="active" aria-label="Карточки" aria-pressed="true">▦</button><button id="calendar-view" aria-label="Календарь" aria-pressed="false">▤</button></div></div>
+        <div class="afisha-filterbar"><button id="all-filters" class="afisha-filter-button" aria-expanded="false" aria-controls="event-filters"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg>Все фильтры<span id="active-filter-count" hidden></span></button><label class="afisha-type"><select id="event-type" aria-label="Тип события"><option value="all">Тип события</option><option value="digital">Цифровые дни</option><option value="forum">Форумы</option><option value="accelerator">Акселераторы</option><option value="business">Бизнес-встречи</option><option value="education">Обучение</option></select></label><div class="view-toggle" aria-label="Вид мероприятий"><button id="grid-view" class="active" aria-label="Карточки" aria-pressed="true">▦</button><button id="calendar-view" aria-label="Календарь" aria-pressed="false">▤</button></div></div>
         <div id="event-filters" class="event-filter-panel" hidden><label class="select-field"><select id="month" aria-label="Месяц"><option value="all">Все месяцы</option><option value="11">Ноябрь</option><option value="12">Декабрь</option></select></label><button id="reset" class="reset-button">Сбросить фильтры ↺</button></div>
       </section>
       <section class="afisha-spotlight container" aria-label="Подборка мероприятий"><div id="spotlight-track" class="spotlight-track"></div><button id="spotlight-prev" class="spotlight-nav" aria-label="Предыдущее событие">‹</button><button id="spotlight-next" class="spotlight-nav" aria-label="Следующее событие">›</button></section>

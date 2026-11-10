@@ -2,12 +2,12 @@ import assert from 'node:assert/strict';
 import {browser} from './browser-support.mjs';
 const b=await browser(),count=()=>b.evaluate('document.querySelectorAll(".event-card").length');
 try{
- await b.viewport(1440,1100);await b.navigate('events.html','document.querySelectorAll(".date-day").length===30&&document.querySelectorAll(".event-card").length===5');
+ await b.viewport(1440,1100);await b.navigate('events.html','document.querySelectorAll(".date-day").length===30&&document.querySelectorAll(".event-card").length===7');
  await b.click('[data-day="2026-11-27"]');assert.equal(await count(),1);assert.match(await b.evaluate('document.getElementById("events-grid").textContent'),/AI Journey/);
  await b.click('[data-day="2026-11-28"]');assert.equal(await count(),1);assert.equal(await b.evaluate('document.querySelector(".date-day[aria-pressed=true]").dataset.day'),'2026-11-28');
  await b.click('[data-day="2026-11-29"]');assert.equal(await count(),0);assert.equal(await b.evaluate('document.getElementById("empty-events").hidden'),false);assert.equal(await b.evaluate('document.querySelector(".afisha-spotlight").hidden'),true);
- await b.click('#date-all');assert.equal(await count(),5);
- await b.click('#date-month-next');assert.equal(await count(),1);assert.equal(await b.evaluate('document.querySelectorAll(".date-day").length'),31);assert.match(await b.evaluate('document.getElementById("events-grid").textContent'),/Королевский/);
+ await b.click('#date-all');assert.equal(await count(),7);
+ await b.click('#date-month-next');assert.equal(await count(),2);assert.equal(await b.evaluate('document.querySelectorAll(".date-day").length'),31);assert.match(await b.evaluate('document.getElementById("events-grid").textContent'),/Королевский/);
  await b.click('[data-day="2026-12-10"]');assert.equal(await count(),1);await b.click('#all-filters');assert.equal(await b.evaluate('document.getElementById("event-filters").hidden'),false);
  await b.evaluate('document.getElementById("event-type").value="digital";document.getElementById("event-type").dispatchEvent(new Event("change"))');assert.equal(await count(),0);
  await b.evaluate('document.getElementById("reset").click();document.getElementById("event-type").value="accelerator";document.getElementById("event-type").dispatchEvent(new Event("change"));document.getElementById("region").value="Санкт-Петербург";document.getElementById("region").dispatchEvent(new Event("change"))');assert.equal(await count(),1);assert.equal(await b.evaluate('document.querySelector("[data-category=accelerator]").getAttribute("aria-pressed")'),'true');

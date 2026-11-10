@@ -1,5 +1,5 @@
-import {events,filterEvents} from './data.js';
-import {initShowcases,renderEventRail} from './showcase.js?v=catalog-theme-20261109';
+import {events,filterEvents} from './data.js?v=events-20261110';
+import {initShowcases,renderEventRail} from './showcase.js?v=events-20261110';
 import './motion.js';
 export function initHome({iconize}){
  initShowcases({iconize});renderEventRail(events);
