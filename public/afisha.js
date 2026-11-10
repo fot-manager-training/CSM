@@ -1,4 +1,4 @@
-import {eventYear,eventMonthBounds} from './data.js?v=events-20261110';
+import {eventYear,eventMonthBounds} from './data.js?v=arkhangelsk-20261110';
 const $=id=>document.getElementById(id);
 const safe=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 

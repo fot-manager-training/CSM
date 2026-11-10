@@ -3,10 +3,10 @@ import {browser} from './browser-support.mjs';
 const b=await browser();
 try{
  await b.viewport(1440,1100);
- await b.navigate('events.html','document.querySelectorAll(".event-card").length===7');
- await b.evaluate('localStorage.clear()');await b.navigate('events.html?check=clean','document.querySelectorAll(".event-card").length===7&&document.getElementById("saved-count").textContent==="0"');
+ await b.navigate('events.html','document.querySelectorAll(".event-card").length===8');
+ await b.evaluate('localStorage.clear()');await b.navigate('events.html?check=clean','document.querySelectorAll(".event-card").length===8&&document.getElementById("saved-count").textContent==="0"');
  assert.equal(await b.evaluate('document.querySelector("#cases-view,#partners-view,.case-showcase,.partner-showcase,.hero-wave")===null'),true,'event page must contain only event content');
- assert.deepEqual(await b.evaluate('[...document.querySelectorAll(".event-card .date")].map(x=>x.textContent)'),['28–31 мая','9 ноября','19 ноября','26 ноября','27–28 ноября','2 декабря','10 декабря']);
+ assert.deepEqual(await b.evaluate('[...document.querySelectorAll(".event-card .date")].map(x=>x.textContent)'),['28–31 мая','9 ноября','19 ноября','26 ноября','27–28 ноября','2 декабря','10 декабря','Дата — на сайте']);
  await b.evaluate('document.querySelector("[data-category=forum]").click()');assert.equal(await b.evaluate('document.querySelectorAll(".event-card").length'),1);
  await b.evaluate('document.getElementById("reset").click();document.getElementById("search").value="Мурманск";document.getElementById("search").dispatchEvent(new Event("input"))');assert.equal(await b.evaluate('document.querySelectorAll(".event-card").length'),1);
  await b.evaluate('document.getElementById("reset").click();document.getElementById("region").value="Санкт-Петербург";document.getElementById("region").dispatchEvent(new Event("change"))');assert.equal(await b.evaluate('document.querySelectorAll(".event-card").length'),3);assert.match(await b.evaluate('document.getElementById("events-grid").textContent'),/Королевский/);

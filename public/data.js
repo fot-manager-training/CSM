@@ -133,17 +133,35 @@ export const events = [
         "href": "./assets/events/materials/dss-spb-program.pdf"
       }
     ]
+  },
+  {
+    "id": "arkhangelsk",
+    "title": "Цифровой день в Архангельске",
+    "city": "Архангельск",
+    "category": "digital",
+    "type": "Цифровой день",
+    "start": null,
+    "end": null,
+    "date": "Дата — на сайте",
+    "summary": "Сайт мероприятия и QR-код для перехода к информации о цифровом дне.",
+    "description": "Цифровой день в Архангельске. Откройте сайт мероприятия по ссылке или отсканируйте QR-код, чтобы уточнить дату, программу и условия участия.",
+    "time": "Уточните на сайте",
+    "venue": "Уточните на сайте",
+    "registrationText": "Дата, время и площадка пока не подтверждены на платформе. Уточните информацию на сайте мероприятия.",
+    "websiteUrl": "https://arhangelsk-digitalday.ru",
+    "qrImage": "./assets/events/arkhangelsk-qr.jpg"
   }
 ];
 export const eventYear=2026;
-export const eventMonthBounds={min:Math.min(...events.map(e=>Number(e.start.slice(5,7)))),max:Math.max(...events.map(e=>Number(e.end.slice(5,7))))};
-export const eventMonths=[...new Set(events.flatMap(e=>[e.start.slice(5,7),e.end.slice(5,7)]))].sort();
+export const eventMonthBounds={min:Math.min(...events.filter(e=>e.start).map(e=>Number(e.start.slice(5,7)))),max:Math.max(...events.filter(e=>e.end).map(e=>Number(e.end.slice(5,7))))};
+export const eventMonths=[...new Set(events.filter(e=>e.start&&e.end).flatMap(e=>[e.start.slice(5,7),e.end.slice(5,7)]))].sort();
 export const sourceUrl = 'https://sber-northwest-casebook.tenderlion1.chatgpt.site/';
 export function filterEvents(items, { category='all', query='', region='all', month='all', day='all', savedOnly=false, saved=[] }={}) {
   const normalized = query.trim().toLocaleLowerCase('ru');
-  return items.filter(e => (category==='all'||e.category===category) && (region==='all'||(region==='unknown' ? !e.city : e.city===region)) && (month==='all'||e.start.slice(5,7)===month) && (day==='all'||(e.start<=day&&e.end>=day)) && (!savedOnly||saved.includes(e.id)) && (!normalized||`${e.title} ${e.city||''} ${e.summary} ${e.type} ${e.venue||''} ${(e.topics||[]).join(' ')} ${e.id==='aij'?'AIJ искусственный интеллект':''}`.toLocaleLowerCase('ru').includes(normalized)));
+  return items.filter(e => (category==='all'||e.category===category) && (region==='all'||(region==='unknown' ? !e.city : e.city===region)) && (month==='all'||e.start?.slice(5,7)===month) && (day==='all'||(e.start&&e.end&&e.start<=day&&e.end>=day)) && (!savedOnly||saved.includes(e.id)) && (!normalized||`${e.title} ${e.city||''} ${e.summary} ${e.type} ${e.venue||''} ${(e.topics||[]).join(' ')} ${e.id==='aij'?'AIJ искусственный интеллект':''}`.toLocaleLowerCase('ru').includes(normalized)));
 }
 export function calendarText(e) {
+  if(!e.start||!e.end)throw new RangeError('Дата события пока не подтверждена');
   const dayAfter = new Date(e.end+'T00:00:00Z'); dayAfter.setUTCDate(dayAfter.getUTCDate()+1);
   const escape = value => String(value).replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
   const stamp=date=>date.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');

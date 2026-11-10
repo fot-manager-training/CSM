@@ -17,10 +17,10 @@ window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
  if(page==='home'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initHome}=await import('./home.js?v=ribbon-motion-20261110');initHome({iconize});
+  const {initHome}=await import('./home.js?v=arkhangelsk-20261110');initHome({iconize});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else if(page==='events'){
-  const {initEvents,routeEvent}=await import('./events-ui.js?v=events-20261110');
+  const {initEvents,routeEvent}=await import('./events-ui.js?v=arkhangelsk-20261110');
   initEvents({iconize,notify});routeEvent();window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())routeEvent();});
 
  }else{

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {browser} from './browser-support.mjs';
 const b=await browser();
 try{
- await b.viewport(1440);await b.navigate('events.html','document.querySelectorAll(".event-card").length===7');
+ await b.viewport(1440);await b.navigate('events.html','document.querySelectorAll(".event-card").length===8');
  await b.evaluate('document.querySelector(".favorite").scrollIntoView({block:"center",behavior:"instant"})');await b.delay(80);
  assert.equal(await b.evaluate('[...document.querySelectorAll(".favorite")].every(button=>{const a=button.getBoundingClientRect(),svg=button.querySelector("svg").getBoundingClientRect();return svg.left>=a.left&&svg.right<=a.right&&svg.top>=a.top&&svg.bottom<=a.bottom})'),true);
  const id=await b.evaluate('document.querySelector(".favorite").dataset.save'),before=await b.evaluate('document.querySelector(".favorite").getAttribute("aria-pressed")');
@@ -16,6 +16,12 @@ try{
  assert.equal(await b.evaluate('document.querySelectorAll(".event-card").length'),1);assert.match(await b.evaluate('document.getElementById("datebar-month").textContent'),/май/i);assert.equal(await b.evaluate('document.querySelectorAll(".date-day").length'),31);
  await b.evaluate('document.getElementById("calendar-view").click()');assert.equal(await b.evaluate('document.querySelectorAll(".calendar-event").length'),4);
  await b.evaluate('document.getElementById("reset").click()');assert.match(await b.evaluate('document.querySelector(".calendar-heading").textContent'),/ноябрь/i);
+ await b.navigate('events.html#event/arkhangelsk','document.getElementById("event-dialog")?.open');
+ assert.match(await b.evaluate('document.getElementById("dialog-title").textContent'),/Архангельск/);
+ assert.equal(await b.evaluate('document.getElementById("download-calendar")===null'),true);
+ await b.wait('document.querySelector(".event-qr img").complete&&document.querySelector(".event-qr img").naturalWidth>0');
+ assert.equal(await b.evaluate('document.querySelector(".event-qr a").href'),'https://arhangelsk-digitalday.ru/');
+ for(const width of [390,320]){await b.viewport(width);assert.equal(await b.evaluate('document.getElementById("event-dialog").scrollWidth<=document.getElementById("event-dialog").clientWidth'),true);await b.evaluate('document.querySelector(".event-qr").scrollIntoView({block:"center",behavior:"instant"})');if(width===390)await b.screenshot('arkhangelsk-qr-390');}
  for(const width of [1440,390,320]){await b.viewport(width);for(const id of ['business-dinner','dss-spb']){await b.navigate(`events.html#event/${id}`,'document.getElementById("event-dialog")?.open');assert.equal(await b.evaluate('document.querySelector(".ics-note")===null'),true);assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth'),true);assert.equal(await b.evaluate('document.getElementById("event-dialog").scrollWidth<=document.getElementById("event-dialog").clientWidth'),true);if(width!==320){await b.evaluate('document.querySelector(".event-program").scrollIntoView({block:"start",behavior:"instant"})');await b.screenshot(`new-event-${id}-${width}`);}}}
- assert.deepEqual(b.errors,[]);console.log('PASS: SVG favorites fit their circles and toggle without opening a dialog; event times, venues, agenda, speakers, PDFs, May calendar and reset; .ics note removed; desktop/mobile detail layouts.');
+ assert.deepEqual(b.errors,[]);console.log('PASS: SVG favorites fit their circles and toggle without opening a dialog; event times, venues, agenda, speakers, PDFs, May calendar and reset; undated Arkhangelsk with the original QR and no calendar export; .ics note removed; desktop/mobile detail layouts.');
 }finally{b.close();}
