@@ -3194,7 +3194,9 @@ export const cases = [
         1,
         4
       ]
-    }
+    },
+    "industry": "ЖКХ и сервисы",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-02",
@@ -3236,7 +3238,9 @@ export const cases = [
         1,
         4
       ]
-    }
+    },
+    "industry": "Культура и музеи",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-03",
@@ -3283,7 +3287,9 @@ export const cases = [
         1,
         6
       ]
-    }
+    },
+    "industry": "Недвижимость",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-04",
@@ -3320,7 +3326,9 @@ export const cases = [
         1,
         6
       ]
-    }
+    },
+    "industry": "Питание и сервисы",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-05",
@@ -3357,7 +3365,9 @@ export const cases = [
         1,
         4
       ]
-    }
+    },
+    "industry": "Медицина и образование",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-06",
@@ -3399,7 +3409,9 @@ export const cases = [
         2,
         5
       ]
-    }
+    },
+    "industry": "Промышленность и торговля",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-07",
@@ -3446,7 +3458,9 @@ export const cases = [
         2,
         5
       ]
-    }
+    },
+    "industry": "Агропромышленность",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-08",
@@ -3488,7 +3502,9 @@ export const cases = [
         2,
         5
       ]
-    }
+    },
+    "industry": "Транспорт и логистика",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-09",
@@ -3525,7 +3541,9 @@ export const cases = [
         2,
         5
       ]
-    }
+    },
+    "industry": "Недвижимость",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-10",
@@ -3562,7 +3580,9 @@ export const cases = [
         2,
         5
       ]
-    }
+    },
+    "industry": "Промышленность и торговля",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-11",
@@ -3609,7 +3629,9 @@ export const cases = [
         2,
         6
       ]
-    }
+    },
+    "industry": "Питание и сервисы",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-12",
@@ -3656,7 +3678,9 @@ export const cases = [
         2,
         6
       ]
-    }
+    },
+    "industry": "Транспорт и логистика",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-13",
@@ -3708,7 +3732,9 @@ export const cases = [
         2,
         6
       ]
-    }
+    },
+    "industry": "Промышленность и торговля",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-14",
@@ -3755,7 +3781,9 @@ export const cases = [
         3,
         6
       ]
-    }
+    },
+    "industry": "HR и коммуникации",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-15",
@@ -3817,7 +3845,9 @@ export const cases = [
         3,
         6
       ]
-    }
+    },
+    "industry": "HR и коммуникации",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-16",
@@ -3847,7 +3877,9 @@ export const cases = [
       "slides": [
         3
       ]
-    }
+    },
+    "industry": "Медицина и образование",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-17",
@@ -3909,7 +3941,9 @@ export const cases = [
         3,
         5
       ]
-    }
+    },
+    "industry": "Финансы и учёт",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-18",
@@ -3951,7 +3985,9 @@ export const cases = [
         3,
         5
       ]
-    }
+    },
+    "industry": "Недвижимость",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-19",
@@ -3992,7 +4028,9 @@ export const cases = [
       "slides": [
         3
       ]
-    }
+    },
+    "industry": "Промышленность и образование",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   },
   {
     "id": "case-23",
@@ -4010,6 +4048,8 @@ export const cases = [
     "metricValue": "−21%",
     "metricDescription": "затрат на доставку в РЦ",
     "portfolio": "В том числе Северо-Запад",
-    "source": "Практика из СберПро"
+    "source": "Практика из СберПро",
+    "industry": "Транспорт и логистика",
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
   }
 ];

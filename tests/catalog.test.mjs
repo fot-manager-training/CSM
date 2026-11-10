@@ -94,3 +94,12 @@ test('partner search covers sourced industries, contacts, products and full role
  assert.ok(filterPartners({role:'Консультант'}).some(p=>p.id==='partner-1'));
  assert.ok(partners.every(p=>p.gigaCowork==='не уточнено'));
 });
+test('case industries cover every project and combine with the existing filters',()=>{
+ assert.ok(cases.every(c=>c.industry&&c.industrySource));
+ assert.equal(new Set(cases.map(c=>c.industry)).size,11);
+ assert.deepEqual(filterCases({industry:'Недвижимость'}).map(c=>c.id),['case-03','case-09','case-18']);
+ assert.deepEqual(filterCases({industry:'Недвижимость',category:'Финансы',query:'1С'}).map(c=>c.id),['case-18']);
+ assert.deepEqual(filterCases({industry:'Транспорт и логистика',status:'Целевые показатели'}).map(c=>c.id),['case-12']);
+ assert.deepEqual(filterCases({industry:'Культура и музеи',savedOnly:true,saved:['case-02']}).map(c=>c.id),['case-02']);
+ assert.equal(filterCases({industry:'Несуществующая отрасль'}).length,0);
+});

@@ -1,4 +1,4 @@
-import {cases,partners} from './content.js?v=partners-20261109';
+import {cases,partners} from './content.js?v=catalog-theme-20261109';
 export {cases,partners};
 const normalize=value=>String(value??'').toLocaleLowerCase('ru').replaceAll('ё','е').trim();
 export const technologies=[...new Set(partners.flatMap(p=>[...p.tags,...(p.products||[])]).concat(['Биометрия','Блокчейн','Видеоаналитика и видеонаблюдение','Интернет-вещей (IoT)','Контроль доступа','Кибербезопасность','Роботы и дроны','RPA','Дополненная и виртуальная реальность (AR/VR)','Аудиоаналитика']))].sort((a,b)=>a.localeCompare(b,'ru'));
@@ -10,6 +10,7 @@ export function filterPartners({query='',role='all',technology='all',accreditati
   return (!q||text.includes(q))&&(role==='all'||(p.roles?.length?p.roles.includes(role):p.role===role))&&(technology==='all'||normalize([p.description,...p.tags,...(p.products||[])].join(' ')).includes(tech))&&(accreditation==='all'||p.accreditation===accreditation);
  });
 }
-export function filterCases({query='',category='all',status='all',savedOnly=false,saved=[]}={}){
- const q=normalize(query);return cases.filter(c=>(!q||normalize([c.client,c.title,c.description,...(c.details||[]),c.stage,...(c.metrics||[]).flatMap(m=>[m.value,m.description,m.context]),...c.tags,c.category,c.portfolio].join(' ')).includes(q))&&(category==='all'||c.category===category)&&(status==='all'||c.metricKind===status)&&(!savedOnly||saved.includes(c.id)));
+export const caseIndustries=[...new Set(cases.map(c=>c.industry).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ru'));
+export function filterCases({query='',category='all',industry='all',status='all',savedOnly=false,saved=[]}={}){
+ const q=normalize(query);return cases.filter(c=>(!q||normalize([c.client,c.title,c.industry,c.description,...(c.details||[]),c.stage,...(c.metrics||[]).flatMap(m=>[m.value,m.description,m.context]),...c.tags,c.category,c.portfolio].join(' ')).includes(q))&&(category==='all'||c.category===category)&&(industry==='all'||c.industry===industry)&&(status==='all'||c.metricKind===status)&&(!savedOnly||saved.includes(c.id)));
 }
