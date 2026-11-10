@@ -24,7 +24,7 @@ if(!migrateLegacyRoute()){
 
  }else{
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=no-sources-20261110');
+  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=compact-cards-20261110');
   initCatalog({iconize,notify});openCatalogRoute(location.hash.slice(1));
   window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())openCatalogRoute(location.hash.slice(1));});
  }
