@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="./site.css?v=events-20261110">
   <link rel="stylesheet" href="./home.css?v=hero-clean-20261110">
   <link rel="stylesheet" href="./navigation.css?v=afisha-20261106">
-  <link rel="stylesheet" href="./dark.css?v=palette-gull-20261111">
-  <script type="module" src="./app.js?v=radar-20261111"></script>
+  <link rel="stylesheet" href="./dark.css?v=report-dark-20261111">
+  <script type="module" src="./app.js?v=report-dark-20261111"></script>
 </head>
 <body data-page="home">
   <header class="header" data-menu-open="false"><div class="container header-inner">
@@ -24,16 +24,17 @@
   </div></header>
   <main id="main-content">
     <section class="hero" id="content">
+      <img class="seagull-hero seagull-hero-left" src="./assets/seagull.webp?v=flight-20261111" alt="" width="1536" height="1024" aria-hidden="true">
+      <img class="seagull-hero seagull-hero-right" src="./assets/seagull.webp?v=flight-20261111" alt="" width="1536" height="1024" aria-hidden="true">
       <div class="hero-scene container">
         <span class="hero-label">ПЛАТФОРМА DTaaS · СЕВЕРО-ЗАПАД</span>
         <svg class="hero-wave" viewBox="0 -80 1440 520" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs><path id="wave-path" d="M-240 200C50-40 260 30 455 200S845 410 1110 180 1470 0 1740 180"/></defs><use href="#wave-path" fill="none" stroke="#accbff" stroke-width="46"/><text><textPath href="#wave-path" startOffset="0%">ЛЮДИ · ТЕХНОЛОГИИ · ВОЗМОЖНОСТИ · ЦИФРОВОЙ СЕВЕРО-ЗАПАД · ЛЮДИ · ТЕХНОЛОГИИ · ВОЗМОЖНОСТИ · ЦИФРОВОЙ СЕВЕРО-ЗАПАД · ЛЮДИ · ТЕХНОЛОГИИ · ВОЗМОЖНОСТИ · ЦИФРОВОЙ СЕВЕРО-ЗАПАД · ЛЮДИ · ТЕХНОЛОГИИ · ВОЗМОЖНОСТИ · ЦИФРОВОЙ СЕВЕРО-ЗАПАД · ЛЮДИ · ТЕХНОЛОГИИ · ВОЗМОЖНОСТИ · ЦИФРОВОЙ СЕВЕРО-ЗАПАД · ЛЮДИ · ТЕХНОЛОГИИ · ВОЗМОЖНОСТИ · ЦИФРОВОЙ СЕВЕРО-ЗАПАД · <animate attributeName="startOffset" from="0%" to="-25%" dur="50s" repeatCount="indefinite"/></textPath></text></svg>
         <h1>скажите «да»<span>цифровым возможностям</span></h1>
-        <img class="seagull-hero" src="./assets/seagull.webp?v=flight-20261111" alt="Чайка в полёте" width="1536" height="1024">
         <p class="hero-lead">Встречайтесь с людьми, находите решения<br>и создавайте будущее своего бизнеса.</p>
         <a class="primary-button" href="./events.html" id="hero-cta">Найти своё событие <span>↗</span></a>
       </div>
     </section>
-    <section class="about-management container" id="about" aria-labelledby="about-title"><div class="about-intro"><span class="eyebrow">НАШЕ УПРАВЛЕНИЕ</span><h2 id="about-title">Помогаем бизнесу<br>меняться с ИИ</h2></div><div class="about-copy"><p>Мы — управление по ИИ-трансформации и технологическому развитию клиентов Северо-Западного банка Сбера.</p><p>Предоставляем цифровую трансформацию бизнеса как услугу: вместе с клиентом находим точки роста, подбираем технологии и партнёров, запускаем пилоты и сопровождаем внедрение до измеримого результата.</p><p>Соединяем экспертизу Сбера, потенциал GenAI и опыт отраслевых команд, чтобы менять процессы, повышать эффективность и создавать новые возможности роста.</p></div><div class="about-services"><article><span>01</span><h3>Найти задачу</h3><p>Разбираем процессы, данные и приоритеты бизнеса. Выбираем, где технологии дадут полезный эффект.</p></article><article><span>02</span><h3>Проверить решение</h3><p>Подбираем подход и команду. Проверяем гипотезу на пилоте и оцениваем результат вместе с клиентом.</p></article><article><span>03</span><h3>Масштабировать эффект</h3><p>Помогаем встроить решение в работу и развивать цифровые компетенции команды.</p></article></div></section>
+    <section class="about-management container" id="about" aria-labelledby="about-title"><div class="about-intro"><span class="eyebrow">НАШЕ УПРАВЛЕНИЕ</span><h2 id="about-title">Помогаем бизнесу<br>меняться с ИИ</h2></div><div class="about-copy"><p>Мы — управление по ИИ-трансформации и технологическому развитию клиентов Северо-Западного банка Сбера.</p><p>Предоставляем цифровую трансформацию бизнеса как услугу: вместе с клиентом находим точки роста, подбираем технологии и партнёров, запускаем пилоты и сопровождаем внедрение до измеримого результата.</p><p>Соединяем экспертизу Сбера, потенциал GenAI и опыт отраслевых команд, чтобы менять процессы, повышать эффективность и создавать новые возможности роста.</p></div></section>
     <section class="event-discovery container" aria-labelledby="discovery-title">
       <div class="discovery-heading"><h2 id="discovery-title">Выберите событие<br><span>на своей волне</span></h2><p>Знакомства, идеи и технологии,<br>которые расширяют возможности.</p></div>
       <div class="discovery-layout"><div class="discovery-categories" aria-label="Формат события"><button data-category="all" class="active">Все события <span>↗</span></button><button data-category="digital">Цифровые дни <span>↗</span></button><button data-category="forum">Форумы <span>↗</span></button><button data-category="accelerator">Акселераторы <span>↗</span></button></div><div class="circle-carousel"><div class="circle-toolbar"><span>Афиша / 2026</span><div><span id="circle-position"></span><button id="circle-motion" aria-label="Приостановить вращение" aria-pressed="false"></button></div></div><div class="circle-stage" id="circle-stage" tabindex="0" role="region" aria-roledescription="карусель" aria-label="Мероприятия. Перетаскивайте мышью, листайте свайпом или клавишами влево и вправо."></div><p class="circle-hint">Потяните, чтобы выбрать своё событие</p><div class="circle-caption" id="circle-caption" aria-live="polite"></div></div></div>

@@ -25,7 +25,7 @@ if(!migrateLegacyRoute()){
 
  }else if(page==='learning'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initLearning}=await import('./learning.js?v=radar-20261111');initLearning({iconize,notify});
+  const {initLearning}=await import('./learning.js?v=report-dark-20261111');initLearning({iconize,notify});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else{
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};

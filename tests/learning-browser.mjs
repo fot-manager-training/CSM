@@ -18,7 +18,7 @@ try{
  await click('[data-checkup=next]');await b.navigate('learning.html?resume=1','document.querySelector("[data-checkup=start]")');await click('[data-checkup=start]');assert.equal(await b.evaluate('document.querySelector("input").name'),questions[1].id);
  for(const q of questions.slice(1))await answer(q,q.correct);
  assert.equal(await b.evaluate('document.querySelector(".result-total-score").textContent'),'100');assert.match(await b.evaluate('document.querySelector(".result-total").textContent'),/100 из 100/);
- assert.equal(await b.evaluate('document.querySelector(".level-step.is-current>span").textContent'),'Высокий');assert.equal(await b.evaluate('document.querySelectorAll(".result-breakdown dl>div").length'),8);assert.ok(await b.evaluate('document.querySelectorAll(".learning-recommendation").length>=2'));
+ assert.equal(await b.evaluate('document.querySelector(".level-step.is-current>span").textContent'),'Высокий');assert.equal(await b.evaluate('document.querySelectorAll(".result-competencies dl>div").length'),8);assert.ok(await b.evaluate('document.querySelectorAll(".learning-recommendation").length>=2'));
  await b.evaluate('document.getElementById("checkup").scrollIntoView({block:"start",behavior:"instant"})');await b.screenshot('learning-result-desktop');
  await b.navigate('learning.html?restore=1','document.querySelector(".result-total-score")');assert.equal(await b.evaluate('document.querySelector(".result-total-score").textContent'),'100');
  await click('[data-checkup=restart]');for(const q of questions)await answer(q,(q.correct+1)%q.options.length);
@@ -33,7 +33,7 @@ try{
  for(const q of questions){const index=seen[q.competency]||0;seen[q.competency]=index+1;await answer(q,index<targets[q.competency]?q.correct:(q.correct+1)%4);}
  assert.equal(await b.evaluate('document.querySelector(".result-total-score").textContent'),'72');assert.equal(await b.evaluate('document.querySelector(".level-step[aria-current=step]>span").textContent'),'Продвинутый');
  assert.equal(await b.evaluate('document.querySelectorAll(".radar-wide .radar-point").length'),8);assert.equal(await b.evaluate('document.querySelectorAll(".level-step").length'),5);
- await click('.result-breakdown summary');assert.equal(await b.evaluate('document.querySelectorAll(".result-breakdown dt").length'),8);await click('.result-breakdown summary');
+ assert.equal(await b.evaluate('document.querySelectorAll(".result-competencies progress").length'),8);assert.equal(await b.evaluate('document.querySelector(".result-banner,.competency-donut")===null'),true);assert.notEqual(await b.evaluate('getComputedStyle(document.querySelector(".checkup-result")).backgroundColor'),'rgb(250, 251, 251)');
  await click('.question-review summary');assert.equal(await b.evaluate('document.querySelectorAll(".question-review article").length'),32);await click('.question-review summary');
  await b.navigate('learning.html?mixed=1','document.querySelector(".result-total-score")');assert.equal(await b.evaluate('document.querySelector(".result-total-score").textContent'),'72');
  for(const width of [320,390,768,1440]){

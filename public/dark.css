@@ -14,7 +14,7 @@ body{background:var(--page);color:var(--ink)}
 .header .saved-button{background:#263650;color:#ecf3ff;border:1px solid #3a4c6a}
 .header .saved-button.active{background:#315cb8}
 body:is([data-page=cases],[data-page=partners],[data-page=learning]) main{padding-top:0}
-.hero{background:linear-gradient(180deg,#14233e 0%,#101c30 70%,var(--page) 100%)}
+.hero{position:relative;background:linear-gradient(180deg,#14233e 0%,#101c30 70%,var(--page) 100%)}
 .hero-label,.catalog-hero .breadcrumbs{color:#a5b5ce}
 .hero h1,.catalog-hero .page-heading h1{color:#95b5ff}
 .hero h1>span{color:#edf2fc}
@@ -23,7 +23,7 @@ body:is([data-page=cases],[data-page=partners],[data-page=learning]) main{paddin
 .hero-wave text,.catalog-curve text{fill:#c7daff}
 .catalog-hero{background:linear-gradient(180deg,#14233e 0%,#111e33 60%,var(--page) 100%)}
 .hero-scene{min-height:565px}
-.seagull-hero{position:absolute;right:-10px;top:275px;width:270px;height:auto;pointer-events:none;filter:drop-shadow(0 16px 26px #060b183b);animation:seagull-float 9s ease-in-out infinite;z-index:2}
+
 .seagull-section{position:absolute;right:3%;top:75px;width:150px;height:auto;pointer-events:none;z-index:1;animation:seagull-float 10s ease-in-out infinite}
 .afisha-search h1{display:flex;align-items:center;gap:10px}.seagull-afisha{width:60px;height:auto;pointer-events:none}
 .footer-seagull{width:62px;height:auto;flex-shrink:0}
@@ -32,9 +32,9 @@ body:is([data-page=cases],[data-page=partners],[data-page=learning]) main{paddin
 .about-intro h2{font-size:42px;line-height:1.1;letter-spacing:-1.5px;margin-top:17px}
 .about-copy p{font-size:14px;line-height:1.9;color:#b7c4d8;margin:0 0 17px}
 .about-copy p:first-child{color:#e0eaff;font-size:16px}
-.about-services{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.about-services article{background:#131f32;border:1px solid #293b55;border-radius:18px;padding:25px}
-.about-services article>span{font-size:11px;color:var(--accent)}.about-services h3{font-size:21px;line-height:1.3;margin:18px 0 10px}.about-services p{font-size:12px;color:var(--muted);line-height:1.8;margin:0}
+
+
+
 .case-showcase{background:linear-gradient(180deg,var(--page) 0,#14213a var(--section-fade),#14213a calc(100% - var(--section-fade)),var(--page) 100%)}
 .practice-heading>a,.practice-tabs button{color:#bfd2f5;border-color:#3b5378}.practice-tabs button[aria-pressed=true]{background:#315ebc;color:#fff}.practice-tabs button:hover:not([aria-pressed=true]){background:#263d61}
 .accordion-item{background:#b4ccff;--accordion-ink:#11213d;--accordion-muted:#142743;--accordion-accent:#193559}
@@ -63,11 +63,11 @@ dialog{background:#111c2d;color:#e8f0ff;border:1px solid #354765;box-shadow:0 25
 .case-project-stage,.partner-contact,.event-program li,.event-speakers article{background:#192a42}.case-project-stage h3{color:#a5bad9}.case-project-stage p{color:#dce8fc}.event-program p,.event-speakers p,.event-terms{color:#adbfdb}.event-qr{background:#1b2e4c}.event-qr img{background:#fff;filter:none}.event-qr p{color:#b3c7e4}
 .toast{background:#254576;color:#e8f2ff;border:1px solid #5479b2}.page-heading p,.breadcrumbs,.results-line,.reset-button,.results-note{color:#a1b3cf}.eyebrow{color:#a4b8d8}
 .learning-course,.checkup-shell{background:#131f32;border-color:#2c405e}.learning-recommendation{background:#1c3153;border-color:#456798}.question-option{background:#111c2e}.question-option:has(input:checked){background:#203d67}.question-progress{background:#1e304c}.fot-training{background:linear-gradient(135deg,#183252,#142239)}
-@media(max-width:1100px){.seagull-hero{width:210px;top:255px;right:0}.seagull-section{width:110px;top:80px;right:20px}.about-intro h2{font-size:35px}}
-@media(max-width:800px){.seagull-hero{width:170px;top:235px;right:-12px}.about-management{gap:28px}.about-copy p{font-size:12px}.about-copy p:first-child{font-size:14px}.about-services{gap:13px}.about-services article{padding:20px}.about-services h3{font-size:18px}}
-@media(max-width:760px){.dtaas-wordmark{font-size:23px;gap:4px}.dtaas-symbol{width:25px;height:32px;flex-basis:25px}.seagull-afisha{width:42px}.footer-seagull{width:45px}.about-management{grid-template-columns:1fr;padding-top:25px;padding-bottom:25px}.about-services{grid-template-columns:1fr}.about-intro h2{font-size:34px}.seagull-section{width:80px;top:80px;right:15px}}
-@media(max-width:580px){.hero-scene{min-height:0;padding-bottom:45px}.seagull-hero{display:block;position:relative;inset:auto;width:260px;max-width:88%;margin:18px auto 0}.hero-lead{margin:20px auto 23px}.hero h1{margin-top:30px}.hero-scene{padding-top:26px}.seagull-section{width:76px}.afisha-search h1{min-width:135px}.footer .dtaas-wordmark{font-size:20px}.footer .dtaas-symbol{width:23px;flex-basis:23px;height:28px}}
-@media(max-width:380px){.header .dtaas-wordmark{font-size:20px}.header .dtaas-symbol{width:21px;flex-basis:21px;height:30px}.header .dtaas-logo{width:78px}.seagull-hero{width:230px}.seagull-afisha{width:35px}.afisha-search h1{min-width:125px}}
+@media(max-width:1100px){.seagull-section{width:110px;top:80px;right:20px}.about-intro h2{font-size:35px}}
+@media(max-width:800px){.about-management{gap:28px}.about-copy p{font-size:12px}.about-copy p:first-child{font-size:14px}}
+@media(max-width:760px){.dtaas-wordmark{font-size:23px;gap:4px}.dtaas-symbol{width:25px;height:32px;flex-basis:25px}.seagull-afisha{width:42px}.footer-seagull{width:45px}.about-management{grid-template-columns:1fr;padding-top:25px;padding-bottom:25px}.about-intro h2{font-size:34px}.seagull-section{width:80px;top:80px;right:15px}}
+@media(max-width:580px){.hero-scene{min-height:0;padding-bottom:45px}.hero-lead{margin:20px auto 23px}.hero h1{margin-top:30px}.hero-scene{padding-top:26px}.seagull-section{width:76px}.afisha-search h1{min-width:135px}.footer .dtaas-wordmark{font-size:20px}.footer .dtaas-symbol{width:23px;flex-basis:23px;height:28px}}
+@media(max-width:380px){.header .dtaas-wordmark{font-size:20px}.header .dtaas-symbol{width:21px;flex-basis:21px;height:30px}.header .dtaas-logo{width:78px}.seagull-afisha{width:35px}.afisha-search h1{min-width:125px}}
 @media(prefers-reduced-motion:reduce){.seagull-hero,.seagull-section{animation:none}}
 
 /* Keep the original coloured DTaaS symbol at its natural proportions. */
@@ -78,3 +78,14 @@ dialog{background:#111c2d;color:#e8f0ff;border:1px solid #354765;box-shadow:0 25
 @media(max-width:380px){.header .dtaas-symbol{--symbol-size:21px}}
 
 .event-links{display:flex;gap:13px;align-items:center;flex-wrap:wrap;margin:14px 0 0;color:#bad0fc;font-size:11px}.event-links a:hover{text-decoration:underline}.event-links button{padding:5px 10px;border:1px solid #3a5277;border-radius:20px;background:#1d304e;color:#c8dbff;font-size:10px}
+
+/* Two gulls follow the marked positions on the hero. */
+.seagull-hero{position:absolute;inset:auto;width:260px;height:auto;pointer-events:none;z-index:2;animation:seagull-float 9s ease-in-out infinite;filter:drop-shadow(0 12px 22px #060b182e)}
+.seagull-hero-left{width:285px;left:calc(13.5% - 142.5px);top:380px;animation-delay:-4s}
+.seagull-hero-right{width:240px;left:calc(max(71%,50% + 440px) - 120px);top:100px;scale:-1 1;rotate:-6deg}
+@media(max-width:1600px){.seagull-hero-right{width:210px;left:calc(83% - 105px);top:90px}}
+@media(max-width:1100px){.seagull-hero-left{width:200px;left:calc(11% - 100px);top:355px}.seagull-hero-right{width:170px;left:calc(88% - 85px);top:85px}}
+@media(max-width:800px){.seagull-hero-left{width:150px;left:calc(10% - 75px);top:365px}.seagull-hero-right{width:125px;left:calc(87% - 62.5px);top:110px}}
+@media(max-width:580px){.hero-scene{min-height:520px}.hero-lead{margin:210px auto 23px}.seagull-hero-left{width:155px;left:calc(22% - 77.5px);top:305px}.seagull-hero-right{width:135px;left:calc(80% - 67.5px);top:245px}}
+@media(max-width:380px){.seagull-hero-left{width:140px;left:calc(23% - 70px)}.seagull-hero-right{width:115px;left:calc(79% - 57.5px)}}
+@media(prefers-reduced-motion:reduce){.seagull-hero{animation:none}}

@@ -1,14 +1,14 @@
 export const assessmentVersion='csm-ai-v2';
 export const fotTrainingUrl='https://fot-manager-training.github.io/fot-manager-training/?choose-segment=1';
 export const competencies=[
- {id:'strategy',title:'Стратегия и управление',label:['Стратегия','и управление'],color:'#28c8a9',description:'Выбор задачи, владелец процесса и маршрут масштабирования.',course:'genai-sales'},
- {id:'infrastructure',title:'Инфраструктура',label:['Инфраструктура'],color:'#20b99c',description:'Среда исполнения, интеграции, наблюдаемость и ограничения.',course:'ai-disrupt'},
- {id:'data',title:'Данные',label:['Данные'],color:'#16a990',description:'Доступность, качество, актуальность и разрешённый контекст.',course:'ai-disrupt'},
- {id:'people',title:'Кадры и компетенции',label:['Кадры','и компетенции'],color:'#129b89',description:'Роли, обучение, принятие изменений и зрелость команды.',course:'pdlc-quick'},
- {id:'ethics',title:'Этика',label:['Этика'],color:'#0c8b83',description:'Ответственность, конфиденциальность и контроль рисков.',course:'pdlc-deep'},
- {id:'research',title:'Исследования',label:['Исследования'],color:'#087e7b',description:'Гипотезы, тесты, пилоты и проверяемые доказательства.',course:'pdlc-deep'},
- {id:'usage',title:'Использование',label:['Использование'],color:'#076d73',description:'Спецификация, рабочие сценарии и взаимодействие с агентом.',course:'pdlc-quick'},
- {id:'value',title:'Эффект от искусственного интеллекта',label:['Эффект','от искусственного интеллекта'],color:'#075b68',description:'Бизнес-метрики, принятый результат и экономика внедрения.',course:'genai-sales'}
+ {id:'strategy',title:'Стратегия и управление',label:['Стратегия','и управление'],color:'#8cafff',description:'Выбор задачи, владелец процесса и маршрут масштабирования.',course:'genai-sales'},
+ {id:'infrastructure',title:'Инфраструктура',label:['Инфраструктура'],color:'#6ad9cc',description:'Среда исполнения, интеграции, наблюдаемость и ограничения.',course:'ai-disrupt'},
+ {id:'data',title:'Данные',label:['Данные'],color:'#c3a0ff',description:'Доступность, качество, актуальность и разрешённый контекст.',course:'ai-disrupt'},
+ {id:'people',title:'Кадры и компетенции',label:['Кадры','и компетенции'],color:'#f2bf74',description:'Роли, обучение, принятие изменений и зрелость команды.',course:'pdlc-quick'},
+ {id:'ethics',title:'Этика',label:['Этика'],color:'#f49cba',description:'Ответственность, конфиденциальность и контроль рисков.',course:'pdlc-deep'},
+ {id:'research',title:'Исследования',label:['Исследования'],color:'#87cfea',description:'Гипотезы, тесты, пилоты и проверяемые доказательства.',course:'pdlc-deep'},
+ {id:'usage',title:'Использование',label:['Использование'],color:'#a6d48b',description:'Спецификация, рабочие сценарии и взаимодействие с агентом.',course:'pdlc-quick'},
+ {id:'value',title:'Эффект от искусственного интеллекта',label:['Эффект','от искусственного интеллекта'],color:'#d5aeff',description:'Бизнес-метрики, принятый результат и экономика внедрения.',course:'genai-sales'}
 ];
 
 export const assessmentLevels=[

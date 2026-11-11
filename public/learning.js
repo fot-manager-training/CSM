@@ -1,5 +1,5 @@
-import {renderAssessmentResult} from './learning-results.js?v=radar-20261111';
-import {assessmentVersion,competencies,courses,questions,gradeAssessment,recommendCourses,fotTrainingUrl} from './learning-data.js?v=radar-20261111';
+import {renderAssessmentResult} from './learning-results.js?v=report-dark-20261111';
+import {assessmentVersion,competencies,courses,questions,gradeAssessment,recommendCourses,fotTrainingUrl} from './learning-data.js?v=report-dark-20261111';
 const $=id=>document.getElementById(id);
 const safe=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const storageKey='dtaas-csm-checkup-v2',courseKey='dtaas-csm-completed-v1';
