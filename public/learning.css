@@ -74,3 +74,27 @@
 @media(max-width:650px){.checkup-result{padding:21px 15px;border-radius:18px}.level-scale{gap:4px;margin-top:8px}.level-step{font-size:clamp(8px,2.35vw,15px);letter-spacing:-.1px}.level-step>span{min-height:22px}.level-step>svg{width:13px;height:10px;margin:2px 0 6px}.level-step>b{height:5px}.level-step.is-current>b{height:8px}.result-total{font-size:10px;margin-top:14px}.result-total-score{font-size:12px}.radar-wide{display:none}.radar-compact{display:block}.radar-labels{font-size:11.5px}.radar-figure{width:calc(100% + 20px);max-width:none;margin:26px -10px 8px}.radar-value{stroke-width:1.5}.radar-point{r:2.5;stroke-width:1.2}.result-controls{flex-direction:column;align-items:flex-start;gap:16px}.result-controls p{font-size:11px}.result-competencies dl{grid-template-columns:1fr;gap:22px}.result-competencies h3{font-size:21px}.result-competencies dt{font-size:13px}.result-competencies dd p{font-size:11px}}
 @media(max-width:450px){.checkup-competency-intro{grid-template-columns:1fr}}
 @media(max-width:650px){.checkup-shell{padding:23px;border-radius:18px}.checkup-intro{grid-template-columns:1fr;gap:28px}.checkup-intro h2{font-size:28px}.checkup-intro>div>p{font-size:12px}.checkup-competency-intro{gap:13px}.checkup-competency-intro p{font-size:11px}.checkup-competency-intro strong{font-size:13px}.learning-section-title{align-items:flex-start;flex-direction:column;gap:10px}.question-fieldset legend{font-size:20px}.question-option{padding:14px;gap:10px}.question-option span{font-size:12px}.question-header{font-size:10px}.recommended-courses,.learning-course-grid{grid-template-columns:1fr}.learning-course{padding:23px}.learning-course h3{font-size:24px}.learning-recommendation{padding:21px}.fot-training{padding:24px}.lesson-content{padding:26px}.lesson-content>h2{font-size:27px}.lesson-content h3{font-size:19px}.lesson-content section p{font-size:12px}}
+
+.question-progress-meta{display:flex;justify-content:space-between;gap:15px;margin:0 0 10px;color:var(--muted);font-size:10px}
+.question-progress::-webkit-progress-value{transition:width .3s ease}.question-progress::-moz-progress-bar{transition:width .3s ease}
+.question-option{transition:background .2s,border-color .2s,box-shadow .2s}.question-option:hover{border-color:#668acf;box-shadow:0 0 0 1px #668acf33}
+.radar-point{cursor:pointer}.radar-point.is-active{fill:#e1fff9;stroke-width:3}
+.radar-insight{font-size:12px;line-height:1.8;color:var(--muted);border-left:3px solid var(--competency,#3b5879);padding:12px 16px;margin:0 0 28px;background:#101c2d;border-radius:0 10px 10px 0}
+.result-competencies dl>div{padding:10px;border:1px solid transparent;border-radius:12px;transition:background .2s,border-color .2s}
+.result-competencies dl>div.is-active{background:#1b2c44;border-color:var(--competency)}
+.route-progress{font-size:12px;color:#a7c0ed;margin:18px 0 0}
+.learning-roadmap{list-style:none;padding:0;display:grid;grid-template-columns:repeat(var(--route-count,3),minmax(0,1fr));gap:24px;margin-top:26px}
+.roadmap-step{position:relative;min-width:0;display:grid;grid-template-rows:auto 1fr;animation:roadmap-enter .4s ease both;animation-delay:calc(var(--step-index)*80ms)}
+.roadmap-step:not(:last-child)::after{content:'';position:absolute;left:22px;top:22px;width:calc(100% + 24px);height:2px;background:#354e72;z-index:0}
+.roadmap-step.is-complete::after{background:#63d2b7}
+.roadmap-marker{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:17px}
+.roadmap-node{display:grid;place-items:center;width:44px;height:44px;border:1px solid #4b6790;border-radius:50%;background:#18283e;color:#b5c8e8;font-size:14px}
+.roadmap-state{font-size:11px;color:var(--muted);line-height:1.4;background:var(--page);padding-right:8px}
+.roadmap-step.is-current .roadmap-node{background:#3468e5;border-color:#91b2ff;color:white;box-shadow:0 0 0 5px #3468e51f}
+.roadmap-step.is-current .roadmap-state{color:#b5ceff}.roadmap-step.is-complete .roadmap-node{background:#17413c;border-color:#63d2b7;color:#a1f2dc}
+.roadmap-step.is-complete .roadmap-state{color:#8cdec8}
+.roadmap-step .learning-recommendation{position:relative;z-index:1;min-height:235px}
+.roadmap-step.is-current .learning-recommendation{border-color:#83a7f5}.roadmap-step.is-complete .learning-recommendation{border-color:#3e8277}
+@keyframes roadmap-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:650px){.learning-roadmap{grid-template-columns:1fr;gap:24px}.roadmap-step{grid-template-columns:40px minmax(0,1fr);grid-template-rows:1fr;gap:13px}.roadmap-marker{align-items:center;margin:0}.roadmap-node{width:36px;height:36px;font-size:12px}.roadmap-state{font-size:9px;text-align:center;padding:4px 0}.roadmap-step:not(:last-child)::after{left:19px;top:18px;width:2px;height:calc(100% + 24px)}.roadmap-step .learning-recommendation{min-height:220px;padding:20px}.roadmap-step .learning-recommendation h3{font-size:20px}.radar-insight{font-size:11px;padding:11px}.question-progress-meta{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.roadmap-step{animation:none}.question-option,.result-competencies dl>div{transition:none}.question-progress::-webkit-progress-value,.question-progress::-moz-progress-bar{transition:none}}

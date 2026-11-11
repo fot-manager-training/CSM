@@ -1,4 +1,4 @@
-import {cases,partners} from './content.js?v=transformation-20261111';
+import {cases,partners} from './content.js?v=platform-update-20261111';
 export {cases,partners};
 const normalize=value=>String(value??'').toLocaleLowerCase('ru').replaceAll('ё','е').trim();
 export const technologies=[...new Set(partners.flatMap(p=>[...p.tags,...(p.products||[])]).concat(['Биометрия','Блокчейн','Видеоаналитика и видеонаблюдение','Интернет-вещей (IoT)','Контроль доступа','Кибербезопасность','Роботы и дроны','RPA','Дополненная и виртуальная реальность (AR/VR)','Аудиоаналитика']))].sort((a,b)=>a.localeCompare(b,'ru'));

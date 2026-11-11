@@ -80,12 +80,20 @@ dialog{background:#111c2d;color:#e8f0ff;border:1px solid #354765;box-shadow:0 25
 .event-links{display:flex;gap:13px;align-items:center;flex-wrap:wrap;margin:14px 0 0;color:#bad0fc;font-size:11px}.event-links a:hover{text-decoration:underline}.event-links button{padding:5px 10px;border:1px solid #3a5277;border-radius:20px;background:#1d304e;color:#c8dbff;font-size:10px}
 
 /* Two gulls follow the marked positions on the hero. */
-.seagull-hero{position:absolute;inset:auto;width:260px;height:auto;pointer-events:none;z-index:2;animation:seagull-float 9s ease-in-out infinite;filter:drop-shadow(0 12px 22px #060b182e)}
-.seagull-hero-left{width:285px;left:calc(13.5% - 142.5px);top:380px;animation-delay:-4s}
-.seagull-hero-right{width:240px;left:calc(max(71%,50% + 440px) - 120px);top:100px;scale:-1 1;rotate:-6deg}
+.seagull-hero{position:absolute;inset:auto;width:260px;height:auto;pointer-events:none;z-index:2;animation:seagull-float 9s ease-in-out infinite;filter:none}
+.seagull-hero-left{width:285px;left:calc(13.5% - 142.5px);top:405px;scale:-1 1;animation-delay:-4s}
+.seagull-hero-right{width:240px;left:calc(max(71%,50% + 440px) - 120px);top:120px;scale:1 1;rotate:-6deg}
 @media(max-width:1600px){.seagull-hero-right{width:210px;left:calc(83% - 105px);top:90px}}
 @media(max-width:1100px){.seagull-hero-left{width:200px;left:calc(11% - 100px);top:355px}.seagull-hero-right{width:170px;left:calc(88% - 85px);top:85px}}
 @media(max-width:800px){.seagull-hero-left{width:150px;left:calc(10% - 75px);top:365px}.seagull-hero-right{width:125px;left:calc(87% - 62.5px);top:110px}}
 @media(max-width:580px){.hero-scene{min-height:520px}.hero-lead{margin:210px auto 23px}.seagull-hero-left{width:155px;left:calc(22% - 77.5px);top:305px}.seagull-hero-right{width:135px;left:calc(80% - 67.5px);top:245px}}
 @media(max-width:380px){.seagull-hero-left{width:140px;left:calc(23% - 70px)}.seagull-hero-right{width:115px;left:calc(79% - 57.5px)}}
 @media(prefers-reduced-motion:reduce){.seagull-hero{animation:none}}
+
+/* Shared typography and section titles. */
+body,button,input,select,textarea,svg text{font-family:'SB Sans Display',Arial,sans-serif}
+.hero h1,.hero h1>span,.catalog-hero .page-heading h1,.afisha-search h1,.practice-heading h2,.discovery-heading h2,.about-intro h2,.section-top h2,.learning-section-title h2,.learning-route h2,.checkup-intro h2,.result-competencies h3,.partner-showcase-cap h2{color:var(--partner-heading);font-weight:700}
+.calendar-heading h3,.partner-profile h3,.detail-subtitle,.fot-training h3,.case-card h3,.partner-card h3,.learning-course h3,.learning-recommendation h3,.dialog-content h2,.lesson-content>h2,.lesson-content h3,.event-title{color:var(--partner-heading)}
+.hero-label,.eyebrow{color:var(--partner-heading)}
+.dtaas-name{white-space:nowrap}.dtaas-region{font-size:1em;letter-spacing:0}
+@media(max-width:580px){.header .dtaas-name{display:flex;flex-direction:column;align-items:flex-start;gap:4px}.header .dtaas-region{font-size:9px;letter-spacing:1.7px;line-height:1}}

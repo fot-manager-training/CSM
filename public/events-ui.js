@@ -1,6 +1,7 @@
-import {events,filterEvents,calendarText,eventYear,eventMonthBounds} from './data.js?v=kaliningrad-20261111';
-import {eventImages} from './media.js?v=transformation-20261111';
-import {initAfisha} from './afisha.js?v=kaliningrad-20261111';
+import {calendarEvent,calendarLegend} from './event-calendar.js?v=platform-update-20261111';
+import {events,filterEvents,calendarText,eventYear,eventMonthBounds} from './data.js?v=platform-update-20261111';
+import {eventImages} from './media.js?v=platform-update-20261111';
+import {initAfisha} from './afisha.js?v=platform-update-20261111';
 const $=id=>document.getElementById(id);
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const heart=()=>`<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>`;
@@ -55,8 +56,8 @@ function openEvent(id){const e=events.find(x=>x.id===id);if(!e)return;currentEve
 function renderCalendar(list){
  const first=new Date(eventYear,calendarMonth-1,1);const offset=(first.getDay()+6)%7;const days=new Date(eventYear,calendarMonth,0).getDate();
  const name=new Intl.DateTimeFormat('ru',{month:'long'}).format(first);const now=new Date();
- const cells=Array.from({length:Math.ceil((offset+days)/7)*7},(_,i)=>{const day=i-offset+1;if(day<1||day>days)return '<div class="calendar-day is-blank"></div>';const date=`${eventYear}-${String(calendarMonth).padStart(2,'0')}-${String(day).padStart(2,'0')}`;const today=now.getFullYear()===eventYear&&now.getMonth()===calendarMonth-1&&now.getDate()===day;return `<div class="calendar-day ${today?'today':''}"><span>${day}</span>${list.filter(e=>e.start&&e.end&&date>=e.start&&date<=e.end).map(e=>`<button class="calendar-event" data-open="${e.id}">${e.title}</button>`).join('')}</div>`;}).join('');
- $('calendar').innerHTML=`<div class="calendar-heading"><button id="prev-month" aria-label="Предыдущий месяц" ${calendarMonth===eventMonthBounds.min?'disabled':''}>←</button><h3>${name[0].toUpperCase()+name.slice(1)} ${eventYear}</h3><button id="next-month" aria-label="Следующий месяц" ${calendarMonth===eventMonthBounds.max?'disabled':''}>→</button></div><div class="calendar-week">${['ПН','ВТ','СР','ЧТ','ПТ','СБ','ВС'].map(x=>`<span>${x}</span>`).join('')}</div><div class="calendar-days">${cells}</div>`;
+ const cells=Array.from({length:Math.ceil((offset+days)/7)*7},(_,i)=>{const day=i-offset+1;if(day<1||day>days)return '<div class="calendar-day is-blank"></div>';const date=`${eventYear}-${String(calendarMonth).padStart(2,'0')}-${String(day).padStart(2,'0')}`;const today=now.getFullYear()===eventYear&&now.getMonth()===calendarMonth-1&&now.getDate()===day;return `<div class="calendar-day ${today?'today':''}"><span>${day}</span>${list.filter(e=>e.start&&e.end&&date>=e.start&&date<=e.end).map(calendarEvent).join('')}</div>`;}).join('');
+ $('calendar').innerHTML=`<div class="calendar-heading"><button id="prev-month" aria-label="Предыдущий месяц" ${calendarMonth===eventMonthBounds.min?'disabled':''}>←</button><h3>${name[0].toUpperCase()+name.slice(1)} ${eventYear}</h3><button id="next-month" aria-label="Следующий месяц" ${calendarMonth===eventMonthBounds.max?'disabled':''}>→</button></div><div class="calendar-week">${['ПН','ВТ','СР','ЧТ','ПТ','СБ','ВС'].map(x=>`<span>${x}</span>`).join('')}</div><div class="calendar-days">${cells}</div>${calendarLegend(list.filter(e=>e.start&&e.end&&e.start<=`${eventYear}-${String(calendarMonth).padStart(2,'0')}-${String(days).padStart(2,'0')}`&&e.end>=`${eventYear}-${String(calendarMonth).padStart(2,'0')}-01`))}`;
  $('prev-month').onclick=()=>{calendarMonth=Math.max(eventMonthBounds.min,calendarMonth-1);state.month=String(calendarMonth).padStart(2,'0');state.day='all';$('month').value=state.month;render();};$('next-month').onclick=()=>{calendarMonth=Math.min(eventMonthBounds.max,calendarMonth+1);state.month=String(calendarMonth).padStart(2,'0');state.day='all';$('month').value=state.month;render();};
 }
 

@@ -1,5 +1,5 @@
 import './motion.js?v=ribbon-motion-20261110';
-import {initNavigation} from './navigation.js?v=transformation-20261111';
+import {initNavigation} from './navigation.js?v=platform-update-20261111';
 const $=id=>document.getElementById(id);
 const page=document.body.dataset.page;
 function iconize(root=document.body){
@@ -17,19 +17,19 @@ window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
  if(page==='home'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initHome}=await import('./home.js?v=palette-gull-20261111');initHome({iconize});
+  const {initHome}=await import('./home.js?v=platform-update-20261111');initHome({iconize});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else if(page==='events'){
-  const {initEvents,routeEvent}=await import('./events-ui.js?v=kaliningrad-20261111');
+  const {initEvents,routeEvent}=await import('./events-ui.js?v=platform-update-20261111');
   initEvents({iconize,notify});routeEvent();window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())routeEvent();});
 
  }else if(page==='learning'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initLearning}=await import('./learning.js?v=report-dark-20261111');initLearning({iconize,notify});
+  const {initLearning}=await import('./learning.js?v=platform-update-20261111');initLearning({iconize,notify});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else{
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=transformation-20261111');
+  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=platform-update-20261111');
   initCatalog({iconize,notify});openCatalogRoute(location.hash.slice(1));
   window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())openCatalogRoute(location.hash.slice(1));});
  }
