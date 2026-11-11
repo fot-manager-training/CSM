@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="./site.css?v=events-20261110">
   <link rel="stylesheet" href="./navigation.css?v=afisha-20261106">
   <link rel="stylesheet" href="./afisha.css?v=afisha-20261106">
-  <link rel="stylesheet" href="./dark.css?v=transformation-20261111">
-  <script type="module" src="./app.js?v=transformation-20261111"></script>
+  <link rel="stylesheet" href="./dark.css?v=palette-gull-20261111">
+  <script type="module" src="./app.js?v=palette-gull-20261111"></script>
 </head>
 <body data-page="events">
   <header class="header" data-menu-open="false"><div class="container header-inner">
@@ -25,7 +25,7 @@
   <main id="main-content" class="afisha-page">
     <div id="events-view">
       <section class="afisha-search container" aria-labelledby="page-title">
-        <h1 id="page-title">Афиша<img class="seagull-afisha" src="./assets/seagull.webp" alt="" width="1440" height="1080" aria-hidden="true"></h1>
+        <h1 id="page-title">Афиша<img class="seagull-afisha" src="./assets/seagull.webp?v=flight-20261111" alt="" width="1536" height="1024" aria-hidden="true"></h1>
         <label class="search-field afisha-search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="События, города и темы" aria-label="Поиск событий"></label>
         <label class="select-field afisha-region"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><select id="region" aria-label="Регион"><option value="all">Все города</option><option>Архангельск</option><option>Калининград</option><option>Мурманск</option><option>Ленинградская область</option><option>Санкт-Петербург</option><option value="unknown">Место уточняется</option></select></label>
       </section>
@@ -42,7 +42,7 @@
       <section class="content-section container" id="content" aria-labelledby="section-title"><div class="section-top"><h2 id="section-title">Все мероприятия</h2></div><span id="results-count" class="visually-hidden" role="status"></span><div class="events-grid" id="events-grid"></div><div class="calendar" id="calendar" hidden></div><div class="empty-state" id="empty-events" hidden><span>⌕</span><h3>На эту дату событий пока нет</h3><p>Выберите другую дату или измените фильтры.</p><button class="primary-button" id="empty-reset">Все события ↗</button></div></section>
     </div>
   </main>
-  <footer class="container footer"><img class="footer-seagull" src="./assets/seagull.webp" alt="" width="1440" height="1080" loading="lazy" aria-hidden="true"><a class="brand" href="./index.html" aria-label="Сбер · DTaaS — на главную"><img class="sber-logo" src="./assets/sber.png" alt="Сбер" width="140" height="48"><span class="brand-divider" aria-hidden="true"></span><span class="dtaas-wordmark" aria-hidden="true"><span class="dtaas-symbol"><img class="dtaas-logo" src="./assets/dtaas.png" alt="" width="142" height="48"></span><span>DTaaS</span></span></a><span>Территория цифровых возможностей</span><span>© 2026 DTaaS СЗБ</span><a href="#" class="back-top" aria-label="Наверх">↑</a></footer>
+  <footer class="container footer"><img class="footer-seagull" src="./assets/seagull.webp?v=flight-20261111" alt="" width="1536" height="1024" loading="lazy" aria-hidden="true"><a class="brand" href="./index.html" aria-label="Сбер · DTaaS — на главную"><img class="sber-logo" src="./assets/sber.png" alt="Сбер" width="140" height="48"><span class="brand-divider" aria-hidden="true"></span><span class="dtaas-wordmark" aria-hidden="true"><span class="dtaas-symbol"><img class="dtaas-logo" src="./assets/dtaas.png" alt="" width="142" height="48"></span><span>DTaaS</span></span></a><span>Территория цифровых возможностей</span><span>© 2026 DTaaS СЗБ</span><a href="#" class="back-top" aria-label="Наверх">↑</a></footer>
   <dialog id="event-dialog" aria-labelledby="dialog-title"><button class="dialog-close" id="dialog-close" aria-label="Закрыть">×</button><div id="dialog-body"></div></dialog>
   <div id="toast" role="status" class="toast"></div>
 </body>

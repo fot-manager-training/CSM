@@ -17,10 +17,10 @@ window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
  if(page==='home'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initHome}=await import('./home.js?v=transformation-20261111');initHome({iconize});
+  const {initHome}=await import('./home.js?v=palette-gull-20261111');initHome({iconize});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else if(page==='events'){
-  const {initEvents,routeEvent}=await import('./events-ui.js?v=transformation-20261111');
+  const {initEvents,routeEvent}=await import('./events-ui.js?v=kaliningrad-20261111');
   initEvents({iconize,notify});routeEvent();window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())routeEvent();});
 
  }else if(page==='learning'){

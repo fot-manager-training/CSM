@@ -1,4 +1,4 @@
-import {events,filterEvents} from './data.js?v=transformation-20261111';
+import {events,filterEvents} from './data.js?v=kaliningrad-20261111';
 import {initShowcases,renderEventRail} from './showcase.js?v=transformation-20261111';
 export function initHome({iconize}){
  initShowcases({iconize});renderEventRail(events);
