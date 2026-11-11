@@ -3,7 +3,7 @@ import {browser} from './browser-support.mjs';
 const b=await browser();
 const search=value=>b.evaluate(`document.getElementById('partner-search').value=${JSON.stringify(value)};document.getElementById('partner-search').dispatchEvent(new Event('input'))`);
 try{
- await b.viewport(1440);await b.navigate('partners.html','document.querySelectorAll(".partner-card").length===12');
+ await b.viewport(1440);await b.navigate('partners.html','document.querySelectorAll(".partner-card").length===36');
  await search('Петров Вадим');assert.equal(await b.evaluate('document.querySelectorAll(".partner-card").length'),1);
  await b.evaluate('document.querySelector(".partner-cover").scrollIntoView({block:"center",behavior:"instant"})');await b.delay(80);await b.click('.partner-cover');await b.wait('document.getElementById("catalog-dialog").open');
  assert.equal(await b.evaluate('document.querySelector("#catalog-dialog a.primary-button").href'),'https://ramax.ru/');

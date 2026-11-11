@@ -1,5 +1,5 @@
 import './motion.js?v=ribbon-motion-20261110';
-import {initNavigation} from './navigation.js?v=afisha-20261106';
+import {initNavigation} from './navigation.js?v=transformation-20261111';
 const $=id=>document.getElementById(id);
 const page=document.body.dataset.page;
 function iconize(root=document.body){
@@ -11,21 +11,25 @@ function notify(text){$('toast').textContent=text;$('toast').classList.add('visi
 
 function updateSavedCount(){try{const saved=JSON.parse(localStorage.getItem('dtaas-favorites')||'[]');$('saved-count').textContent=Array.isArray(saved)?saved.length:0;}catch{$('saved-count').textContent='0';}}
 // Keep older shared links working while each section now has a standalone URL.
-function migrateLegacyRoute(){const hash=location.hash.slice(1);const target=hash.startsWith('event/')?'events':hash.startsWith('case/')?'cases':hash.startsWith('partner/')?'partners':['home','events','cases','partners'].includes(hash)?hash:null;if(target&&target!==page){location.replace(`./${target==='home'?'index':target}.html${hash.includes('/')?'#'+hash:''}`);return true;}return false;}
+function migrateLegacyRoute(){const hash=location.hash.slice(1);const target=hash.startsWith('event/')?'events':hash.startsWith('case/')?'cases':hash.startsWith('partner/')?'partners':['home','events','cases','partners','learning'].includes(hash)?hash:null;if(target&&target!==page){location.replace(`./${target==='home'?'index':target}.html${hash.includes('/')?'#'+hash:''}`);return true;}return false;}
 initNavigation();updateSavedCount();iconize();
 window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
  if(page==='home'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initHome}=await import('./home.js?v=arkhangelsk-20261110');initHome({iconize});
+  const {initHome}=await import('./home.js?v=transformation-20261111');initHome({iconize});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else if(page==='events'){
-  const {initEvents,routeEvent}=await import('./events-ui.js?v=arkhangelsk-20261110');
+  const {initEvents,routeEvent}=await import('./events-ui.js?v=transformation-20261111');
   initEvents({iconize,notify});routeEvent();window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())routeEvent();});
 
+ }else if(page==='learning'){
+  $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
+  const {initLearning}=await import('./learning.js?v=transformation-20261111');initLearning({iconize,notify});
+  window.addEventListener('hashchange',migrateLegacyRoute);
  }else{
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=compact-cards-20261110');
+  const {initCatalog,openCatalogRoute}=await import('./catalog.js?v=transformation-20261111');
   initCatalog({iconize,notify});openCatalogRoute(location.hash.slice(1));
   window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())openCatalogRoute(location.hash.slice(1));});
  }

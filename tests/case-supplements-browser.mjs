@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {browser} from './browser-support.mjs';
 const b=await browser();
 try{
- await b.viewport(1440);await b.navigate('cases.html','document.querySelectorAll(".case-card").length===9');
+ await b.viewport(1440);await b.navigate('cases.html','document.querySelectorAll(".case-card").length===20');
  // New secondary outcomes must be discoverable, not only visible inside a dialog.
  await b.evaluate('document.getElementById("case-search").value="0,01%";document.getElementById("case-search").dispatchEvent(new Event("input"))');
  assert.equal(await b.evaluate('document.querySelectorAll(".case-card").length'),1);

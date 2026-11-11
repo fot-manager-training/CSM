@@ -29,7 +29,7 @@ export function initNavigation(){
  navigation.addEventListener('click',event=>{
   const link=event.target.closest('a');if(!link)return;
   setOpen(false,{returnFocus:navigation.contains(document.activeElement)});
-  if(new URL(link.href).pathname===location.pathname)document.getElementById('content').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  if(new URL(link.href).pathname===location.pathname)(document.getElementById(link.hash.slice(1))||document.getElementById('content')).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
  });
  const inside=target=>navigation.contains(target)||toggle.contains(target);
  document.addEventListener('pointerdown',event=>{if(open&&!inside(event.target))setOpen(false);});

@@ -1,4 +1,4 @@
-import {eventImages} from './media.js?v=arkhangelsk-20261110';
+import {eventImages} from './media.js?v=transformation-20261111';
 const safe=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const modulo=(value,length)=>((value%length)+length)%length;
 

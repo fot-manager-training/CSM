@@ -1,0 +1,80 @@
+:root{color-scheme:dark;--page:#0b111d;--ink:#edf2fc;--muted:#a2afc4;--accent:#91b2ff;--accent-hover:#bbd0ff;--accent-soft:#1a2b48;--surface:#151f30;--line:#2b384e;background:var(--page);color:var(--ink)}
+body{background:var(--page);color:var(--ink)}
+.header .brand{filter:none}
+.dtaas-wordmark{display:inline-flex;align-items:center;gap:6px;font-size:28px;line-height:1;font-weight:700;letter-spacing:-.6px;color:#f0f3fa;flex-shrink:0}
+.dtaas-symbol{display:block;overflow:hidden;width:32px;height:42px;flex:0 0 32px}
+.dtaas-symbol .dtaas-logo{max-width:none}
+.brand-divider{background:#52617b}
+.primary-button{background:#3468e5;border-color:#497cf4;color:#fff}.primary-button:hover{background:#4279ef}
+.outline-button{background:#162237;border-color:#354965;color:#c4d7ff}.outline-button:hover{background:#1e3150}
+.header .menu-toggle,.header .main-navigation .nav-link{background:#244eac;border-color:#4b75c5;color:#fff}
+.header .menu-toggle:hover,.header .main-navigation .nav-link:hover,.header .main-navigation .nav-link:focus-visible{background:#3468d6;color:#fff}
+.header .main-navigation .nav-link.active{background:#3b70dc;border-color:#6795f1;color:#fff}
+.header[data-menu-open=true] .nav-link:nth-child(5){animation-delay:140ms}.header[data-menu-open=true] .nav-link:nth-child(6){animation-delay:175ms}
+.header .saved-button{background:#263650;color:#ecf3ff;border:1px solid #3a4c6a}
+.header .saved-button.active{background:#315cb8}
+body:is([data-page=cases],[data-page=partners],[data-page=learning]) main{padding-top:0}
+.hero{background:linear-gradient(180deg,#14233e 0%,#101c30 70%,var(--page) 100%)}
+.hero-label,.catalog-hero .breadcrumbs{color:#a5b5ce}
+.hero h1,.catalog-hero .page-heading h1{color:#95b5ff}
+.hero h1>span{color:#edf2fc}
+.hero-lead,.catalog-hero .page-heading p{color:#b0bfd6}
+.hero-wave use,.catalog-curve use{stroke:#294672}
+.hero-wave text,.catalog-curve text{fill:#c7daff}
+.catalog-hero{background:linear-gradient(180deg,#14233e 0%,#111e33 60%,var(--page) 100%)}
+.hero-scene{min-height:565px}
+.seagull-hero{position:absolute;right:-10px;top:275px;width:270px;height:auto;pointer-events:none;filter:drop-shadow(0 16px 26px #060b183b);animation:seagull-float 9s ease-in-out infinite;z-index:2}
+.seagull-section{position:absolute;right:3%;top:75px;width:150px;height:auto;pointer-events:none;z-index:1;animation:seagull-float 10s ease-in-out infinite}
+.afisha-search h1{display:flex;align-items:center;gap:10px}.seagull-afisha{width:60px;height:auto;pointer-events:none}
+.footer-seagull{width:62px;height:auto;flex-shrink:0}
+@keyframes seagull-float{0%,100%{translate:0 0}50%{translate:0 -9px}}
+.about-management{display:grid;grid-template-columns:.8fr 1.2fr;gap:35px 65px;padding-top:45px;padding-bottom:45px;scroll-margin-top:115px}
+.about-intro h2{font-size:42px;line-height:1.1;letter-spacing:-1.5px;margin-top:17px}
+.about-copy p{font-size:14px;line-height:1.9;color:#b7c4d8;margin:0 0 17px}
+.about-copy p:first-child{color:#e0eaff;font-size:16px}
+.about-services{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.about-services article{background:#131f32;border:1px solid #293b55;border-radius:18px;padding:25px}
+.about-services article>span{font-size:11px;color:var(--accent)}.about-services h3{font-size:21px;line-height:1.3;margin:18px 0 10px}.about-services p{font-size:12px;color:var(--muted);line-height:1.8;margin:0}
+.case-showcase{background:linear-gradient(180deg,var(--page) 0,#14213a var(--section-fade),#14213a calc(100% - var(--section-fade)),var(--page) 100%)}
+.practice-heading>a,.practice-tabs button{color:#bfd2f5;border-color:#3b5378}.practice-tabs button[aria-pressed=true]{background:#315ebc;color:#fff}.practice-tabs button:hover:not([aria-pressed=true]){background:#263d61}
+.accordion-item{background:#203658;--accordion-ink:#e1ebff;--accordion-muted:#a7bedf;--accordion-accent:#a6c5ff}
+.accordion-tone-1{background:#243d62}.accordion-tone-2{background:#29466b}.accordion-tone-3{background:#223e65}.accordion-tone-4{background:#1c304d}.accordion-tone-5{background:#14243b}
+.accordion-trigger>b{background:#ffffff17;color:#bad2f4}.accordion-copy>a>span{background:#ffffff17}
+.partner-showcase{background:var(--page)}.partner-showcase-cap{background:linear-gradient(180deg,#1b2e4d 0,#1b2e4d 35%,var(--page) 100%)}
+.partner-showcase-cap>span{color:#adc4e9}.partner-showcase-cap h2{color:#94b7ff}.partner-profile{background:#15243a;border-color:#2c3c55}.partner-profile h3{color:#cfddf3}.partner-profile>p{color:#a9bddb}.profile-avatar{background:#243958;border-color:#6883ae55}.profile-footer>span{background:#233957;color:#c4d8f6}.profile-footer>b{background:#3468e5}
+.partner-strip-footer>a{color:#b5cbf1}.partner-strip-footer button{color:#a9c2ec;border-color:#3b5277}
+.case-card,.partner-card{background:#131e2e;border-color:#293a52}.case-card:hover,.partner-card:hover{box-shadow:0 15px 30px #03081366;border-color:#466491}
+.case-cover,.partner-cover,.event-poster{background:#1a2941}.case-cover img,.partner-cover img,.event-poster .event-cover{filter:brightness(.88) saturate(.9)}
+.case-client,.case-industry,.case-category,.partner-role,.partner-inn{color:#a6b7d0}.case-card h3,.partner-card h3{color:#e4edfe}
+.case-save{background:#24364f;color:#b6c8e7}.case-save.is-saved{background:#315cb8;color:#fff}.case-metric,.case-results>div{background:#1c2e4b}
+.metric-context,.metric-description,.case-results dt,.case-results dd span{color:#b2c7e8}.case-metric strong,.case-results strong{color:#a8c7ff}
+.catalog-tags span{background:#1c2d46;border-color:#314562;color:#b8cce9}.partner-avatar{background:#243e62;color:#c5d9fb}.partner-accreditation{background:#24354e;color:#a9bbd4}.partner-accreditation.is-accredited{background:#234e69;color:#9ae4db}
+.search-field,.select-field,.category{background:#162238;border-color:#30425e;color:var(--ink)}.search-field input{color:#e3ecfc}.search-field input::placeholder{color:#98aac6}.search-field:focus-within{background:#1a2b46;border-color:#779ef0}.select-field select{color:#d5e2f7}.category.active{background:#315db7;color:#fff;border-color:#6588cc}.category:hover:not(.active){background:#223b60;color:#e1edff}
+.catalog-more{background:#223d68;color:#d8e8ff}.empty-state{border-color:#3e5577;color:#a6b8d3}.empty-state h3{color:var(--ink)}
+.discovery-categories button{background:#16233a;color:#bbceeb;border-color:#33496d}.discovery-categories button.active{background:#274f96;color:#edf4ff;border-color:#6689c4}
+.circle-toolbar,.circle-hint,.circle-caption{color:#a8bad6}.circle-cover{border-color:#243651}.circle-motion{color:#c6d9fb}
+.afisha-search-field,.afisha-filter-button,.afisha-type,.event-filter-panel{background:#17243a;color:#dce9fe;border-color:#2e4260}.afisha-region{background:transparent}.afisha-region>span,.afisha-region select{color:#d7e5fc}
+.afisha-categories button{color:#aebed8}.afisha-categories button.active{color:#b9d0ff;border-color:#8dafff}.datebar-heading>span{color:#a4b5d0}.date-day{color:#d8e6fc}.date-day strong{color:#e2ecff}.date-day span{color:#99adc9}.date-day.is-weekend span{color:#f5a6b6}.date-day[aria-pressed=true],.date-all[aria-pressed=true]{background:#284d89;color:#fff}.date-month-nav{background:#203650;color:#c7daff}
+.view-toggle{background:#1b2c45}.view-toggle button{color:#9bb4da}.view-toggle button.active{background:#315384;color:#ecf4ff}.poster-badge,.favorite{background:#142238ee;color:#d4e4ff}.favorite.is-saved{color:#9abaff}
+.calendar{background:#142036;border-color:#2c405f}.calendar-day{border-color:#2d3d57;background:#142036}.calendar-day.is-blank{background:#101928}.calendar-event{background:#264b85;color:#dfeaff}.calendar-heading button{background:#223957;color:#c8dcff}
+.footer{border-color:#29384e;color:#a0b1cb}.footer>span{color:#a8bad5}.back-top{background:#1d304d;color:#c3d7f8}
+dialog{background:#111c2d;color:#e8f0ff;border:1px solid #354765;box-shadow:0 25px 100px #0009}dialog::backdrop{background:#020710bd;backdrop-filter:blur(8px)}.dialog-close{background:#24354e;color:#e6efff}
+.dialog-description{color:#b0bfd7}.detail-list>div{background:#192a42}.detail-list dt{color:#99adcc}.detail-list dd{color:#dce8fc}.detail-subtitle{color:#e1ebfe}.dialog-notice,.event-address,.partner-region-note,.partner-field-note{color:#9eafca}
+.case-project-stage,.partner-contact,.event-program li,.event-speakers article{background:#192a42}.case-project-stage h3{color:#a5bad9}.case-project-stage p{color:#dce8fc}.event-program p,.event-speakers p,.event-terms{color:#adbfdb}.event-qr{background:#1b2e4c}.event-qr img{background:#fff;filter:none}.event-qr p{color:#b3c7e4}
+.toast{background:#254576;color:#e8f2ff;border:1px solid #5479b2}.page-heading p,.breadcrumbs,.results-line,.reset-button,.results-note{color:#a1b3cf}.eyebrow{color:#a4b8d8}
+.learning-course,.checkup-shell{background:#131f32;border-color:#2c405e}.learning-recommendation{background:#1c3153;border-color:#456798}.question-option{background:#111c2e}.question-option:has(input:checked){background:#203d67}.question-progress{background:#1e304c}.fot-training{background:linear-gradient(135deg,#183252,#142239)}
+@media(max-width:1100px){.seagull-hero{width:210px;top:255px;right:0}.seagull-section{width:110px;top:80px;right:20px}.about-intro h2{font-size:35px}}
+@media(max-width:800px){.seagull-hero{width:170px;top:235px;right:-12px}.about-management{gap:28px}.about-copy p{font-size:12px}.about-copy p:first-child{font-size:14px}.about-services{gap:13px}.about-services article{padding:20px}.about-services h3{font-size:18px}}
+@media(max-width:760px){.dtaas-wordmark{font-size:23px;gap:4px}.dtaas-symbol{width:25px;height:32px;flex-basis:25px}.seagull-afisha{width:42px}.footer-seagull{width:45px}.about-management{grid-template-columns:1fr;padding-top:25px;padding-bottom:25px}.about-services{grid-template-columns:1fr}.about-intro h2{font-size:34px}.seagull-section{width:80px;top:80px;right:15px}}
+@media(max-width:580px){.hero-scene{min-height:0;padding-bottom:45px}.seagull-hero{display:block;position:relative;inset:auto;width:260px;max-width:88%;margin:18px auto 0}.hero-lead{margin:20px auto 23px}.hero h1{margin-top:30px}.hero-scene{padding-top:26px}.seagull-section{width:76px}.afisha-search h1{min-width:135px}.footer .dtaas-wordmark{font-size:20px}.footer .dtaas-symbol{width:23px;flex-basis:23px;height:28px}}
+@media(max-width:380px){.header .dtaas-wordmark{font-size:20px}.header .dtaas-symbol{width:21px;flex-basis:21px;height:30px}.header .dtaas-logo{width:78px}.seagull-hero{width:230px}.seagull-afisha{width:35px}.afisha-search h1{min-width:125px}}
+@media(prefers-reduced-motion:reduce){.seagull-hero,.seagull-section{animation:none}}
+
+/* Keep the original coloured DTaaS symbol at its natural proportions. */
+.dtaas-symbol{--symbol-size:32px;position:relative;width:var(--symbol-size);height:calc(var(--symbol-size)*1.06);flex-basis:var(--symbol-size)}
+.brand .dtaas-symbol .dtaas-logo{position:absolute;max-width:none;width:calc(var(--symbol-size)*4.955);height:calc(var(--symbol-size)*2.006);left:calc(var(--symbol-size)*-.427);top:calc(var(--symbol-size)*-.535);object-fit:fill}
+@media(max-width:760px){.dtaas-symbol{--symbol-size:25px}}
+@media(max-width:580px){.footer .dtaas-symbol{--symbol-size:23px}}
+@media(max-width:380px){.header .dtaas-symbol{--symbol-size:21px}}
+
+.event-links{display:flex;gap:13px;align-items:center;flex-wrap:wrap;margin:14px 0 0;color:#bad0fc;font-size:11px}.event-links a:hover{text-decoration:underline}.event-links button{padding:5px 10px;border:1px solid #3a5277;border-radius:20px;background:#1d304e;color:#c8dbff;font-size:10px}

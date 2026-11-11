@@ -11,3 +11,8 @@ test('removed labels, intro panels and mascot are absent from active pages',asyn
  for(const page of ['index',...pages]){const html=await readFile(new URL(`../public/${page}.html`,import.meta.url),'utf8');assert.doesNotMatch(html,/hero-mascot|cybercat-viewer|АФИША \/|ПРАКТИКА \/|ЭКОСИСТЕМА \/|ОТ ЗНАКОМСТВА К РЕЗУЛЬТАТУ/);}
  const script=await readFile(new URL('../public/catalog.js',import.meta.url),'utf8');assert.doesNotMatch(script,/catalog-intro|catalog-source|Сохранённые кейсы/);
 });
+
+test('CSM learning loads directly and is reachable from every page',async()=>{
+ for(const page of ['index',...pages,'learning']){const html=await readFile(new URL(`../public/${page}.html`,import.meta.url),'utf8');assert.match(html,/href="\.\/learning\.html"/);assert.match(html,/href="\.\/index\.html#about"/);assert.match(html,/dark\.css/);assert.match(html,/assets\/seagull\.webp/);}
+ const html=await readFile(new URL('../public/learning.html',import.meta.url),'utf8');assert.match(html,/body data-page="learning"/);assert.match(html,/id="checkup-view"/);assert.match(html,/id="course-grid"/);assert.match(html,/id="lesson-dialog"/);assert.match(html,/data-page="learning" aria-current="page"/);
+});

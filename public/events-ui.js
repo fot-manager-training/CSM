@@ -1,6 +1,6 @@
-import {events,filterEvents,calendarText,eventYear,eventMonthBounds} from './data.js?v=arkhangelsk-20261110';
-import {eventImages} from './media.js?v=arkhangelsk-20261110';
-import {initAfisha} from './afisha.js?v=arkhangelsk-20261110';
+import {events,filterEvents,calendarText,eventYear,eventMonthBounds} from './data.js?v=transformation-20261111';
+import {eventImages} from './media.js?v=transformation-20261111';
+import {initAfisha} from './afisha.js?v=transformation-20261111';
 const $=id=>document.getElementById(id);
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const heart=()=>`<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>`;
@@ -10,7 +10,7 @@ try { const value=JSON.parse(localStorage.getItem('dtaas-favorites')||'[]'); if(
 const state={category:'all',query:'',region:'all',month:'all',day:'all',savedOnly:false,saved};
 let layout='grid',calendarMonth=11,currentEvent=null;
 function poster(e,dialog=false){return `<div class="${dialog?'dialog-poster':'event-poster'}" ${dialog?'':`data-open="${e.id}"`}><img class="event-cover" src="${eventImages[e.id]}" alt="Иллюстрация: ${e.title}" width="1536" height="1024" ${dialog?'':'loading="lazy"'}><span class="poster-badge">${e.type}</span>${dialog?'':`<button class="favorite ${saved.includes(e.id)?'is-saved':''}" data-save="${e.id}" aria-label="${saved.includes(e.id)?'Убрать из избранного':'Добавить в избранное'}: ${e.title}" aria-pressed="${saved.includes(e.id)}">${heart()}</button>`}</div>`;}
-function card(e,i){return `<article class="event-card" style="animation-delay:${i*45}ms">${poster(e)}<div class="event-info"><div class="event-meta"><span class="date">${e.date}</span><span class="meta-dot"></span><span>${e.city||'Место уточняется'}</span></div><h3 class="event-title"><button data-open="${e.id}">${e.title}</button></h3><p class="event-summary">${e.summary}</p><div class="event-bottom"><span>${e.type}</span><button data-open="${e.id}">Подробнее <span>↗</span></button></div></div></article>`;}
+function card(e,i){return `<article class="event-card" style="animation-delay:${i*45}ms">${poster(e)}<div class="event-info"><div class="event-meta"><span class="date">${e.date}</span><span class="meta-dot"></span><span>${e.city||'Место уточняется'}</span></div><h3 class="event-title"><button data-open="${e.id}">${e.title}</button></h3><p class="event-summary">${e.summary}</p>${e.websiteUrl?`<div class="event-links"><a href="${escape(e.websiteUrl)}" target="_blank" rel="noopener noreferrer">Сайт мероприятия ↗</a>${e.qrImage?`<button data-open="${e.id}" data-qr="true">QR-код</button>`:''}</div>`:''}<div class="event-bottom"><span>${e.type}</span><button data-open="${e.id}">Подробнее <span>↗</span></button></div></div></article>`;}
 function render(){
  const list=filterEvents(events,state).sort((a,b)=>(a.start||'9999').localeCompare(b.start||'9999'));
  afisha?.render(list);
@@ -41,7 +41,7 @@ function eventDetails(e){
  const terms=e.terms?.length?`<h3 class="detail-subtitle">Условия участия</h3><ul class="event-terms">${e.terms.map(text=>`<li>${escape(text)}</li>`).join('')}</ul>`:'';
  const contact=e.contact?`<div class="event-contact"><strong>${escape(e.contact.name)}</strong>${e.contact.phone?`<a href="tel:${escape(e.contact.phone.replace(/[^+0-9]/g,''))}">${escape(e.contact.phone)}</a>`:''}${e.contact.email?`<a href="mailto:${escape(e.contact.email)}">${escape(e.contact.email)}</a>`:''}</div>`:'';
  const registration=e.registrationText?`<p class="dialog-notice">${escape(e.registrationText)}</p>`:!program?'<p class="dialog-notice">Программа и ссылка на регистрацию пока не предоставлены. Сохраните событие в избранное или добавьте дату в свой календарь.</p>':'';
- const qr=e.qrImage?`<section class="event-qr"><a href="${escape(e.websiteUrl)}" target="_blank" rel="noopener noreferrer"><img src="${escape(e.qrImage)}" width="246" height="246" alt="QR-код сайта мероприятия в Архангельске"></a><div><h3>Откройте сайт мероприятия</h3><p>Сканируйте QR-код или перейдите по ссылке.</p><a href="${escape(e.websiteUrl)}" target="_blank" rel="noopener noreferrer">Сайт мероприятия ↗</a></div></section>`:'';
+ const qr=e.qrImage?`<section class="event-qr"><a href="${escape(e.websiteUrl)}" target="_blank" rel="noopener noreferrer"><img src="${escape(e.qrImage)}" width="246" height="246" alt="QR-код сайта: ${escape(e.title)}"></a><div><h3>Откройте сайт мероприятия</h3><p>Сканируйте QR-код или перейдите по ссылке.</p><a href="${escape(e.websiteUrl)}" target="_blank" rel="noopener noreferrer">Сайт мероприятия ↗</a></div></section>`:e.websiteUrl?`<div class="event-documents"><a class="outline-button" href="${escape(e.websiteUrl)}" target="_blank" rel="noopener noreferrer">Сайт мероприятия ↗</a></div>`:'';
  const documents=e.documents?.length?`<div class="event-documents">${e.documents.map(doc=>`<a class="outline-button" href="${escape(doc.href)}" target="_blank" rel="noopener noreferrer">${escape(doc.title)} ↗</a>`).join('')}</div>`:'';
  return program+speakers+topics+terms+registration+contact+qr+documents;
 }
@@ -65,7 +65,7 @@ iconize=callbacks.iconize;notify=callbacks.notify;
 $('month').innerHTML='<option value="all">Все месяцы</option>'+Array.from({length:eventMonthBounds.max-eventMonthBounds.min+1},(_,i)=>{const month=eventMonthBounds.min+i;return `<option value="${String(month).padStart(2,'0')}">${new Intl.DateTimeFormat('ru',{month:'long'}).format(new Date(eventYear,month-1,15))}</option>`;}).join('');
 afisha=initAfisha({state,onChange:render,images:eventImages,iconize,setMonth:value=>{calendarMonth=value;}});
 function reset(){calendarMonth=11;Object.assign(state,{category:'all',query:'',region:'all',month:'all',day:'all',savedOnly:false});$('search').value='';$('region').value='all';$('month').value='all';afisha.reset();render();}
-document.addEventListener('click',e=>{const saveButton=e.target.closest('[data-save]');if(saveButton){save(saveButton.dataset.save);return;}const open=e.target.closest('[data-open]');if(open)openEvent(open.dataset.open);});
+document.addEventListener('click',e=>{const saveButton=e.target.closest('[data-save]');if(saveButton){save(saveButton.dataset.save);return;}const open=e.target.closest('[data-open]');if(open){openEvent(open.dataset.open);if(open.dataset.qr)document.querySelector(".event-qr")?.scrollIntoView({block:"center",behavior:"instant"});}});
 document.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{state.category=b.dataset.category;render();});
 $('search').oninput=e=>{state.query=e.target.value;render();};$('region').onchange=e=>{state.region=e.target.value;render();};$('month').onchange=e=>{state.month=e.target.value;state.day='all';if(state.month!=='all')calendarMonth=Number(state.month);render();};
 $('reset').onclick=reset;$('empty-reset').onclick=reset;

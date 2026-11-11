@@ -1,6 +1,6 @@
-import {cases,partners} from './content.js?v=catalog-theme-20261109';
-import {caseImages,partnerImage} from './media.js?v=arkhangelsk-20261110';
-import {EventCarousel} from './carousel.js?v=arkhangelsk-20261110';
+import {cases,partners} from './content.js?v=transformation-20261111';
+import {caseImages,partnerImage} from './media.js?v=transformation-20261111';
+import {EventCarousel} from './carousel.js?v=transformation-20261111';
 const $=id=>document.getElementById(id);
 const safe=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let iconize=()=>{},carousel;

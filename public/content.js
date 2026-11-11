@@ -3196,7 +3196,15 @@ export const cases = [
       ]
     },
     "industry": "ЖКХ и сервисы",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Обслуживание клиентов",
+      "Поддержка сотрудников"
+    ],
+    "results": [
+      "Снижение трудозатрат",
+      "Качество сервиса"
+    ]
   },
   {
     "id": "case-02",
@@ -3240,7 +3248,15 @@ export const cases = [
       ]
     },
     "industry": "Культура и музеи",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Оценка и страхование",
+      "Подготовка отчётов"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Снижение ошибок и брака"
+    ]
   },
   {
     "id": "case-03",
@@ -3289,7 +3305,16 @@ export const cases = [
       ]
     },
     "industry": "Недвижимость",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Проектирование и строительство",
+      "Согласование изменений",
+      "Работа с данными"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Снижение ошибок и брака"
+    ]
   },
   {
     "id": "case-04",
@@ -3328,7 +3353,15 @@ export const cases = [
       ]
     },
     "industry": "Питание и сервисы",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Закупки",
+      "Логистика",
+      "Организация питания"
+    ],
+    "results": [
+      "Снижение затрат"
+    ]
   },
   {
     "id": "case-05",
@@ -3367,7 +3400,15 @@ export const cases = [
       ]
     },
     "industry": "Медицина и образование",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Обучение и подготовка материалов",
+      "Управление знаниями"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Обучение и адаптация"
+    ]
   },
   {
     "id": "case-06",
@@ -3411,7 +3452,15 @@ export const cases = [
       ]
     },
     "industry": "Промышленность и торговля",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Управление знаниями",
+      "Адаптация сотрудников"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Обучение и адаптация"
+    ]
   },
   {
     "id": "case-07",
@@ -3460,7 +3509,15 @@ export const cases = [
       ]
     },
     "industry": "Агропромышленность",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Планирование производства",
+      "Контроль производства"
+    ],
+    "results": [
+      "Рост производительности",
+      "Рост выручки"
+    ]
   },
   {
     "id": "case-08",
@@ -3504,7 +3561,15 @@ export const cases = [
       ]
     },
     "industry": "Транспорт и логистика",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Автоматизация бэк-офиса",
+      "Адаптация сотрудников"
+    ],
+    "results": [
+      "Снижение текучести",
+      "Качество сервиса"
+    ]
   },
   {
     "id": "case-09",
@@ -3543,7 +3608,13 @@ export const cases = [
       ]
     },
     "industry": "Недвижимость",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Проверка документации"
+    ],
+    "results": [
+      "Сокращение времени"
+    ]
   },
   {
     "id": "case-10",
@@ -3582,7 +3653,14 @@ export const cases = [
       ]
     },
     "industry": "Промышленность и торговля",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Контроль качества",
+      "Обследование объектов"
+    ],
+    "results": [
+      "Сокращение времени"
+    ]
   },
   {
     "id": "case-11",
@@ -3631,7 +3709,16 @@ export const cases = [
       ]
     },
     "industry": "Питание и сервисы",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Закупки",
+      "Логистика"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Снижение затрат",
+      "Снижение трудозатрат"
+    ]
   },
   {
     "id": "case-12",
@@ -3680,7 +3767,16 @@ export const cases = [
       ]
     },
     "industry": "Транспорт и логистика",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Подбор перевозчика",
+      "Логистика",
+      "Документооборот"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Эффективность логистики"
+    ]
   },
   {
     "id": "case-13",
@@ -3734,7 +3830,16 @@ export const cases = [
       ]
     },
     "industry": "Промышленность и торговля",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Управление продажами",
+      "Ведение CRM",
+      "Работа с данными"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Качество данных"
+    ]
   },
   {
     "id": "case-14",
@@ -3783,7 +3888,16 @@ export const cases = [
       ]
     },
     "industry": "HR и коммуникации",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Маркетинг и коммуникации",
+      "Контроль контента"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Снижение затрат",
+      "Качество сервиса"
+    ]
   },
   {
     "id": "case-15",
@@ -3847,7 +3961,15 @@ export const cases = [
       ]
     },
     "industry": "HR и коммуникации",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Кадровый документооборот"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Рост производительности",
+      "Снижение ошибок и брака"
+    ]
   },
   {
     "id": "case-16",
@@ -3879,7 +4001,13 @@ export const cases = [
       ]
     },
     "industry": "Медицина и образование",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Обучение и подготовка материалов"
+    ],
+    "results": [
+      "Обучение и адаптация"
+    ]
   },
   {
     "id": "case-17",
@@ -3943,7 +4071,16 @@ export const cases = [
       ]
     },
     "industry": "Финансы и учёт",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Обработка счетов",
+      "Налоговая отчётность"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Снижение трудозатрат",
+      "Снижение ошибок и брака"
+    ]
   },
   {
     "id": "case-18",
@@ -3987,7 +4124,15 @@ export const cases = [
       ]
     },
     "industry": "Недвижимость",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Финансовый учёт",
+      "Документооборот"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Снижение трудозатрат"
+    ]
   },
   {
     "id": "case-19",
@@ -4030,7 +4175,15 @@ export const cases = [
       ]
     },
     "industry": "Промышленность и образование",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Контроль качества",
+      "Контроль производства"
+    ],
+    "results": [
+      "Сокращение времени",
+      "Снижение ошибок и брака"
+    ]
   },
   {
     "id": "case-23",
@@ -4050,6 +4203,13 @@ export const cases = [
     "portfolio": "В том числе Северо-Запад",
     "source": "Практика из СберПро",
     "industry": "Транспорт и логистика",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice"
+    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "processes": [
+      "Логистика",
+      "Консолидация поставок"
+    ],
+    "results": [
+      "Снижение затрат"
+    ]
   }
 ];

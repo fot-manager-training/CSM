@@ -1,10 +1,14 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {events,filterEvents,calendarText} from '../public/data.js';
-test('initial five events retain their dates and all supplied events have unique ids',()=>{assert.equal(events.length,8);assert.equal(new Set(events.map(e=>e.id)).size,events.length);assert.deepEqual(events.slice(0,5).map(e=>e.start),['2026-11-19','2026-11-26','2026-11-09','2026-12-10','2026-11-27']);assert.equal(events.find(e=>e.id==='aij').end,'2026-11-28');});
+test('initial five events retain their dates and all supplied events have unique ids',()=>{assert.equal(events.length,8);assert.equal(new Set(events.map(e=>e.id)).size,events.length);assert.deepEqual(events.slice(0,5).map(e=>e.start),['2026-11-16','2026-11-19','2026-11-09','2026-12-10','2026-11-27']);assert.equal(events.find(e=>e.id==='aij').end,'2026-11-28');});
 test('search combines with format, region, month and favorites',()=>{assert.equal(filterEvents(events,{category:'digital'}).length,4);assert.equal(filterEvents(events,{query:' МУРМАНСК '})[0].id,'murmansk');assert.equal(filterEvents(events,{query:'AIJ'})[0].id,'aij');assert.equal(filterEvents(events,{month:'12'})[0].id,'royal');assert.equal(filterEvents(events,{region:'unknown'}).length,1);assert.equal(filterEvents(events,{savedOnly:true,saved:['aij'],month:'11'})[0].id,'aij');assert.equal(filterEvents(events,{query:'нет такого города'}).length,0);assert.equal(filterEvents(events,{category:'digital',region:'Мурманск',month:'12'}).length,0);});
 test('calendar exports two full days of AIJ with exclusive end date',()=>{const ics=calendarText(events.find(e=>e.id==='aij'));assert.match(ics,/DTSTART;VALUE=DATE:20261127/);assert.match(ics,/DTEND;VALUE=DATE:20261129/);assert.match(ics,/SUMMARY:AI Journey/);assert.ok(ics.endsWith('END:VCALENDAR\r\n'));});
-test('one-day event has following day as calendar end',()=>{assert.match(calendarText(events[0]),/DTEND;VALUE=DATE:20261120/);});
+test('one-day event has following day as calendar end',()=>{assert.match(calendarText(events[0]),/DTEND;VALUE=DATE:20261117/);});
+test('Murmansk follows the supplied conference agenda and confirmed date',()=>{
+ const e=events.find(e=>e.id==='murmansk');assert.equal(e.start,'2026-11-19');assert.equal(e.end,e.start);assert.equal(e.program.length,6);assert.equal(e.speakers.length,4);assert.match(e.address,/5\/23/);assert.equal(e.websiteUrl,'https://murmansk-digitalday.ru');assert.match(e.qrImage,/murmansk-qr\.png$/);
+ const ics=calendarText(e);assert.match(ics,/DTSTART:20261119T100000Z/);assert.match(ics,/DTEND:20261119T131000Z/);
+});
 
 test('Saint Petersburg is used for the accelerator in filters and calendar exports',()=>{const royal=events.find(e=>e.id==='royal');assert.equal(royal.city,'Санкт-Петербург');assert.equal(filterEvents(events,{region:'Санкт-Петербург'})[0].id,'royal');assert.match(calendarText(royal),/LOCATION:Санкт-Петербург/);});
 
