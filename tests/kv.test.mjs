@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {Readable} from 'node:stream';
 import {EventEmitter} from 'node:events';
-import {retrieve,publicRecord,tableAnswer} from '../server/kv-knowledge.mjs';
+import {retrieve,publicRecord,tableAnswer,groupSources} from '../server/kv-knowledge.mjs';
 import {createKvService} from '../server/kv-service.mjs';
 import {createKvApi} from '../server/kv-api.mjs';
 import {createSiteServer} from '../server.mjs';
@@ -25,6 +25,14 @@ test('ranking is computed from the chosen column; unknown questions do not inher
 test('public source cards contain exact formatted values and cell references, without private formulas',()=>{
  const data=publicRecord(knowledge.records[0]);assert.equal(data.fields.length,6);assert.equal(data.fields[1].value,'10 %');assert.equal(data.fields[1].cell,'D2');assert.equal(data.range,'A2:H2');assert.doesNotMatch(JSON.stringify(data),/PRIVATE_FORMULA|formula/);
  assert.match(tableAnswer(retrieve(knowledge,'GigaChat ПАК')),/несколько/);
+});
+test('product cards merge identical rows, retain references and preserve genuinely different rates',()=>{
+ const identical=row(7,'ГигаЧат для бизнеса ПАК');
+ const groups=groupSources([knowledge.records[0],identical,knowledge.records[1],knowledge.records[3]].map(publicRecord));
+ assert.equal(groups.length,2);assert.equal(groups[0].variants.length,2);
+ assert.deepEqual(groups[0].variants[0].references.map(r=>r.row),[2,7]);
+ assert.equal(groups[0].variants[1].fields.find(f=>f.key==='pvRate').value,'20 %');
+ assert.equal(groups[1].product,'Портал DA');
 });
 test('without a provider key the assistant truthfully returns table lookup and no network call',async()=>{
  const service=createKvService({knowledge,fetchImpl:()=>assert.fail('Unexpected external call')});const result=await service.ask('ГигаЧат ПАК');assert.equal(result.mode,'lookup');assert.equal(result.sources.length,2);

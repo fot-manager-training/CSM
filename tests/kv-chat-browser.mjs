@@ -10,10 +10,11 @@ try{
  assert.match(await b.evaluate('document.getElementById("kv-chat-status").textContent'),/174 строк/);
  await ask('ГигаЧат для бизнеса ПАК');
  const expected=knowledge.records.filter(r=>r.provider==='Салют для Бизнеса'&&r.product==='ГигаЧат для бизнеса ПАК');
- assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),expected.length);
+ assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),1);
+ assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-variant-select option').length`),expected.length+1);
  const sources=await b.evaluate(`${last}.textContent`);for(const row of expected){assert.ok(sources.includes(row.sheet+'!'+row.range));assert.ok(sources.includes(row.fields.pvRate.display));}
  assert.equal(await b.evaluate(`${last}.querySelector('.kv-answer-mode').textContent`),'Поиск по таблице');
- await b.evaluate('document.querySelector(".kv-fact summary").scrollIntoView({block:"center",behavior:"instant"})');await b.click('.kv-fact summary');await b.wait('document.querySelector(".kv-fact").open');assert.equal(await b.evaluate('document.querySelectorAll(".kv-fact[open] .kv-fact-fields>div").length'),6);
+ assert.equal(await b.evaluate('document.querySelector(".kv-fact").open'),true);await b.evaluate('const selector=document.querySelector(".kv-variant-select");selector.value="0";selector.dispatchEvent(new Event("change"))');assert.equal(await b.evaluate('document.querySelectorAll(".kv-variant-panel:not([hidden]) .kv-fact-fields>div").length'),6);
  await b.evaluate('document.querySelector(".kv-fact-follow").scrollIntoView({block:"center",behavior:"instant"})');await b.click('.kv-fact-follow');assert.match(await b.evaluate('document.getElementById("kv-chat-input").value'),/строка 2/);await b.click('#kv-chat-send');await b.wait(`${last}.querySelectorAll('.kv-fact').length===1&&!${last}.classList.contains('is-pending')`);
  await ask('НесуществующийПродуктXYZ');assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),0);assert.match(await b.evaluate(`${last}.textContent`),/не нашлось/);
  await ask('<img src=x onerror="window.KV_XSS=true"> ГигаЧат ПАК');assert.equal(await b.evaluate('window.KV_XSS===true'),false);assert.equal(await b.evaluate('document.querySelector("#kv-chat-panel img")===null'),true);
@@ -29,7 +30,7 @@ try{
    await b.click('#kv-chat-close');
   }
  }
- await b.evaluate('window.originalKvFetch=window.fetch;window.fetch=()=>Promise.reject(new TypeError("Failed to fetch"))');await b.click('#kv-chat-launcher');await b.wait('document.getElementById("kv-chat-status").textContent.includes("недоступен")');assert.equal(await b.evaluate('document.getElementById("kv-chat-send").disabled'),true);await b.click('#kv-chat-close');await b.evaluate('window.fetch=window.originalKvFetch');await b.click('#kv-chat-launcher');await b.wait('!document.getElementById("kv-chat-send").disabled');
+ await b.evaluate('window.originalKvFetch=window.fetch;window.fetch=()=>Promise.reject(new TypeError("Failed to fetch"))');await b.click('#kv-chat-launcher');await b.wait('document.getElementById("kv-chat-status").textContent.includes("недоступн")');assert.equal(await b.evaluate('document.getElementById("kv-chat-send").disabled'),true);await b.click('#kv-chat-close');await b.evaluate('window.fetch=window.originalKvFetch');await b.click('#kv-chat-launcher');await b.wait('!document.getElementById("kv-chat-send").disabled');
  await b.click('#kv-chat-close');await b.evaluate('window.originalKvFetch=window.fetch;window.fetch=()=>Promise.resolve(new Response("Not found",{status:404}))');await b.click('#kv-chat-launcher');await b.wait('!document.querySelector(".kv-local-source").hidden');assert.equal(await b.evaluate('document.getElementById("kv-chat-input").disabled'),true);assert.match(await b.evaluate('document.querySelector(".kv-chat-connection").textContent'),/Выбрать КВ.xlsx/);await b.evaluate('window.fetch=window.originalKvFetch');
  assert.equal(await b.evaluate('performance.getEntriesByType("resource").some(e=>e.name.includes("api.deepseek.com"))'),false);
  assert.deepEqual(b.errors,[]);console.log('PASS: real KV source variants and cell references, follow-up by row, unknown product, safe text, cancel/clear/Escape, all five pages at 320/390/768/1440, offline recovery, no browser-side provider calls.');

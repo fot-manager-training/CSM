@@ -1,4 +1,26 @@
 export const fieldKeys=['minPv','pvRate','profitRate','ownership','vatRate','finResult'];
+export function validateKnowledge(data){
+ if(data?.schemaVersion!==1||!Array.isArray(data.records)||!data.records.length||data.records.length>5000)throw Error('Invalid knowledge file');
+ const ids=new Set();
+ for(const row of data.records){
+  if(typeof row.id!=='string'||!row.id||ids.has(row.id)||typeof row.provider!=='string'||!row.provider||typeof row.product!=='string'||!row.product||!Number.isInteger(row.row)||!row.sheet)throw Error('Invalid knowledge record');
+  ids.add(row.id);for(const key of fieldKeys)if(!Number.isFinite(row.fields?.[key]?.value)||typeof row.fields[key].display!=='string')throw Error('Invalid knowledge field');
+ }
+ return data;
+}
+// One product card; equal conditions share references, distinct conditions stay selectable.
+export function groupSources(rows){
+ const products=new Map();
+ for(const row of rows){
+  const productKey=JSON.stringify([row.provider,row.product]);
+  if(!products.has(productKey))products.set(productKey,{provider:row.provider,product:row.product,variants:[],conditions:new Map()});
+  const product=products.get(productKey),conditionKey=JSON.stringify(fieldKeys.map(key=>row.fields.find(f=>f.key===key)?.value));
+  let variant=product.conditions.get(conditionKey);
+  if(!variant){variant={...row,references:[]};product.conditions.set(conditionKey,variant);product.variants.push(variant);}
+  variant.references.push({id:row.id,sheet:row.sheet,row:row.row,range:row.range});
+ }
+ return [...products.values()].map(({conditions,...product})=>product);
+}
 export function normalize(value){
  return String(value).normalize('NFKC').toLocaleLowerCase('ru').replace(/ё/g,'е')
   .replace(/giga[\s-]*chat|гига[\s-]*чат(?:а|у|ом|е)?/gu,'гигачат')
@@ -47,6 +69,6 @@ export function publicRecord(row){
 }
 export function tableAnswer(result){
  if(!result.records.length)return 'В таблице не нашлось подходящих условий. Уточните компанию и полное название продукта. Правила выплаты, дата действия ставок и порядок применения MIN ПВ в файле не описаны.';
- const variant=result.records.length>1?' В файле есть несколько строк или вариантов условий: проверьте название продукта и НДС.':'';
+ const variant=groupSources(result.records.map(publicRecord)).some(product=>product.variants.length>1)?' В файле есть несколько вариантов условий для одного продукта. Выберите вариант внутри карточки.':'';
  return `${result.ranking?'Подобраны строки по указанному показателю.':'Условия из загруженной таблицы приведены ниже.'}${variant}${result.total>result.records.length?` Показано ${result.records.length} из ${result.total} строк; уточните запрос, чтобы сузить подбор.`:''}`;
 }
