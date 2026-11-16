@@ -1,7 +1,7 @@
-import {kvApiBase} from './kv-chat-config.js?v=kv-clean-20261116';
-import {readKvWorkbook} from './kv-workbook.js?v=kv-clean-20261116';
-import {retrieve,publicRecord,tableAnswer,overviewAnswer,groupSources} from './kv-lookup.js?v=kv-clean-20261116';
-import {loadSharedKnowledge} from './kv-shared.js?v=kv-clean-20261116';
+import {kvApiBase} from './kv-chat-config.js?v=kv-minimal-20261116';
+import {readKvWorkbook} from './kv-workbook.js?v=kv-minimal-20261116';
+import {retrieve,publicRecord,tableAnswer,overviewAnswer,groupSources} from './kv-lookup.js?v=kv-minimal-20261116';
+import {loadSharedKnowledge} from './kv-shared.js?v=kv-minimal-20261116';
 const make=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;};
 export function initKvChat(){
  if(document.getElementById('kv-chat-launcher'))return;
@@ -82,7 +82,7 @@ export function initKvChat(){
    if(localKnowledge){const found=retrieve(localKnowledge,question,history.slice(-6));data={answer:(!found.records.length&&overviewAnswer(localKnowledge,question))||tableAnswer(found),mode:dataOrigin,sources:found.records.map(publicRecord)};}
    else{const response=await fetch(new URL('chat',base),{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,history:history.slice(-6)}),signal:AbortSignal.any([controller.signal,AbortSignal.timeout(35000)])});data=await response.json();if(!response.ok)throw Error(data.error||'Не удалось получить ответ. Попробуйте ещё раз.');}
    if(session!==generation)return;controller.signal.throwIfAborted();
-   answer.querySelector('.kv-message-text').textContent=data.answer;answer.append(make('span','kv-answer-mode',data.mode==='deepseek'?'Пояснение DeepSeek · условия из таблицы':data.mode==='local'?'Поиск по файлу на устройстве · без ИИ':data.mode==='shared'?'Поиск по общей базе КВ':'Поиск по таблице'));
+   answer.querySelector('.kv-message-text').textContent=data.answer;if(data.mode!=='shared')answer.append(make('span','kv-answer-mode',data.mode==='deepseek'?'Пояснение DeepSeek · условия из таблицы':data.mode==='local'?'Поиск по файлу на устройстве · без ИИ':'Поиск по таблице'));
    if(data.notice)answer.append(make('p','kv-chat-notice',data.notice));
    if(Array.isArray(data.sources)&&data.sources.length){const sources=make('div','kv-chat-sources'),products=groupSources(data.sources);sources.setAttribute('aria-label','Условия из исходной таблицы');for(const product of products){const item=fact(product);if(products.length===1)item.open=true;sources.append(item);}answer.append(sources);answer.append(make('p','kv-chat-notice','Значения сохранены в Excel. Формулы с внешними ссылками не пересчитывались.'));}
    history.push({role:'user',content:question},{role:'assistant',content:String(data.answer).slice(0,1200)});history=history.slice(-6);
