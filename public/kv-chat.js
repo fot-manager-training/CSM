@@ -1,7 +1,7 @@
-import {kvApiBase} from './kv-chat-config.js?v=kv-shared-20261116';
-import {readKvWorkbook} from './kv-workbook.js?v=kv-shared-20261116';
-import {retrieve,publicRecord,tableAnswer,overviewAnswer,groupSources} from './kv-lookup.js';
-import {loadSharedKnowledge} from './kv-shared.js?v=kv-shared-20261116';
+import {kvApiBase} from './kv-chat-config.js?v=kv-shared-live-20261116';
+import {readKvWorkbook} from './kv-workbook.js?v=kv-shared-live-20261116';
+import {retrieve,publicRecord,tableAnswer,overviewAnswer,groupSources} from './kv-lookup.js?v=kv-shared-live-20261116';
+import {loadSharedKnowledge} from './kv-shared.js?v=kv-shared-live-20261116';
 const make=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;};
 export function initKvChat(){
  if(document.getElementById('kv-chat-launcher'))return;
