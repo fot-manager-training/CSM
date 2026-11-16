@@ -1,4 +1,4 @@
-import {fieldKeys} from './kv-lookup.js?v=kv-shared-live-20261116';
+import {fieldKeys} from './kv-lookup.js?v=kv-clean-20261116';
 
 const MAX_FILE=32*1024*1024,MAX_EXPANDED=64*1024*1024;
 const labels=['КЭС','Продукт','MIN ПВ','ПВ,%','К приб,%','Доля владения,%','НДС,%','ФинРез'];

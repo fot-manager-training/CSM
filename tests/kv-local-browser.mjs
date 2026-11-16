@@ -23,7 +23,7 @@ try{
  const actual=await b.evaluate('window.kvImportedCheck');assert.equal(actual.records.length,174);
  for(const record of expected.records){const found=actual.records.find(r=>r.id===record.id);assert.ok(found);assert.equal(found.product,record.product);assert.equal(found.provider,record.provider);for(const [key,field]of Object.entries(record.fields)){assert.equal(found.fields[key].value,field.value);assert.equal(found.fields[key].display,field.display);assert.equal(found.fields[key].cell,field.cell);}}
  await ask('Условия ГигаЧат для бизнеса ПАК');assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),1);assert.match(await b.evaluate(`${last}.textContent`),/на устройстве · без ИИ/);
- await ask('Покажи строку 92');assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),1);assert.match(await b.evaluate(`${last}.textContent`),/A92:H92/);
+ await ask('Покажи строку 92');assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),1);assert.match(await b.evaluate(`${last}.querySelector('dd').title`),/!C92$/);
  await ask('НесуществующийПродуктXYZ');assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),0);assert.match(await b.evaluate(`${last}.textContent`),/не нашлось/);
  await ask('Какие компании есть в файле?');assert.ok((await b.evaluate(`${last}.textContent`)).includes(expected.records[0].provider));
  await b.evaluate(`(async()=>{const file=new File(['bad content'],'broken.xlsx');try{await(await import('./kv-workbook.js?v=kv-local-20261116')).readKvWorkbook(file);window.kvBadFile='accepted'}catch(e){window.kvBadFile=e.message}})()`);assert.notEqual(await b.evaluate('window.kvBadFile'),'accepted');

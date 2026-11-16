@@ -6,7 +6,8 @@ const b=await browser(),last='document.querySelector("#kv-chat-log>article:last-
 async function ask(question){await b.evaluate(`document.getElementById('kv-chat-input').value=${JSON.stringify(question)};document.getElementById('kv-chat-form').requestSubmit()`);await b.wait(`${last}.querySelector('.kv-answer-mode')`);}
 try{
  await b.viewport(1440,1000);await b.navigate('index.html','document.getElementById("kv-chat-launcher")');await b.click('#kv-chat-launcher');await b.wait('!document.getElementById("kv-chat-send").disabled');
- assert.match(await b.evaluate('document.getElementById("kv-chat-status").textContent'),/Общая база КВ/);
+ assert.equal(await b.evaluate('document.getElementById("kv-chat-status").hidden'),true);
+ assert.equal(await b.evaluate('document.querySelector(".kv-chat-footnote")'),null);
  assert.equal(await b.evaluate('document.querySelector(".kv-local-source").hidden'),true);
  await b.evaluate('window.kvPosts=[];window.originalKvFetch=window.fetch;window.fetch=(url,options)=>{if(options?.method==="POST")window.kvPosts.push(String(url));return window.originalKvFetch(url,options)}');
  await ask('ГигаЧат для бизнеса ПАК');assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),1);
@@ -17,11 +18,12 @@ try{
   await b.evaluate(`(()=>{const selector=document.querySelector('.kv-variant-select');selector.value=${JSON.stringify(String(i))};selector.dispatchEvent(new Event('change'))})()`);
   const text=await b.evaluate(`${last}.querySelector('.kv-variant-panel:not([hidden])').textContent`);
   for(const field of Object.values(records[i].fields))assert.ok(text.includes(field.display));
-  assert.ok(text.includes(records[i].sheet+'!'+records[i].range));
+  assert.equal(await b.evaluate(`${last}.querySelector('.kv-fact-source')`),null);
+  assert.deepEqual(await b.evaluate(`Array.from(${last}.querySelectorAll('.kv-variant-panel:not([hidden]) dd'),node=>node.title)`),Object.values(records[i].fields).map(field=>records[i].sheet+'!'+field.cell));
   assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-variant-panel:not([hidden])').length`),1);
  }
  await ask('НесуществующийПродуктXYZ');assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),0);assert.match(await b.evaluate(`${last}.textContent`),/не нашлось/);
- await b.click('#kv-chat-clear');await ask('Покажи строку 92');assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),1);assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-variant-select').length`),0);assert.match(await b.evaluate(`${last}.textContent`),/A92:H92/);
+ await b.click('#kv-chat-clear');await ask('Покажи строку 92');assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),1);assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-variant-select').length`),0);assert.match(await b.evaluate(`${last}.querySelector('dd').title`),/!C92$/);
  assert.deepEqual(await b.evaluate('window.kvPosts'),[]);
  for(const width of [320,390,768,1440]){
   await b.viewport(width,950);
