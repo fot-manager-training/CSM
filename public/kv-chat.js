@@ -1,4 +1,6 @@
-import {kvApiBase} from './kv-chat-config.js?v=kv-chat-release-20261116';
+import {kvApiBase} from './kv-chat-config.js?v=kv-local-20261116';
+import {readKvWorkbook} from './kv-workbook.js?v=kv-local-20261116';
+import {retrieve,publicRecord,tableAnswer,overviewAnswer} from './kv-lookup.js';
 const make=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;};
 export function initKvChat(){
  if(document.getElementById('kv-chat-launcher'))return;
@@ -9,19 +11,33 @@ export function initKvChat(){
  document.body.append(launcher,panel);
  const $=id=>panel.querySelector('#'+id),log=$('kv-chat-log'),input=$('kv-chat-input'),send=$('kv-chat-send'),status=$('kv-chat-status');
  const connectionNotice=make('p','kv-chat-connection');connectionNotice.hidden=true;connectionNotice.setAttribute('role','status');panel.querySelector('.kv-chat-header').after(connectionNotice);
+ const sourcePicker=make('div','kv-local-source'),fileLabel=make('label','kv-local-file','Выбрать КВ.xlsx'),fileInput=make('input','visually-hidden'),forgetFile=make('button','kv-local-forget','Удалить из чата');
+ fileInput.id='kv-chat-file';fileInput.type='file';fileInput.accept='.xlsx';fileLabel.append(fileInput);forgetFile.type='button';forgetFile.hidden=true;
+ sourcePicker.append(fileLabel,forgetFile,make('p','','Файл обрабатывается на вашем устройстве и не отправляется на сервер.'));sourcePicker.hidden=true;connectionNotice.after(sourcePicker);
  const base=new URL(kvApiBase||'./api/kv/',import.meta.url);if(!base.pathname.endsWith('/'))base.pathname+='/';
- let ready=false,checking=false,pending=null,generation=0,history=[];
+ let ready=false,checking=false,pending=null,generation=0,history=[],localKnowledge=null,importing=false;
  const scroll=()=>{log.scrollTop=log.scrollHeight;};
  function bubble(role,text){const node=make('article','kv-message kv-message-'+role);const label=make('span','kv-message-role',role==='user'?'Вы':'Помощник');const content=make('p','kv-message-text',text);node.append(label,content);log.append(node);scroll();return node;}
  function welcome(){log.replaceChildren();history=[];bubble('assistant','Спросите про условия продукта или сравните варианты. Я покажу ПВ, MIN ПВ, ФинРез и другие значения с указанием строки. Если в файле несколько вариантов, помогу их различить.');}
- function setPending(value){send.textContent=value?'■':'↑';send.setAttribute('aria-label',value?'Остановить ответ':'Отправить вопрос');input.readOnly=value;panel.setAttribute('aria-busy',String(value));}
+ function setPending(value){send.textContent=value?'■':'↑';send.setAttribute('aria-label',value?'Остановить ответ':'Отправить вопрос');input.readOnly=value;fileInput.disabled=value||importing;forgetFile.disabled=value||importing;panel.setAttribute('aria-busy',String(value));}
+ function updateControls(){send.disabled=!ready;input.disabled=!ready;sourcePicker.hidden=ready&&!localKnowledge;forgetFile.hidden=!localKnowledge;for(const button of $('kv-chat-suggestions').children)button.disabled=!ready;input.placeholder=ready?'Например: условия ГигаЧат ПАК':'Сначала выберите КВ.xlsx';}
+ function showLocalStatus(){ready=true;status.textContent=`${localKnowledge.records.length} строк · ${localKnowledge.filename} · на устройстве`;connectionNotice.textContent='Таблица открыта. Задайте вопрос ниже — поиск работает без сервера. Файл доступен до обновления этой страницы.';connectionNotice.hidden=false;updateControls();}
+ fileInput.onchange=async()=>{
+  const file=fileInput.files?.[0];if(!file||pending||importing)return;
+  importing=true;fileInput.disabled=true;send.disabled=true;input.disabled=true;forgetFile.disabled=true;status.textContent='Читаю таблицу на устройстве…';
+  try{const knowledge=await readKvWorkbook(file);generation++;localKnowledge=knowledge;welcome();showLocalStatus();input.focus({preventScroll:true});}
+  catch(error){connectionNotice.textContent=error.message||'Не удалось прочитать книгу. Выберите сохранённую копию .xlsx.';connectionNotice.hidden=false;if(localKnowledge){ready=true;status.textContent=`${localKnowledge.records.length} строк · предыдущий файл сохранён`;}else{ready=false;status.textContent='Выберите таблицу КВ';}updateControls();}
+  finally{importing=false;fileInput.disabled=false;forgetFile.disabled=false;fileInput.value='';}
+ };
+ forgetFile.onclick=()=>{if(pending||importing)return;generation++;localKnowledge=null;ready=false;welcome();input.value='';updateControls();checkStatus();};
  async function checkStatus(){
+  if(localKnowledge){showLocalStatus();return;}
   if(checking)return;checking=true;send.disabled=true;input.disabled=true;connectionNotice.hidden=true;status.textContent='Подключаем базу знаний…';
-  try{const response=await fetch(new URL('status',base),{credentials:'omit',signal:AbortSignal.timeout(10000)});if(response.status===404)throw Object.assign(Error(),{code:'API_NOT_CONFIGURED'});if(!response.ok)throw Error();const data=await response.json();ready=data.ready===true;status.textContent=ready?`${data.source.rows} строк · ${data.source.products} продуктов · КВ.xlsx`:'База знаний пока не подключена';if(!ready){connectionNotice.textContent='Сервер доступен, но таблица КВ ещё не подключена. Ответы появятся после загрузки базы знаний.';connectionNotice.hidden=false;}}
-  catch(error){ready=false;const missing=error.code==='API_NOT_CONFIGURED';status.textContent=missing?'Сервер помощника ещё не подключён':'Помощник временно недоступен. Откройте чат позже.';connectionNotice.textContent=missing?'Чат размещён на сайте. Ответы по КВ станут доступны после подключения сервера.':'Не удалось связаться с сервером. Закройте и снова откройте чат, чтобы повторить подключение.';connectionNotice.hidden=false;}
-  finally{checking=false;send.disabled=!ready;input.disabled=!ready;for(const button of $('kv-chat-suggestions').children)button.disabled=!ready;input.placeholder=ready?'Например: условия ГигаЧат ПАК':'Подключение помощника готовится…';}
+  try{if(!kvApiBase&&location.hostname.endsWith('.github.io'))throw Object.assign(Error(),{code:'API_NOT_CONFIGURED'});const response=await fetch(new URL('status',base),{credentials:'omit',signal:AbortSignal.timeout(10000)});if(response.status===404)throw Object.assign(Error(),{code:'API_NOT_CONFIGURED'});if(!response.ok)throw Error();const data=await response.json();if(localKnowledge)return;ready=data.ready===true;status.textContent=ready?`${data.source.rows} строк · ${data.source.products} продуктов · КВ.xlsx`:'Выберите таблицу КВ';if(!ready){connectionNotice.textContent='Выберите КВ.xlsx на устройстве, чтобы начать поиск по условиям.';connectionNotice.hidden=false;}}
+  catch(error){if(localKnowledge)return;ready=false;const missing=error.code==='API_NOT_CONFIGURED';status.textContent=missing?'Выберите таблицу КВ':'Сервер недоступен · можно открыть файл';connectionNotice.textContent='Нажмите «Выбрать КВ.xlsx». После выбора файла можно задавать вопросы по продуктам и условиям прямо здесь.';connectionNotice.hidden=false;}
+  finally{checking=false;if(localKnowledge)showLocalStatus();else updateControls();}
  }
- function open(){panel.hidden=false;launcher.setAttribute('aria-expanded','true');checkStatus();input.focus({preventScroll:true});}
+ function open(){panel.hidden=false;launcher.setAttribute('aria-expanded','true');checkStatus().then(()=>{if(!panel.hidden)(ready?input:fileInput).focus({preventScroll:true});});}
  function close(){panel.hidden=true;launcher.setAttribute('aria-expanded','false');launcher.focus({preventScroll:true});}
  launcher.onclick=()=>panel.hidden?open():close();$('kv-chat-close').onclick=close;
  $('kv-chat-clear').onclick=()=>{generation++;pending?.abort();pending=null;setPending(false);welcome();input.value='';input.focus();};
@@ -43,9 +59,11 @@ export function initKvChat(){
   const question=input.value.trim();if(!question)return;
   const session=generation;const controller=new AbortController();pending=controller;input.value='';bubble('user',question);const answer=bubble('assistant','Ищу условия в таблице…');answer.classList.add('is-pending');setPending(true);
   try{
-   const response=await fetch(new URL('chat',base),{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,history:history.slice(-6)}),signal:AbortSignal.any([controller.signal,AbortSignal.timeout(35000)])});
-   const data=await response.json();if(session!==generation)return;if(!response.ok)throw Error(data.error||'Не удалось получить ответ. Попробуйте ещё раз.');
-   answer.querySelector('.kv-message-text').textContent=data.answer;answer.append(make('span','kv-answer-mode',data.mode==='deepseek'?'Пояснение DeepSeek · условия из таблицы':'Поиск по таблице'));
+   let data;
+   if(localKnowledge){const found=retrieve(localKnowledge,question,history.slice(-6));data={answer:(!found.records.length&&overviewAnswer(localKnowledge,question))||tableAnswer(found),mode:'local',sources:found.records.map(publicRecord)};}
+   else{const response=await fetch(new URL('chat',base),{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,history:history.slice(-6)}),signal:AbortSignal.any([controller.signal,AbortSignal.timeout(35000)])});data=await response.json();if(!response.ok)throw Error(data.error||'Не удалось получить ответ. Попробуйте ещё раз.');}
+   if(session!==generation)return;controller.signal.throwIfAborted();
+   answer.querySelector('.kv-message-text').textContent=data.answer;answer.append(make('span','kv-answer-mode',data.mode==='deepseek'?'Пояснение DeepSeek · условия из таблицы':data.mode==='local'?'Поиск по файлу на устройстве · без ИИ':'Поиск по таблице'));
    if(data.notice)answer.append(make('p','kv-chat-notice',data.notice));
    if(Array.isArray(data.sources)&&data.sources.length){const sources=make('div','kv-chat-sources');sources.setAttribute('aria-label','Условия из исходной таблицы');for(const row of data.sources){const item=fact(row);if(data.sources.length===1)item.open=true;sources.append(item);}answer.append(sources);answer.append(make('p','kv-chat-notice','Значения сохранены в Excel. Формулы с внешними ссылками не пересчитывались.'));}
    history.push({role:'user',content:question},{role:'assistant',content:String(data.answer).slice(0,1200)});history=history.slice(-6);
