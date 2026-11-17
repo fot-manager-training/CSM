@@ -1,4 +1,4 @@
-import {initKvChat} from './kv-chat.js?v=kv-minimal-20261116';
+import {initKvChat} from './kv-chat.js?v=chat-blue-20261117';
 import './motion.js?v=ribbon-motion-20261110';
 import {initNavigation} from './navigation.js?v=platform-update-20261111';
 const $=id=>document.getElementById(id);
@@ -18,10 +18,10 @@ window.addEventListener('storage',updateSavedCount);
 if(!migrateLegacyRoute()){
  if(page==='home'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initHome}=await import('./home.js?v=platform-update-20261111');initHome({iconize});
+  const {initHome}=await import('./home.js?v=royal-20261117');initHome({iconize});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else if(page==='events'){
-  const {initEvents,routeEvent}=await import('./events-ui.js?v=platform-update-20261111');
+  const {initEvents,routeEvent}=await import('./events-ui.js?v=royal-20261117');
   initEvents({iconize,notify});routeEvent();window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())routeEvent();});
 
  }else if(page==='learning'){

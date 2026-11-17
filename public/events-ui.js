@@ -1,7 +1,7 @@
 import {calendarEvent,calendarLegend} from './event-calendar.js?v=platform-update-20261111';
-import {events,filterEvents,calendarText,eventYear,eventMonthBounds} from './data.js?v=platform-update-20261111';
+import {events,filterEvents,calendarText,eventYear,eventMonthBounds} from './data.js?v=royal-20261117';
 import {eventImages} from './media.js?v=platform-update-20261111';
-import {initAfisha} from './afisha.js?v=platform-update-20261111';
+import {initAfisha} from './afisha.js?v=royal-20261117';
 const $=id=>document.getElementById(id);
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const heart=()=>`<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>`;
@@ -37,7 +37,7 @@ function save(id){
 function updateDialogSave(){const b=$('dialog-save');if(b){b.textContent=saved.includes(currentEvent)?'♥ В избранном':'♡ Сохранить';b.setAttribute('aria-pressed',String(saved.includes(currentEvent)));}}
 function eventDetails(e){
  const program=e.program?.length?`<h3 class="detail-subtitle">Программа</h3><ol class="event-program">${e.program.map(item=>`<li>${item.time?`<span>${escape(item.time)}</span>`:''}<h4>${escape(item.title)}</h4>${item.description?`<p>${escape(item.description)}</p>`:''}</li>`).join('')}</ol>`:'';
- const speakers=e.speakers?.length?`<h3 class="detail-subtitle">Спикеры</h3><div class="event-speakers">${e.speakers.map(person=>`<article><h4>${escape(person.name)}</h4><p>${escape(person.role)}</p>${person.topic?`<strong>${escape(person.topic)}</strong>`:''}</article>`).join('')}</div>`:'';
+ const speakers=e.speakers?.length?`<h3 class="detail-subtitle">Спикеры</h3><div class="event-speakers">${e.speakers.map(person=>`<article><h4>${escape(person.name)}</h4>${person.role?`<p>${escape(person.role)}</p>`:''}${person.topic?`<strong>${escape(person.topic)}</strong>`:''}</article>`).join('')}</div>`:'';
  const topics=e.topics?.length?`<h3 class="detail-subtitle">Темы встречи</h3><ul class="event-terms">${e.topics.map(text=>`<li>${escape(text)}</li>`).join('')}</ul>`:'';
  const terms=e.terms?.length?`<h3 class="detail-subtitle">Условия участия</h3><ul class="event-terms">${e.terms.map(text=>`<li>${escape(text)}</li>`).join('')}</ul>`:'';
  const contact=e.contact?`<div class="event-contact"><strong>${escape(e.contact.name)}</strong>${e.contact.phone?`<a href="tel:${escape(e.contact.phone.replace(/[^+0-9]/g,''))}">${escape(e.contact.phone)}</a>`:''}${e.contact.email?`<a href="mailto:${escape(e.contact.email)}">${escape(e.contact.email)}</a>`:''}</div>`:'';

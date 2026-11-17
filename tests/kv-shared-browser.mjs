@@ -9,6 +9,11 @@ try{
  assert.equal(await b.evaluate('document.getElementById("kv-chat-status").hidden'),true);
  assert.equal(await b.evaluate('document.querySelector(".kv-chat-footnote")'),null);
  assert.equal(await b.evaluate('document.querySelector(".kv-local-source").hidden'),true);
+ assert.equal(await b.evaluate('document.getElementById("kv-chat-title").textContent'),'Чат-бот');assert.match(await b.evaluate('document.getElementById("kv-chat-launcher").textContent'),/Чат-бот/);assert.match(await b.evaluate('document.querySelector(".kv-welcome").textContent'),/Чем помочь сегодня/);
+ assert.equal(await b.evaluate('document.querySelector(".kv-chip-primary").textContent.includes("Помощник по КВ")'),true);
+ for(const [text,path]of [['Мероприятия','events.html'],['Обучение CSM','learning.html'],['Бизнес-кейсы','cases.html'],['Партнёры','partners.html']])assert.equal(await b.evaluate(`Array.from(document.querySelectorAll('.kv-chat-suggestions a')).some(a=>a.textContent.includes(${JSON.stringify(text)})&&a.href.endsWith(${JSON.stringify(path)}))`),true);
+ const form=await b.bounds('#kv-chat-form'),suggestions=await b.bounds('#kv-chat-suggestions');assert.ok(suggestions.top>=form.bottom);
+ await b.screenshot('chat-mint-welcome-1440');await b.click('.kv-chip-primary');await b.wait('document.querySelectorAll(".kv-helper-examples .kv-example").length===3');await b.evaluate('document.querySelector(".kv-example").scrollIntoView({block:"center",behavior:"instant"})');await b.click('.kv-example');await b.wait(`${last}.querySelector('.kv-fact')`);await b.click('.kv-chip-primary');assert.equal(await b.evaluate('document.querySelectorAll(".kv-helper-menu").length'),1);assert.equal(await b.evaluate(`${last}.classList.contains('kv-helper-menu')`),true);await b.click('#kv-chat-clear');
  await b.evaluate('window.kvPosts=[];window.originalKvFetch=window.fetch;window.fetch=(url,options)=>{if(options?.method==="POST")window.kvPosts.push(String(url));return window.originalKvFetch(url,options)}');
  await ask('ГигаЧат для бизнеса ПАК');assert.doesNotMatch(await b.evaluate('document.getElementById("kv-chat-panel").innerText'),/Поиск по общей базе КВ|Сверяйте продукт и вариант условий/);assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),1);
  assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-variant-select option').length`),3);
@@ -28,7 +33,7 @@ try{
  for(const width of [320,390,768,1440]){
   await b.viewport(width,950);
   for(const page of ['index','events','cases','partners','learning']){
-   await b.navigate(page+'.html','document.getElementById("kv-chat-launcher")');await b.click('#kv-chat-launcher');await b.wait('!document.getElementById("kv-chat-send").disabled');await ask('ГигаЧат ПАК');
+   await b.navigate(page+'.html','document.getElementById("kv-chat-launcher")');await b.click('#kv-chat-launcher');await b.wait('!document.getElementById("kv-chat-send").disabled');if(page==='index'&&width===390)await b.screenshot('chat-mint-welcome-390');await ask('ГигаЧат ПАК');
    assert.equal(await b.evaluate(`${last}.querySelectorAll('.kv-fact').length`),1);assert.equal(await b.evaluate('document.querySelectorAll("#kv-chat-panel").length'),1);assert.equal(await b.evaluate('document.querySelectorAll("#kv-chat-launcher").length'),1);assert.equal(await b.evaluate('document.querySelector(".kv-local-source").hidden'),true);
    const bounds=await b.bounds('#kv-chat-panel');assert.ok(bounds.left>=0&&bounds.right<=width&&bounds.top>=0&&bounds.bottom<=950);assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth'),true);
    if(page==='index'&&(width===390||width===1440))await b.screenshot('kv-shared-'+width);

@@ -6,9 +6,9 @@ const make=(tag,className,text)=>{const node=document.createElement(tag);if(clas
 export function initKvChat(){
  if(document.getElementById('kv-chat-launcher'))return;
  const launcher=make('button','kv-chat-launcher');launcher.id='kv-chat-launcher';launcher.type='button';launcher.setAttribute('aria-controls','kv-chat-panel');launcher.setAttribute('aria-expanded','false');
- launcher.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8c-1.2 0-2.4-.3-3.4-.7L4 20l1.1-4.6A8 8 0 1 1 20 11.5Z"/><path d="M8 9h8M8 13h5"/></svg><span>Вопрос по КВ</span>';
+ launcher.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8c-1.2 0-2.4-.3-3.4-.7L4 20l1.1-4.6A8 8 0 1 1 20 11.5Z"/><path d="M8 9h8M8 13h5"/></svg><span>Чат-бот</span>';
  const panel=make('section','kv-chat-panel');panel.id='kv-chat-panel';panel.hidden=true;panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','false');panel.setAttribute('aria-labelledby','kv-chat-title');
- panel.innerHTML=`<header class="kv-chat-header"><div><h2 id="kv-chat-title">Помощник по КВ</h2><p id="kv-chat-status" role="status">Ответы по вашей таблице</p></div><div class="kv-chat-actions"><button type="button" id="kv-chat-clear" title="Новый диалог" aria-label="Начать новый диалог">↺</button><button type="button" id="kv-chat-close" aria-label="Закрыть чат">×</button></div></header><div class="kv-chat-log" id="kv-chat-log" role="log" aria-label="Переписка с помощником" aria-live="polite" aria-relevant="additions"></div><div class="kv-chat-suggestions" id="kv-chat-suggestions"></div><form class="kv-chat-form" id="kv-chat-form"><label class="visually-hidden" for="kv-chat-input">Ваш вопрос по КВ</label><textarea id="kv-chat-input" name="question" rows="2" maxlength="1200" placeholder="Продукт, компания или условие…" required></textarea><button class="kv-chat-send" type="submit" id="kv-chat-send" aria-label="Отправить вопрос">↑</button></form>`;
+ panel.innerHTML=`<header class="kv-chat-header"><button type="button" class="kv-header-button" id="kv-chat-clear" title="Новый диалог" aria-label="Начать новый диалог"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 4H6a3 3 0 0 0-3 3v10l4-3h10a3 3 0 0 0 3-3v-1M17 1v6M14 4h6"/></svg></button><div class="kv-chat-brand"><h2 id="kv-chat-title">Чат-бот</h2><span>DTaaS СЗБ</span><p id="kv-chat-status" role="status">Подключаем базу знаний…</p></div><button type="button" class="kv-header-button" id="kv-chat-close" aria-label="Закрыть чат">×</button></header><div class="kv-chat-log" id="kv-chat-log" role="log" aria-label="Переписка с чат-ботом" aria-live="polite" aria-relevant="additions"></div><form class="kv-chat-form" id="kv-chat-form"><button type="button" class="kv-chat-attach" id="kv-chat-attach" aria-label="Открыть свою таблицу КВ на устройстве" title="Открыть свою таблицу КВ на устройстве"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m8 13 7-7a3 3 0 0 1 4 4L9 20a5 5 0 0 1-7-7L13 2"/></svg></button><label class="visually-hidden" for="kv-chat-input">Ваш вопрос по КВ</label><textarea id="kv-chat-input" name="question" rows="2" maxlength="1200" placeholder="Спросите о КВ" required></textarea><button class="kv-chat-send" type="submit" id="kv-chat-send" aria-label="Отправить вопрос">↑</button></form><nav class="kv-chat-suggestions" id="kv-chat-suggestions" aria-label="Возможности чат-бота и разделы сайта"></nav>`;
  document.body.append(launcher,panel);
  const $=id=>panel.querySelector('#'+id),log=$('kv-chat-log'),input=$('kv-chat-input'),send=$('kv-chat-send'),status=$('kv-chat-status');
  const connectionNotice=make('p','kv-chat-connection');connectionNotice.hidden=true;connectionNotice.setAttribute('role','status');panel.querySelector('.kv-chat-header').after(connectionNotice);
@@ -18,17 +18,17 @@ export function initKvChat(){
  const base=new URL(kvApiBase||'./api/kv/',import.meta.url);if(!base.pathname.endsWith('/'))base.pathname+='/';
  let ready=false,checking=false,pending=null,generation=0,history=[],localKnowledge=null,dataOrigin='',importing=false;
  const scroll=()=>{log.scrollTop=log.scrollHeight;};
- function bubble(role,text){const node=make('article','kv-message kv-message-'+role);const label=make('span','kv-message-role',role==='user'?'Вы':'Помощник');const content=make('p','kv-message-text',text);node.append(label,content);log.append(node);scroll();return node;}
- function welcome(){log.replaceChildren();history=[];bubble('assistant','Спросите про условия продукта или сравните варианты. Я покажу ПВ, MIN ПВ, ФинРез и другие значения с указанием строки. Если в файле несколько вариантов, помогу их различить.');}
- function setPending(value){send.textContent=value?'■':'↑';send.setAttribute('aria-label',value?'Остановить ответ':'Отправить вопрос');input.readOnly=value;fileInput.disabled=value||importing;forgetFile.disabled=value||importing;panel.setAttribute('aria-busy',String(value));}
- function updateControls(){status.hidden=ready;if(ready)status.textContent='';send.disabled=!ready;input.disabled=!ready;sourcePicker.hidden=ready&&dataOrigin!=='local';forgetFile.hidden=dataOrigin!=='local';for(const button of $('kv-chat-suggestions').children)button.disabled=!ready;input.placeholder=ready?'Например: условия ГигаЧат ПАК':'База знаний загружается…';}
+ function bubble(role,text){log.querySelector('.kv-welcome')?.remove();const node=make('article','kv-message kv-message-'+role);const label=make('span','kv-message-role',role==='user'?'Вы':'Чат-бот');const content=make('p','kv-message-text',text);node.append(label,content);log.append(node);scroll();return node;}
+ function welcome(){log.replaceChildren();history=[];const greeting=make('article','kv-welcome');greeting.append(make('h3','','Чем помочь сегодня?'),make('p','','Узнайте условия по КВ или выберите нужный раздел ниже.'));log.append(greeting);}
+ function setPending(value){send.textContent=value?'■':'↑';send.setAttribute('aria-label',value?'Остановить ответ':'Отправить вопрос');input.readOnly=value;fileInput.disabled=value||importing;forgetFile.disabled=value||importing;$('kv-chat-attach').disabled=value||importing;panel.setAttribute('aria-busy',String(value));}
+ function updateControls(){status.hidden=ready;if(ready)status.textContent='';send.disabled=!ready;input.disabled=!ready;sourcePicker.hidden=ready&&dataOrigin!=='local';forgetFile.hidden=dataOrigin!=='local';for(const button of $('kv-chat-suggestions').querySelectorAll('button'))button.disabled=!ready;input.placeholder=ready?'Спросите о КВ':'База знаний загружается…';}
  function showLocalStatus(){ready=true;const shared=dataOrigin==='shared';status.textContent=shared?`Общая база КВ · ${localKnowledge.records.length} строк`:`${localKnowledge.records.length} строк · ${localKnowledge.filename} · на устройстве`;connectionNotice.textContent='Таблица открыта. Задайте вопрос ниже — поиск работает без сервера. Файл доступен до обновления этой страницы.';connectionNotice.hidden=shared;updateControls();}
  fileInput.onchange=async()=>{
   const file=fileInput.files?.[0];if(!file||pending||importing)return;
-  importing=true;fileInput.disabled=true;send.disabled=true;input.disabled=true;forgetFile.disabled=true;status.hidden=false;status.textContent='Читаю таблицу на устройстве…';
+  importing=true;fileInput.disabled=true;send.disabled=true;input.disabled=true;forgetFile.disabled=true;$('kv-chat-attach').disabled=true;status.hidden=false;status.textContent='Читаю таблицу на устройстве…';
   try{const knowledge=await readKvWorkbook(file);generation++;localKnowledge=knowledge;dataOrigin='local';welcome();showLocalStatus();input.focus({preventScroll:true});}
   catch(error){connectionNotice.textContent=error.message||'Не удалось прочитать книгу. Выберите сохранённую копию .xlsx.';connectionNotice.hidden=false;if(localKnowledge){ready=true;status.textContent=`${localKnowledge.records.length} строк · предыдущий файл сохранён`;}else{ready=false;status.textContent='Выберите таблицу КВ';}updateControls();}
-  finally{importing=false;fileInput.disabled=false;forgetFile.disabled=false;fileInput.value='';}
+  finally{importing=false;fileInput.disabled=false;forgetFile.disabled=false;$('kv-chat-attach').disabled=false;fileInput.value='';}
  };
  forgetFile.onclick=()=>{if(pending||importing)return;generation++;localKnowledge=null;dataOrigin='';ready=false;welcome();input.value='';updateControls();checkStatus();};
  async function checkStatus(){
@@ -46,11 +46,18 @@ export function initKvChat(){
  function open(){panel.hidden=false;launcher.setAttribute('aria-expanded','true');checkStatus().then(()=>{if(!panel.hidden)(ready?input:fileInput).focus({preventScroll:true});});}
  function close(){panel.hidden=true;launcher.setAttribute('aria-expanded','false');launcher.focus({preventScroll:true});}
  launcher.onclick=()=>panel.hidden?open():close();$('kv-chat-close').onclick=close;
+ $('kv-chat-attach').onclick=()=>{if(!pending&&!importing)fileInput.click();};
  $('kv-chat-clear').onclick=()=>{generation++;pending?.abort();pending=null;setPending(false);welcome();input.value='';input.focus();};
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!panel.hidden&&!document.querySelector('dialog[open]')){event.preventDefault();close();}});
- for(const text of ['Условия ГигаЧат для бизнеса ПАК','Сравни ГигаЧат ПАК и Облако','Какое ПВ у Портал DA?']){
-  const button=make('button','kv-chat-suggestion',text);button.type='button';button.onclick=()=>{if(pending)return;input.value=text;if(ready)$('kv-chat-form').requestSubmit();else input.focus();};$('kv-chat-suggestions').append(button);
- }
+ const helper=make('button','kv-chat-suggestion kv-chip-primary');helper.type='button';helper.append(make('span','kv-chip-icon','₽'),make('span','','Помощник по КВ'));
+ helper.onclick=()=>{
+  if(pending||!ready)return;
+  let menu=log.querySelector('.kv-helper-menu');
+  if(!menu){menu=bubble('assistant','Помогу найти ПВ, MIN ПВ, НДС и ФинРез, сравнить условия и выбрать нужный вариант. Спросите о продукте или начните с примера:');menu.classList.add('kv-helper-menu');const examples=make('div','kv-helper-examples');for(const text of ['Условия ГигаЧат для бизнеса ПАК','Какое ПВ у Портал DA?','Максимальный ПВ']){const button=make('button','kv-example',text);button.type='button';button.onclick=()=>{if(pending||!ready)return;input.value=text;$('kv-chat-form').requestSubmit();};examples.append(button);}menu.append(examples);}
+  log.append(menu);scroll();input.focus({preventScroll:true});
+ };
+ $('kv-chat-suggestions').append(helper);
+ for(const [title,href,icon] of [['Мероприятия','./events.html','▦'],['Обучение CSM','./learning.html','✦'],['Бизнес-кейсы','./cases.html','↗'],['Партнёры','./partners.html','◌']]){const link=make('a','kv-chat-suggestion');link.href=href;link.append(make('span','kv-chip-icon',icon),make('span','',title));$('kv-chat-suggestions').append(link);}
  function fact(product){
   const details=make('details','kv-fact'),summary=make('summary','');
   summary.append(make('strong','',product.product),make('span','kv-fact-provider',product.provider));

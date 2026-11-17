@@ -10,7 +10,14 @@ test('Murmansk follows the supplied conference agenda and confirmed date',()=>{
  const ics=calendarText(e);assert.match(ics,/DTSTART:20261119T100000Z/);assert.match(ics,/DTEND:20261119T131000Z/);
 });
 
-test('Saint Petersburg is used for the accelerator in filters and calendar exports',()=>{const royal=events.find(e=>e.id==='royal');assert.equal(royal.city,'Санкт-Петербург');assert.equal(filterEvents(events,{region:'Санкт-Петербург'})[0].id,'royal');assert.match(calendarText(royal),/LOCATION:Санкт-Петербург/);});
+test('accelerator follows the supplied December agenda, venue and precise Moscow calendar time',()=>{
+ const royal=events.find(e=>e.id==='royal');assert.equal(royal.city,'Санкт-Петербург');assert.equal(filterEvents(events,{region:'Санкт-Петербург'})[0].id,'royal');
+ assert.equal(royal.start,'2026-12-10');assert.equal(royal.end,royal.start);assert.equal(royal.program.length,9);assert.equal(royal.speakers.length,5);
+ assert.match(royal.venue,/CORT INN/);assert.match(royal.address,/Грибоедова, 166А/);assert.equal(royal.websiteUrl,'https://accelerator-spb-sber.ru');assert.match(royal.qrImage,/royal-accelerator-qr\.png$/);
+ assert.equal(royal.program[0].time,'10:00–10:30');assert.equal(royal.program[8].time,'15:00–15:30');assert.ok(royal.program.some(p=>p.title.includes('Giga Cowork')));assert.ok(royal.program.some(p=>p.title.includes('Evo.ai')));
+ assert.doesNotMatch(royal.description,/требуют уточнения/);
+ const ics=calendarText(royal);assert.match(ics,/DTSTART:20261210T070000Z/);assert.match(ics,/DTEND:20261210T123000Z/);assert.match(ics,/LOCATION:Конференц-зал отеля CORT INN/);assert.match(ics,/набережная канала Грибоедова/);assert.match(ics,/URL:https:\/\/accelerator-spb-sber.ru/);assert.doesNotMatch(ics,/VALUE=DATE/);
+});
 
 test('date selection includes both AIJ dates and combines with other filters',()=>{
  assert.equal(filterEvents(events,{day:'2026-11-27'})[0].id,'aij');assert.equal(filterEvents(events,{day:'2026-11-28'})[0].id,'aij');assert.equal(filterEvents(events,{day:'2026-11-29'}).length,0);assert.equal(filterEvents(events,{day:'2026-12-10',region:'Санкт-Петербург',category:'accelerator'})[0].id,'royal');assert.equal(filterEvents(events,{day:'2026-12-10',category:'digital'}).length,0);

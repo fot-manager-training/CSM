@@ -119,11 +119,92 @@ export const events = [
     "start": "2026-12-10",
     "end": "2026-12-10",
     "date": "10 декабря",
-    "summary": "Пространство идей и новых возможностей для роста.",
+    "summary": "GenAI, агентная экономика, Giga Cowork и Evo.ai: выступления экспертов и практическая бизнес-игра.",
     "background": "#ffc6ab",
     "color": "#35251e",
     "art": "accelerator",
-    "description": "Королевский Акселератор пройдёт 10 декабря в Санкт-Петербурге. Условия участия, программа и площадка требуют уточнения у организатора."
+    "description": "Практический акселератор Сбера для клиентов и партнёров о GenAI и агентной трансформации бизнеса: тренды, AI в PDLC, агентизация бизнес-процессов и цифровые агенты. Организатор — Управление технологического развития и GenAI-трансформации.",
+    "venue": "Конференц-зал отеля CORT INN",
+    "address": "Санкт-Петербург, набережная канала Грибоедова, 166А",
+    "time": "10:00–15:30 (мск)",
+    "startTime": "10:00",
+    "endTime": "15:30",
+    "timeZone": "Europe/Moscow",
+    "websiteUrl": "https://accelerator-spb-sber.ru",
+    "qrImage": "./assets/events/royal-accelerator-qr.png",
+    "registrationText": "Информация об участии и регистрации — на сайте мероприятия.",
+    "program": [
+      {
+        "time": "10:00–10:30",
+        "title": "Сбор гостей"
+      },
+      {
+        "time": "10:30–10:35",
+        "title": "Приветственное слово",
+        "description": "Д. Е. Суховерхов, Председатель Северо-Западного банка."
+      },
+      {
+        "time": "10:35–10:55",
+        "title": "Тренды GenAI",
+        "description": "Д. Трофимов."
+      },
+      {
+        "time": "10:55–11:15",
+        "title": "Агентная экономика. AI в PDLC: как выстроить процесс в компании",
+        "description": "А. Матвеев."
+      },
+      {
+        "time": "11:15–11:50",
+        "title": "Практическая агентизация бизнес-процессов в Giga Cowork",
+        "description": "В. Толмачев."
+      },
+      {
+        "time": "11:50–12:30",
+        "title": "Цифровые агенты на платформе Evo.ai",
+        "description": "В. Горовой."
+      },
+      {
+        "time": "12:30–13:00",
+        "title": "Кофе-брейк"
+      },
+      {
+        "time": "13:00–15:00",
+        "title": "Бизнес-игра с углублением в GenAI"
+      },
+      {
+        "time": "15:00–15:30",
+        "title": "Подведение итогов"
+      }
+    ],
+    "speakers": [
+      {
+        "name": "Д. Е. Суховерхов",
+        "role": "Председатель Северо-Западного банка",
+        "topic": "Приветственное слово"
+      },
+      {
+        "name": "Д. Трофимов",
+        "topic": "Тренды GenAI"
+      },
+      {
+        "name": "А. Матвеев",
+        "topic": "Агентная экономика. AI в PDLC"
+      },
+      {
+        "name": "В. Толмачев",
+        "topic": "Практическая агентизация бизнес-процессов в Giga Cowork"
+      },
+      {
+        "name": "В. Горовой",
+        "topic": "Цифровые агенты на платформе Evo.ai"
+      }
+    ],
+    "documents": [
+      {
+        "title": "Программа акселератора (PDF)",
+        "href": "./assets/events/materials/royal-accelerator-program.pdf"
+      }
+    ]
   },
   {
     "id": "aij",
@@ -311,5 +392,5 @@ export function calendarText(e) {
   ];
   const location=[e.venue,e.address||e.city].filter(Boolean).join(', ');
   const description=[e.description,e.time,e.registrationText].filter(Boolean).join('\n');
-  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//DTaaS SZB//Events//RU','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${e.id}-${e.start.slice(0,4)}@dtaas.local`,`DTSTAMP:${stamp(new Date())}`,...dates,`SUMMARY:${escape(e.title)}`,`DESCRIPTION:${escape(description)}`,...(location?[`LOCATION:${escape(location)}`]:[]),'END:VEVENT','END:VCALENDAR',''].join('\r\n');
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//DTaaS SZB//Events//RU','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${e.id}-${e.start.slice(0,4)}@dtaas.local`,`DTSTAMP:${stamp(new Date())}`,...dates,`SUMMARY:${escape(e.title)}`,`DESCRIPTION:${escape(description)}`,...(location?[`LOCATION:${escape(location)}`]:[]),...(e.websiteUrl?[`URL:${escape(e.websiteUrl)}`]:[]),'END:VEVENT','END:VCALENDAR',''].join('\r\n');
 }
