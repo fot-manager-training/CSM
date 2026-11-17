@@ -1,4 +1,4 @@
-import {kvApiBase} from './kv-chat-config.js?v=neutral-20261117';
+import {kvApiBase} from './kv-chat-config.js?v=render-live-20261117';
 import {readKvWorkbook} from './kv-workbook.js?v=neutral-20261117';
 import {retrieve,publicRecord,tableAnswer,overviewAnswer,groupSources} from './kv-lookup.js?v=neutral-20261117';
 import {loadSharedKnowledge} from './kv-shared.js?v=neutral-20261117';

@@ -1,4 +1,4 @@
-import {initKvChat} from './kv-chat.js?v=render-20261117';
+import {initKvChat} from './kv-chat.js?v=render-live-20261117';
 import './motion.js?v=neutral-20261117';
 import {initNavigation} from './navigation.js?v=neutral-20261117';
 const $=id=>document.getElementById(id);
