@@ -130,9 +130,6 @@ export const events = [
     "startTime": "10:00",
     "endTime": "15:30",
     "timeZone": "Europe/Moscow",
-    "websiteUrl": "https://accelerator-spb-sber.ru",
-    "qrImage": "./assets/events/royal-accelerator-qr.png",
-    "registrationText": "Информация об участии и регистрации — на сайте мероприятия.",
     "program": [
       {
         "time": "10:00–10:30",
@@ -356,16 +353,18 @@ export const events = [
     "city": "Архангельск",
     "category": "digital",
     "type": "Цифровой день",
-    "start": null,
-    "end": null,
-    "date": "Дата — на сайте",
-    "summary": "Сайт мероприятия и QR-код для перехода к информации о цифровом дне.",
-    "description": "Цифровой день в Архангельске. Откройте сайт мероприятия по ссылке или отсканируйте QR-код, чтобы уточнить дату, программу и условия участия.",
-    "time": "Уточните на сайте",
-    "venue": "Уточните на сайте",
-    "registrationText": "Дата, время и площадка пока не подтверждены на платформе. Уточните информацию на сайте мероприятия.",
+    "start": "2026-10-15",
+    "end": "2026-10-15",
+    "date": "15 октября",
+    "summary": "ИИ для бизнес-процессов, автоматизация HR и благополучие команды.",
+    "description": "Цифровой день «Технологии и люди» в Архангельске. Практические кейсы применения ИИ, автоматизация HR-процессов, цифровые сотрудники, коммуникационные сервисы и развитие команды.",
+    "time": "09:00–13:00 · регистрация с 09:00",
+    "registrationText": "Программа и материалы мероприятия доступны на сайте.",
     "websiteUrl": "https://arhangelsk-digitalday.ru",
-    "qrImage": "./assets/events/arkhangelsk-qr.jpg?v=neutral-20261117"
+    "qrImage": "./assets/events/arkhangelsk-qr.jpg?v=neutral-20261117",
+    "startTime": "09:00",
+    "endTime": "13:00",
+    "timeZone": "Europe/Moscow"
   }
 ];
 export const eventYear=2026;

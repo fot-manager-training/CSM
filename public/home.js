@@ -1,4 +1,4 @@
-import {events,filterEvents} from './data.js?v=neutral-20261117';
+import {events,filterEvents} from './data.js?v=event-cleanup-20261117';
 import {initShowcases,renderEventRail} from './showcase.js?v=neutral-20261117';
 export function initHome({iconize}){
  initShowcases({iconize});renderEventRail(events);

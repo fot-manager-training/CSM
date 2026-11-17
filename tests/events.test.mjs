@@ -13,10 +13,10 @@ test('Murmansk follows the supplied conference agenda and confirmed date',()=>{
 test('accelerator follows the supplied December agenda, venue and precise Moscow calendar time',()=>{
  const royal=events.find(e=>e.id==='royal');assert.equal(royal.city,'Санкт-Петербург');assert.equal(filterEvents(events,{region:'Санкт-Петербург'})[0].id,'royal');
  assert.equal(royal.start,'2026-12-10');assert.equal(royal.end,royal.start);assert.equal(royal.program.length,9);assert.equal(royal.speakers.length,5);
- assert.match(royal.venue,/CORT INN/);assert.match(royal.address,/Грибоедова, 166А/);assert.equal(royal.websiteUrl,'https://accelerator-spb-sber.ru');assert.match(royal.qrImage,/royal-accelerator-qr\.png$/);
+ assert.match(royal.venue,/CORT INN/);assert.match(royal.address,/Грибоедова, 166А/);assert.equal(royal.websiteUrl,undefined);assert.equal(royal.qrImage,undefined);
  assert.equal(royal.program[0].time,'10:00–10:30');assert.equal(royal.program[8].time,'15:00–15:30');assert.ok(royal.program.some(p=>p.title.includes('Giga Cowork')));assert.ok(royal.program.some(p=>p.title.includes('Evo.ai')));
  assert.doesNotMatch(royal.description,/требуют уточнения/);
- const ics=calendarText(royal);assert.match(ics,/DTSTART:20261210T070000Z/);assert.match(ics,/DTEND:20261210T123000Z/);assert.match(ics,/LOCATION:Конференц-зал отеля CORT INN/);assert.match(ics,/набережная канала Грибоедова/);assert.match(ics,/URL:https:\/\/accelerator-spb-sber.ru/);assert.doesNotMatch(ics,/VALUE=DATE/);
+ const ics=calendarText(royal);assert.match(ics,/DTSTART:20261210T070000Z/);assert.match(ics,/DTEND:20261210T123000Z/);assert.match(ics,/LOCATION:Конференц-зал отеля CORT INN/);assert.match(ics,/набережная канала Грибоедова/);assert.doesNotMatch(ics,/^URL:/m);assert.doesNotMatch(ics,/VALUE=DATE/);
 });
 
 test('date selection includes both AIJ dates and combines with other filters',()=>{
@@ -26,4 +26,13 @@ test('date selection includes both AIJ dates and combines with other filters',()
 test('supplied dinner has the confirmed venue, program and Moscow calendar time',()=>{const e=events.find(e=>e.id==='business-dinner');assert.equal(e.start,'2026-12-02');assert.equal(e.venue,'Юсуповский дворец');assert.equal(e.program.length,5);assert.equal(e.speakers.length,3);const ics=calendarText(e);assert.match(ics,/DTSTART:20261202T140000Z/);assert.match(ics,/DTEND:20261202T203000Z/);assert.doesNotMatch(ics,/VALUE=DATE/);assert.match(ics,/набережная реки Мойки/);});
 test('DSS stays on the four confirmed May 2026 dates and preserves its terms',()=>{const e=events.find(e=>e.id==='dss-spb');assert.equal(e.start,'2026-05-28');assert.equal(e.end,'2026-05-31');assert.equal(e.program.length,4);assert.ok(e.terms.some(t=>t.includes('590 000')));assert.equal(filterEvents(events,{month:'05',category:'education'})[0].id,'dss-spb');for(const day of ['28','29','30','31'])assert.equal(filterEvents(events,{day:'2026-05-'+day})[0].id,'dss-spb');assert.match(calendarText(e),/DTEND;VALUE=DATE:20260601/);});
 
-test('Arkhangelsk has the supplied website and QR without an invented calendar date',()=>{const e=events.find(e=>e.id==='arkhangelsk');assert.equal(e.city,'Архангельск');assert.equal(e.start,null);assert.equal(e.end,null);assert.equal(e.websiteUrl,'https://arhangelsk-digitalday.ru');assert.equal(new URL(e.qrImage,'https://test.local').pathname,'/assets/events/arkhangelsk-qr.jpg');assert.equal(filterEvents(events,{query:'Архангельск'})[0].id,'arkhangelsk');assert.equal(filterEvents(events,{region:'Архангельск'})[0].id,'arkhangelsk');assert.equal(filterEvents(events,{month:'11',region:'Архангельск'}).length,0);assert.equal(filterEvents(events,{day:'2026-11-27',region:'Архангельск'}).length,0);assert.throws(()=>calendarText(e),RangeError);});
+test('Arkhangelsk uses the published October date, timing, website and QR',()=>{
+ const e=events.find(e=>e.id==='arkhangelsk');assert.equal(e.city,'Архангельск');
+ assert.equal(e.start,'2026-10-15');assert.equal(e.end,e.start);assert.equal(e.date,'15 октября');
+ assert.equal(e.websiteUrl,'https://arhangelsk-digitalday.ru');assert.equal(new URL(e.qrImage,'https://test.local').pathname,'/assets/events/arkhangelsk-qr.jpg');
+ assert.equal(filterEvents(events,{query:'Архангельск'})[0].id,'arkhangelsk');assert.equal(filterEvents(events,{region:'Архангельск'})[0].id,'arkhangelsk');
+ assert.equal(filterEvents(events,{month:'10',region:'Архангельск'})[0].id,'arkhangelsk');assert.equal(filterEvents(events,{day:'2026-10-15'})[0].id,'arkhangelsk');
+ assert.equal(filterEvents(events,{month:'11',region:'Архангельск'}).length,0);
+ const ics=calendarText(e);assert.match(ics,/DTSTART:20261015T060000Z/);assert.match(ics,/DTEND:20261015T100000Z/);
+ assert.doesNotMatch(e.description+e.registrationText,/не подтверждены|уточнить дату/);
+});

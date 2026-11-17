@@ -123,7 +123,7 @@ export function initKvChat(){
   const panel=make('div','kv-variant-panel');panel.hidden=variants.length>1;panels.push(panel);
   const dl=make('dl','kv-fact-fields');for(const field of row.fields){const div=make('div','');const dt=make('dt','',field.label),dd=make('dd','',field.value);dd.title=`${row.sheet}!${field.cell}`;div.append(dt,dd);dl.append(div);}
   panel.append(dl);
-  const follow=make('button','kv-fact-follow',`Уточнить по строке ${row.row}`);follow.type='button';follow.onclick=()=>{if(pending)return;input.value=`Расскажи об условиях «${row.product}», строка ${row.row}.`;input.focus();};panel.append(follow);details.append(panel);
+  details.append(panel);
   }return details;
  }
  async function submit(event){
@@ -139,7 +139,7 @@ export function initKvChat(){
    if(session!==generation)return;controller.signal.throwIfAborted();typing.remove();
    answer.querySelector('.kv-message-text').textContent=neutralText(data.answer);if(data.mode!=='shared')answer.append(make('span','kv-answer-mode',data.mode==='deepseek'?'Пояснение DeepSeek · условия из таблицы':data.mode==='local'?'Поиск по файлу на устройстве · без ИИ':'Поиск по таблице'));
    if(data.notice)answer.append(make('p','kv-chat-notice',data.notice));
-   if(Array.isArray(data.sources)&&data.sources.length){const sources=make('div','kv-chat-sources'),products=groupSources(data.sources);sources.setAttribute('aria-label','Условия из исходной таблицы');for(const product of products){const item=fact(product);if(products.length===1)item.open=true;sources.append(item);}answer.append(sources);answer.append(make('p','kv-chat-notice','Значения сохранены в Excel. Формулы с внешними ссылками не пересчитывались.'));}
+   if(Array.isArray(data.sources)&&data.sources.length){const sources=make('div','kv-chat-sources'),products=groupSources(data.sources);sources.setAttribute('aria-label','Условия из исходной таблицы');for(const product of products){const item=fact(product);if(products.length===1)item.open=true;sources.append(item);}answer.append(sources);}
    history.push({role:'user',content:question},{role:'assistant',content:String(data.answer).slice(0,1200)});history=history.slice(-6);
   }catch(error){if(session!==generation)return;answer.querySelector('.kv-message-text').textContent=controller.signal.aborted?'Запрос остановлен.':error instanceof SyntaxError||error.message==='Failed to fetch'?'Не удалось связаться с помощником. Попробуйте ещё раз.':error.name==='TimeoutError'?'Ответ занял слишком много времени. Попробуйте ещё раз.':error.message;input.value=question;}
   finally{if(session===generation){typing.remove();answer.classList.remove('is-pending');pending=null;setPending(false);resizeComposer();scroll();if(expanded&&!compact)input.focus({preventScroll:true});}}
