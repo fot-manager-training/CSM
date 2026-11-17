@@ -38,7 +38,7 @@ try{
   if(question.includes('продукты'))assert.ok(text.includes(knowledge.records[0].product));
  }
  assert.equal(await b.evaluate('document.getElementById("kv-chat-panel").dataset.backendVersion'),'0');
- modern=true;const text=await ask('что умеешь');assert.match(text,/Вы можете спросить меня/);assert.match(text,/Пояснение DeepSeek/);
+ modern=true;const text=await ask('что умеешь');assert.match(text,/Вы можете спросить меня/);assert.doesNotMatch(text,/Пояснение DeepSeek/);assert.equal(await b.evaluate('document.querySelector("#kv-chat-log>article:last-child").dataset.mode'),'deepseek');
  assert.equal(await b.evaluate('document.getElementById("kv-chat-panel").dataset.backendVersion'),'2');
  assert.equal(await b.evaluate('document.getElementById("kv-chat-panel").dataset.backendRevision'),'abcdef0');
  assert.deepEqual(b.errors,[]);

@@ -35,7 +35,7 @@ try{
  for(let i=0;i<160&&statusCalls<2;i++)await b.delay(100);
  assert.ok(statusCalls>=2,'The open chat must retry a sleeping API');await b.delay(100);
  await ask();assert.equal(chatCalls,1);
- assert.match(await b.evaluate('document.querySelector("#kv-chat-log>article:last-child .kv-answer-mode").textContent'),/DeepSeek/);
+ assert.equal(await b.evaluate('document.querySelector("#kv-chat-log>article:last-child").dataset.mode'),'deepseek');assert.equal(await b.evaluate('document.querySelector("#kv-chat-log>article:last-child .kv-answer-mode")'),null);
  assert.equal(await b.evaluate('document.querySelectorAll("#kv-chat-log>article:last-child .kv-fact").length'),1);
  assert.deepEqual(b.errors,[]);
  console.log('PASS: unavailable API falls back to shared KV, then recovers automatically and sends subsequent questions to the model without reload.');

@@ -156,7 +156,7 @@ export function initKvChat(){
    if(session!==generation)return;controller.signal.throwIfAborted();
    const remaining=reduced.matches?0:180-(performance.now()-started);if(remaining>0)await new Promise((resolve,reject)=>{const stop=()=>{clearTimeout(timer);reject(controller.signal.reason);};const timer=setTimeout(()=>{controller.signal.removeEventListener('abort',stop);resolve();},remaining);controller.signal.addEventListener('abort',stop,{once:true});});
    if(session!==generation)return;controller.signal.throwIfAborted();typing.remove();
-   answer.querySelector('.kv-message-text').textContent=neutralText(data.answer);if(data.mode==='deepseek'||(data.mode!=='shared'&&data.mode!=='guide'&&data.sources?.length))answer.append(make('span','kv-answer-mode',data.mode==='deepseek'?'Пояснение DeepSeek':data.mode==='local'?'Поиск по файлу на устройстве · без ИИ':'Поиск по таблице'));
+   answer.dataset.mode=data.mode;answer.querySelector('.kv-message-text').textContent=neutralText(data.answer);if(!['deepseek','shared','guide'].includes(data.mode)&&data.sources?.length)answer.append(make('span','kv-answer-mode',data.mode==='local'?'Поиск по файлу на устройстве · без ИИ':'Поиск по таблице'));
    if(data.notice)answer.append(make('p','kv-chat-notice',data.notice));
    if(Array.isArray(data.sources)&&data.sources.length){const sources=make('div','kv-chat-sources'),products=groupSources(data.sources);sources.setAttribute('aria-label','Условия из исходной таблицы');for(const product of products){const item=fact(product);if(products.length===1)item.open=true;sources.append(item);}answer.append(sources);}
    history.push({role:'user',content:question},{role:'assistant',content:String(data.answer).slice(0,1200)});history=history.slice(-6);
