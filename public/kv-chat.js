@@ -112,7 +112,6 @@ export function initKvChat(){
   summary.append(make('span','kv-fact-preview',variants.length>1?`${variants.length} варианта условий · ПВ ${rates.join(' / ')}`:`ПВ ${rates[0]} · MIN ПВ ${variants[0].fields.find(f=>f.key==='minPv')?.value||'—'} · НДС ${variants[0].fields.find(f=>f.key==='vatRate')?.value||'—'}`));details.append(summary);
   const panels=[];let selector;
   if(variants.length>1){
-   details.append(make('p','kv-chat-notice','В таблице разные условия для этого продукта. Признак сегмента не указан. Выберите вариант, чтобы увидеть все показатели.'));
    const label=make('label','kv-variant-label','Вариант условий');selector=make('select','kv-variant-select');selector.setAttribute('aria-label',`Вариант условий: ${product.product}`);
    const prompt=make('option','','Выберите вариант');prompt.value='';selector.append(prompt);
    variants.forEach((row,index)=>{const pv=row.fields.find(f=>f.key==='pvRate')?.value,vat=row.fields.find(f=>f.key==='vatRate')?.value;const option=make('option','',`Условия ${index+1}: ПВ ${pv} · НДС ${vat}`);option.value=String(index);selector.append(option);});
