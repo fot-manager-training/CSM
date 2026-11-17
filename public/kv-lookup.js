@@ -66,11 +66,27 @@ export function conversationReply(question){
  if(/^(?:помощь|help)$/u.test(q)||/(?:что (?:ты |вы )?(?:умеешь|умеете|можешь|можете)|чем (?:ты |вы )?(?:поможешь|можешь помочь|можете помочь)|кто (?:ты|вы)|расскажи о себе|твои возможности|ваши возможности|как (?:ты работаешь|вы работаете))/u.test(q))return 'Помогаю находить условия КВ по компании и продукту, сравнивать варианты, уточнять ПВ, MIN ПВ, НДС и ФинРез. Например, спросите: «Какие условия у ГигаЧат для бизнеса ПАК?»';
  return null;
 }
+export function catalogReply(knowledge,question){
+ const q=normalize(question);
+ if(/услови|ставк|(?:^|\s)(?:пв|ндс|финрез|min)(?:\s|$)/u.test(q))return null;
+ if(!/(?:какие|список|перечисли|покажи|доступн).*(?:продукт|сервис|решени)|(?:продукт|сервис|решени).*(?:есть|доступн|представлен)/u.test(q))return null;
+ const providers=[...new Set(knowledge.records.map(row=>row.provider))].filter(name=>q.includes(normalize(name)));
+ const rows=providers.length?knowledge.records.filter(row=>providers.includes(row.provider)):knowledge.records;
+ const products=[...new Set(rows.map(row=>row.product))];
+ return 'В базе есть, например:\n'+products.slice(0,10).map(name=>'• '+name).join('\n')+'\n\nКакое направление или компания вас интересует? Подберу подходящие продукты и условия.';
+}
 export function overviewAnswer(knowledge,question){
  const q=normalize(question);
  if(/(?:какие|список|перечисли).*компани|компани.*(?:есть|файле|таблице|базе)/u.test(q))return `В базе представлены компании:\n${[...new Set(knowledge.records.map(r=>r.provider))].join(', ')}.`;
  if(/(?:что (?:такое|значит)|расшифру|обознача|какие)/u.test(q)&&/(?:\bmin\b|пв|ндс|финрез|поля|показатели|столбцы)/u.test(q))return 'В базе есть MIN ПВ, ПВ, К приб, доля владения, НДС и ФинРез. MIN ПВ указан в рублях, остальные показатели — в процентах. ПВ и К приб — отдельные показатели. Какой показатель разобрать подробнее?';
  return null;
+}
+export function lookupResponse(knowledge,question,history=[]){
+ const guide=conversationReply(question)||catalogReply(knowledge,question);
+ const found=guide?{records:[],total:0}:retrieve(knowledge,question,history);
+ const sources=found.records.map(publicRecord);
+ return {answer:guide||(!sources.length&&overviewAnswer(knowledge,question))||tableAnswer(found),mode:sources.length?'lookup':'guide',sources,totalMatches:found.total,
+  source:{filename:knowledge.filename,version:knowledge.sha256,notes:knowledge.notes}};
 }
 export function publicRecord(row){
  return {id:row.id,provider:row.provider,product:row.product,sheet:row.sheet,row:row.row,range:row.range,

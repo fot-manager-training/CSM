@@ -1,4 +1,4 @@
-import {fieldKeys} from './kv-lookup.js?v=dialogue-20261117';
+import {fieldKeys} from './kv-lookup.js?v=recovery-v2-20261117';
 import {neutralKnowledge} from './neutral-content.js?v=neutral-20261117';
 
 const MAX_FILE=32*1024*1024,MAX_EXPANDED=64*1024*1024;

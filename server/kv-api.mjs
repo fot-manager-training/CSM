@@ -15,8 +15,9 @@ function validateInput(body){
  if(!Array.isArray(history)||history.length>6||history.some(m=>!m||!['user','assistant'].includes(m.role)||typeof m.content!=='string'||m.content.length>1200))throw httpError(400,'Некорректная история диалога.');
  return {question:body.question.trim(),history:history.map(m=>({role:m.role,content:m.content}))};
 }
-export function createKvApi({knowledge,service,providerConfigured=false,allowedOrigins=[],now=Date.now,limit=20}){
+export function createKvApi({knowledge,service,providerConfigured=false,allowedOrigins=[],now=Date.now,limit=20,revision=''}){
  const buckets=new Map();let active=0;
+ const version={apiVersion:2,revision:/^[0-9a-f]{7,40}$/i.test(revision)?revision:null};
  return async function handle(req,res,pathname){
   if(!pathname.startsWith('/api/kv/'))return false;
   const headers={'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Vary':'Origin'};
@@ -33,7 +34,7 @@ export function createKvApi({knowledge,service,providerConfigured=false,allowedO
    send(ready?200:503,{ready});return true;
   }
   if(pathname==='/api/kv/status'&&req.method==='GET'){
-   send(200,{ready:!!knowledge,providerConfigured,source:knowledge?{filename:knowledge.filename,rows:knowledge.records.length,products:new Set(knowledge.records.map(r=>r.provider+'\0'+r.product)).size,providers:new Set(knowledge.records.map(r=>r.provider)).size}:null});return true;
+   send(200,{...version,ready:!!knowledge,providerConfigured,source:knowledge?{filename:knowledge.filename,rows:knowledge.records.length,products:new Set(knowledge.records.map(r=>r.provider+'\0'+r.product)).size,providers:new Set(knowledge.records.map(r=>r.provider)).size}:null});return true;
   }
   if(pathname!=='/api/kv/chat'){send(404,{error:'Раздел не найден.'});return true;}
   if(req.method!=='POST'){headers.Allow='POST';send(405,{error:'Используйте отправку вопроса.'});return true;}
@@ -47,7 +48,7 @@ export function createKvApi({knowledge,service,providerConfigured=false,allowedO
   req.once('aborted',()=>controller.abort());res.once?.('close',()=>{if(!res.writableEnded)controller.abort();});
   try{
    const input=validateInput(await bodyJson(req));
-   const result=await service.ask(input.question,input.history,controller.signal);send(200,result);
+   const result=await service.ask(input.question,input.history,controller.signal);send(200,{...result,...version});
   }catch(error){if(!controller.signal.aborted)send(error.status||500,{error:error.status?error.message:'Не удалось получить ответ. Попробуйте ещё раз.'});}
   finally{active--;}
   return true;

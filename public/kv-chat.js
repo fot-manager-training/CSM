@@ -1,6 +1,6 @@
 import {kvApiBase} from './kv-chat-config.js?v=render-live-20261117';
 import {readKvWorkbook} from './kv-workbook.js?v=neutral-20261117';
-import {retrieve,publicRecord,tableAnswer,overviewAnswer,groupSources,conversationReply} from './kv-lookup.js?v=dialogue-20261117';
+import {lookupResponse,groupSources} from './kv-lookup.js?v=recovery-v2-20261117';
 import {loadSharedKnowledge} from './kv-shared.js?v=neutral-20261117';
 import {neutralText,neutralProvider} from './neutral-content.js?v=neutral-20261117';
 const make=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;};
@@ -50,6 +50,7 @@ export function initKvChat(){
  function setPending(value){send.innerHTML=sendIcon(value);send.setAttribute('aria-label',value?'Остановить ответ':'Отправить вопрос');input.readOnly=value;fileInput.disabled=value||importing;forgetFile.disabled=value||importing;$('kv-chat-attach').disabled=value||importing;panel.setAttribute('aria-busy',String(value));}
  function updateControls(){status.hidden=ready;if(ready)status.textContent='';send.disabled=!ready;input.disabled=!ready;sourcePicker.hidden=ready&&dataOrigin!=='local';forgetFile.hidden=dataOrigin!=='local';const helper=panel.querySelector('.kv-chip-primary');if(helper)helper.disabled=!ready;input.placeholder=ready?'Спросите о КВ':'База знаний загружается…';}
  function showLocalStatus(){ready=true;const shared=dataOrigin==='shared';status.textContent=shared?`Общая база КВ · ${localKnowledge.records.length} строк`:`${localKnowledge.records.length} строк · ${localKnowledge.filename} · на устройстве`;connectionNotice.textContent='Таблица открыта. Задайте вопрос ниже — поиск работает без сервера. Файл доступен до обновления этой страницы.';connectionNotice.hidden=shared;updateControls();}
+ function noteBackendVersion(data){panel.dataset.backendVersion=String(data.apiVersion||0);panel.dataset.backendRevision=data.revision||'';}
  function scheduleServerRetry(){
   clearTimeout(serverRetry);
   if(kvApiBase&&expanded&&dataOrigin==='shared')serverRetry=setTimeout(checkStatus,8000);
@@ -73,7 +74,7 @@ export function initKvChat(){
    let server=null;
    if(kvApiBase||!location.hostname.endsWith('.github.io'))try{const response=await fetch(new URL('status',base),{credentials:'omit',signal:AbortSignal.timeout(10000)});if(response.ok)server=await response.json();}catch{}
    if(dataOrigin==='local'||pending||importing)return;
-   if(server?.ready){localKnowledge=null;dataOrigin='';ready=true;status.textContent=`${server.source.rows} строк · ${server.source.products} продуктов · КВ.xlsx`;return;}
+   if(server?.ready){noteBackendVersion(server);localKnowledge=null;dataOrigin='';ready=true;status.textContent=`${server.source.rows} строк · ${server.source.products} продуктов · КВ.xlsx`;return;}
    if(localKnowledge)return;
    const shared=await loadSharedKnowledge();if(localKnowledge)return;localKnowledge=shared;dataOrigin='shared';showLocalStatus();
   }catch{if(localKnowledge)return;ready=false;status.textContent='База КВ временно недоступна';connectionNotice.textContent='Не удалось загрузить общую базу. Откройте чат ещё раз или нажмите «Выбрать КВ.xlsx», чтобы временно использовать файл на устройстве.';connectionNotice.hidden=false;}
@@ -142,8 +143,16 @@ export function initKvChat(){
   const session=generation,started=performance.now();const controller=new AbortController();pending=controller;input.value='';resizeComposer();bubble('user',question);const answer=bubble('assistant','Сверяю условия…');const typing=make('span','kv-typing');typing.setAttribute('aria-hidden','true');for(let i=0;i<3;i++)typing.append(make('i',''));answer.append(typing);answer.classList.add('is-pending');setPending(true);
   try{
    let data;
-   if(localKnowledge){const guide=conversationReply(question),found=guide?{records:[],total:0}:retrieve(localKnowledge,question,history.slice(-6));data={answer:guide||(!found.records.length&&overviewAnswer(localKnowledge,question))||tableAnswer(found),mode:guide?'guide':dataOrigin,sources:found.records.map(publicRecord)};}
-   else{const response=await fetch(new URL('chat',base),{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,history:history.slice(-6)}),signal:AbortSignal.any([controller.signal,AbortSignal.timeout(35000)])});data=await response.json();if(!response.ok)throw Error(data.error||'Не удалось получить ответ. Попробуйте ещё раз.');}
+   if(localKnowledge){data=lookupResponse(localKnowledge,question,history.slice(-6));if(data.mode!=='guide')data.mode=dataOrigin;}
+   else{
+    const response=await fetch(new URL('chat',base),{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,history:history.slice(-6)}),signal:AbortSignal.any([controller.signal,AbortSignal.timeout(35000)])});data=await response.json();if(!response.ok)throw Error(data.error||'Не удалось получить ответ. Попробуйте ещё раз.');noteBackendVersion(data);
+    // A previous server release may still be serving during deployment.
+    // General dialogue must not regress to a failed product lookup in that interval.
+    if(data.apiVersion!==2||data.mode!=='deepseek')try{
+     const fallback=lookupResponse(await loadSharedKnowledge(),question,history.slice(-6));
+     if(fallback.mode==='guide')data={...data,answer:fallback.answer,mode:'guide',sources:[],totalMatches:0};
+    }catch{}
+   }
    if(session!==generation)return;controller.signal.throwIfAborted();
    const remaining=reduced.matches?0:180-(performance.now()-started);if(remaining>0)await new Promise((resolve,reject)=>{const stop=()=>{clearTimeout(timer);reject(controller.signal.reason);};const timer=setTimeout(()=>{controller.signal.removeEventListener('abort',stop);resolve();},remaining);controller.signal.addEventListener('abort',stop,{once:true});});
    if(session!==generation)return;controller.signal.throwIfAborted();typing.remove();

@@ -25,6 +25,6 @@ if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.ur
  catch{console.log('KV knowledge is not loaded; import the workbook to enable chat.');}
  const apiKey=process.env.DEEPSEEK_API_KEY||'';
  const service=knowledge?createKvService({knowledge,apiKey,model:process.env.DEEPSEEK_MODEL||'deepseek-chat'}):null;
- const kvApi=createKvApi({knowledge,service,providerConfigured:!!apiKey,allowedOrigins:(process.env.KV_ALLOWED_ORIGINS||'').split(',').map(x=>x.trim()).filter(Boolean)});
+ const kvApi=createKvApi({knowledge,service,providerConfigured:!!apiKey,revision:process.env.RENDER_GIT_COMMIT||'',allowedOrigins:(process.env.KV_ALLOWED_ORIGINS||'').split(',').map(x=>x.trim()).filter(Boolean)});
  createSiteServer({kvApi}).listen(Number(process.env.PORT||3000),'0.0.0.0',()=>console.log('DTaaS platform running on port '+(process.env.PORT||3000)));
 }

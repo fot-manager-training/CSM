@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {Readable} from 'node:stream';
 import {EventEmitter} from 'node:events';
-import {retrieve,publicRecord,tableAnswer,groupSources,conversationReply,overviewAnswer} from '../server/kv-knowledge.mjs';
+import {retrieve,publicRecord,tableAnswer,groupSources,conversationReply,overviewAnswer,catalogReply,lookupResponse} from '../server/kv-knowledge.mjs';
 import {createKvService} from '../server/kv-service.mjs';
 import {createKvApi} from '../server/kv-api.mjs';
 import {createSiteServer} from '../server.mjs';
@@ -62,6 +62,19 @@ test('DeepSeek handles greetings, capabilities and unclear questions even withou
  }
  assert.equal(calls,3);
 });
+test('product catalog questions list actual products without reusing a previously discussed rate',()=>{
+ const question='а какие продукты есть?';
+ assert.match(catalogReply(knowledge,question),/ГигаЧат для бизнеса ПАК/);assert.match(catalogReply(knowledge,question),/Портал DA/);
+ const response=lookupResponse(knowledge,question,[{role:'user',content:'ГигаЧат ПАК'}]);
+ assert.equal(response.mode,'guide');assert.deepEqual(response.sources,[]);assert.doesNotMatch(response.answer,/не нашлось|10 %|MIN ПВ в файле/);
+ assert.equal(catalogReply(knowledge,'Какие условия у продукта ГигаЧат ПАК?'),null);
+});
+test('model-selected catalog entries must exactly match real products',async()=>{
+ for(const [products,mode]of [[['Портал DA','GigaCode'],'deepseek'],[['Выдуманный суперпродукт'],'guide']]){
+  const service=createKvService({knowledge,apiKey:'unit-key',fetchImpl:async()=>new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({answer:'Какое направление вас интересует?',sourceIds:[],products})}}]}))});
+  const result=await service.ask('Какие продукты есть?');assert.equal(result.mode,mode);assert.match(result.answer,/Портал DA/);assert.doesNotMatch(result.answer,/Выдуманный суперпродукт/);assert.deepEqual(result.sources,[]);
+ }
+});
 test('empty-context dialogue cannot introduce invented rates or source references',async()=>{
  for(const answer of [{answer:'Ваша ставка — 99%.',sourceIds:[]},{answer:'Условия найдены.',sourceIds:['s1-r2']}]){
   const service=createKvService({knowledge,apiKey:'unit-dialog-key',fetchImpl:async()=>new Response(JSON.stringify({choices:[{message:{content:JSON.stringify(answer)}}]}))});
@@ -96,6 +109,12 @@ async function request(api,{url='/api/kv/chat',method='POST',origin,body={questi
 test('KV API status contains only readiness metadata; chat works on same origin',async()=>{
  const service=createKvService({knowledge});const api=createKvApi({knowledge,service});const status=await request(api,{url:'/api/kv/status',method:'GET'});assert.equal(status.status,200);assert.equal(status.body.source.rows,5);assert.equal(status.body.providerConfigured,false);assert.equal(status.body.source.records,undefined);
  const answer=await request(api,{origin:'http://localhost:3000'});assert.equal(answer.status,200);assert.equal(answer.body.mode,'lookup');assert.equal(answer.headers['Cache-Control'],'no-store');
+});
+test('status and chat identify the deployed API revision without exposing secrets',async()=>{
+ const revision='dc15262';const api=createKvApi({knowledge,service:createKvService({knowledge}),revision});
+ const status=await request(api,{url:'/api/kv/status',method:'GET'});assert.equal(status.body.apiVersion,2);assert.equal(status.body.revision,revision);
+ const answer=await request(api,{body:{question:'что умеешь'}});assert.equal(answer.body.apiVersion,2);assert.equal(answer.body.revision,revision);assert.equal(answer.body.mode,'guide');
+ const bad=await request(createKvApi({knowledge,service:createKvService({knowledge}),revision:'not-a-public-revision'}),{url:'/api/kv/status',method:'GET'});assert.equal(bad.body.revision,null);
 });
 test('Render health check requires knowledge, service and a configured provider without calling it',async()=>{
  const service={ask:()=>assert.fail('Health checks must not call the provider')};

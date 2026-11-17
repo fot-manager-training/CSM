@@ -101,3 +101,6 @@ body,button,input,select,textarea,svg text{font-family:'SB Sans Display',Arial,s
 /* The shared brand is text only, without a combined logo image or bank suffix. */
 .header .dtaas-text-brand{font-size:28px}.footer .dtaas-text-brand{font-size:24px}
 @media(max-width:380px){.header .dtaas-text-brand{font-size:23px}.footer .dtaas-text-brand{font-size:21px}}
+
+/* Main invitation: white, independent of the section heading palette. */
+.hero h1{color:#fff}

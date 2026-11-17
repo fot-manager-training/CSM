@@ -1,4 +1,4 @@
-import {validateKnowledge} from './kv-lookup.js?v=dialogue-20261117';
+import {validateKnowledge} from './kv-lookup.js?v=recovery-v2-20261117';
 import {neutralKnowledge} from './neutral-content.js?v=neutral-20261117';
 let pending;
 export function loadSharedKnowledge(){
