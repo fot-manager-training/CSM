@@ -6,7 +6,9 @@
 
 ## Запуск и публикация
 
-Node.js 20.6+: `npm start`. Сервер слушает порт 3000; другой порт задаётся через `PORT`.
+Для публичного API DeepSeek подготовлен [запуск на Render](docs/render.md): Blueprint находится в `render.yaml`, ключ вводится в серверный секрет при создании сервиса.
+
+Node.js 20.12+: `npm start`. Сервер слушает порт 3000; другой порт задаётся через `PORT`.
 
 GitHub Pages публикует папку `public` после push в `main`: workflow `.github/workflows/pages.yml` проверяет данные и загружает статические файлы. В Settings → Pages выбран источник GitHub Actions.
 

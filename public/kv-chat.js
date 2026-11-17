@@ -18,7 +18,7 @@ export function initKvChat(){
  fileInput.id='kv-chat-file';fileInput.type='file';fileInput.accept='.xlsx';fileLabel.append(fileInput);forgetFile.type='button';forgetFile.hidden=true;
  sourcePicker.append(fileLabel,forgetFile,make('p','','Файл обрабатывается на вашем устройстве и не отправляется на сервер.'));sourcePicker.hidden=true;connectionNotice.after(sourcePicker);
  const base=new URL(kvApiBase||'./api/kv/',import.meta.url);if(!base.pathname.endsWith('/'))base.pathname+='/';
- let ready=false,checking=false,pending=null,generation=0,history=[],localKnowledge=null,dataOrigin='',importing=false;
+ let ready=false,checking=false,pending=null,generation=0,history=[],localKnowledge=null,dataOrigin='',importing=false,serverRetry;
  let expanded=false,compact=false,sectionsOpen=false,transition=null,transitionId=0;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),backgroundState=new Map();
  function resizeComposer(){input.style.height='auto';input.style.height=Math.min(104,input.scrollHeight)+'px';}
@@ -49,6 +49,10 @@ export function initKvChat(){
  function setPending(value){send.textContent=value?'■':'↑';send.setAttribute('aria-label',value?'Остановить ответ':'Отправить вопрос');input.readOnly=value;fileInput.disabled=value||importing;forgetFile.disabled=value||importing;$('kv-chat-attach').disabled=value||importing;panel.setAttribute('aria-busy',String(value));}
  function updateControls(){status.hidden=ready;if(ready)status.textContent='';send.disabled=!ready;input.disabled=!ready;sourcePicker.hidden=ready&&dataOrigin!=='local';forgetFile.hidden=dataOrigin!=='local';const helper=panel.querySelector('.kv-chip-primary');if(helper)helper.disabled=!ready;input.placeholder=ready?'Спросите о КВ':'База знаний загружается…';}
  function showLocalStatus(){ready=true;const shared=dataOrigin==='shared';status.textContent=shared?`Общая база КВ · ${localKnowledge.records.length} строк`:`${localKnowledge.records.length} строк · ${localKnowledge.filename} · на устройстве`;connectionNotice.textContent='Таблица открыта. Задайте вопрос ниже — поиск работает без сервера. Файл доступен до обновления этой страницы.';connectionNotice.hidden=shared;updateControls();}
+ function scheduleServerRetry(){
+  clearTimeout(serverRetry);
+  if(kvApiBase&&expanded&&dataOrigin==='shared')serverRetry=setTimeout(checkStatus,8000);
+ }
  fileInput.onchange=async()=>{
   const file=fileInput.files?.[0];if(!file||pending||importing)return;
   importing=true;fileInput.disabled=true;send.disabled=true;input.disabled=true;forgetFile.disabled=true;$('kv-chat-attach').disabled=true;status.hidden=false;status.textContent='Читаю таблицу на устройстве…';
@@ -58,16 +62,21 @@ export function initKvChat(){
  };
  forgetFile.onclick=()=>{if(pending||importing)return;generation++;localKnowledge=null;dataOrigin='';ready=false;welcome();input.value='';updateControls();checkStatus();};
  async function checkStatus(){
-  if(localKnowledge){showLocalStatus();return;}
-  if(checking)return;checking=true;status.hidden=false;send.disabled=true;input.disabled=true;connectionNotice.hidden=true;status.textContent='Подключаем базу знаний…';
+  clearTimeout(serverRetry);
+  if(localKnowledge&&(dataOrigin==='local'||!kvApiBase)){showLocalStatus();return;}
+  if(checking)return;
+  if(pending||importing){scheduleServerRetry();return;}
+  checking=true;
+  if(!localKnowledge){status.hidden=false;send.disabled=true;input.disabled=true;connectionNotice.hidden=true;status.textContent='Подключаем базу знаний…';}
   try{
    let server=null;
    if(kvApiBase||!location.hostname.endsWith('.github.io'))try{const response=await fetch(new URL('status',base),{credentials:'omit',signal:AbortSignal.timeout(10000)});if(response.ok)server=await response.json();}catch{}
+   if(dataOrigin==='local'||pending||importing)return;
+   if(server?.ready){localKnowledge=null;dataOrigin='';ready=true;status.textContent=`${server.source.rows} строк · ${server.source.products} продуктов · КВ.xlsx`;return;}
    if(localKnowledge)return;
-   if(server?.ready){ready=true;status.textContent=`${server.source.rows} строк · ${server.source.products} продуктов · КВ.xlsx`;return;}
    const shared=await loadSharedKnowledge();if(localKnowledge)return;localKnowledge=shared;dataOrigin='shared';showLocalStatus();
   }catch{if(localKnowledge)return;ready=false;status.textContent='База КВ временно недоступна';connectionNotice.textContent='Не удалось загрузить общую базу. Откройте чат ещё раз или нажмите «Выбрать КВ.xlsx», чтобы временно использовать файл на устройстве.';connectionNotice.hidden=false;}
-  finally{checking=false;if(localKnowledge)showLocalStatus();else updateControls();}
+  finally{checking=false;if(localKnowledge)showLocalStatus();else updateControls();scheduleServerRetry();}
  }
  function open(){
   expanded=true;sectionsOpen=false;panel.hidden=false;panel.inert=false;panel.removeAttribute('aria-hidden');launcher.hidden=true;launcher.setAttribute('aria-expanded','true');
@@ -76,6 +85,7 @@ export function initKvChat(){
   checkStatus().then(()=>{if(expanded&&!compact)(ready?input:fileInput).focus({preventScroll:true});});
  }
  function close(){
+  clearTimeout(serverRetry);
   if(!expanded)return;expanded=false;sectionsOpen=false;updateSections();input.blur();panel.inert=true;panel.setAttribute('aria-hidden','true');panel.dataset.state='closing';launcher.setAttribute('aria-expanded','false');
   animatePanel([{opacity:1,transform:'translateY(0) scale(1)'},{opacity:0,transform:'translateY(8px) scale(.98)'}],160,()=>{panel.hidden=true;if(nativePopover&&panel.matches(':popover-open'))panel.hidePopover();panel.dataset.state='closed';backgroundModal(false);launcher.hidden=false;launcher.focus({preventScroll:true});});
  }

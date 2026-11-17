@@ -60,6 +60,14 @@ test('KV API status contains only readiness metadata; chat works on same origin'
  const service=createKvService({knowledge});const api=createKvApi({knowledge,service});const status=await request(api,{url:'/api/kv/status',method:'GET'});assert.equal(status.status,200);assert.equal(status.body.source.rows,5);assert.equal(status.body.providerConfigured,false);assert.equal(status.body.source.records,undefined);
  const answer=await request(api,{origin:'http://localhost:3000'});assert.equal(answer.status,200);assert.equal(answer.body.mode,'lookup');assert.equal(answer.headers['Cache-Control'],'no-store');
 });
+test('Render health check requires knowledge, service and a configured provider without calling it',async()=>{
+ const service={ask:()=>assert.fail('Health checks must not call the provider')};
+ for(const [base,provider,handler,expected]of [[knowledge,true,service,200],[knowledge,false,service,503],[null,true,service,503],[knowledge,true,null,503]]){
+  const api=createKvApi({knowledge:base,service:handler,providerConfigured:provider});
+  const health=await request(api,{url:'/api/kv/health',method:'GET'});
+  assert.equal(health.status,expected);assert.deepEqual(health.body,{ready:expected===200});
+ }
+});
 test('KV API rejects an unapproved origin, role injection, invalid JSON and oversized input',async()=>{
  const api=createKvApi({knowledge,service:createKvService({knowledge})});
  assert.equal((await request(api,{origin:'https://unapproved.test'})).status,403);

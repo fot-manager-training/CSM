@@ -28,6 +28,10 @@ export function createKvApi({knowledge,service,providerConfigured=false,allowedO
    headers['Access-Control-Allow-Origin']=origin;
   }
   if(req.method==='OPTIONS'){headers['Access-Control-Allow-Methods']='GET, POST, OPTIONS';headers['Access-Control-Allow-Headers']='Content-Type';send(204,{});return true;}
+  if(pathname==='/api/kv/health'&&req.method==='GET'){
+   const ready=!!knowledge&&!!service&&providerConfigured;
+   send(ready?200:503,{ready});return true;
+  }
   if(pathname==='/api/kv/status'&&req.method==='GET'){
    send(200,{ready:!!knowledge,providerConfigured,source:knowledge?{filename:knowledge.filename,rows:knowledge.records.length,products:new Set(knowledge.records.map(r=>r.provider+'\0'+r.product)).size,providers:new Set(knowledge.records.map(r=>r.provider)).size}:null});return true;
   }

@@ -21,7 +21,7 @@ export function createSiteServer({kvApi}={}){return http.createServer(async (req
 });}
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  let knowledge=null;
- try{knowledge=await loadKnowledge(path.resolve(projectRoot,process.env.KV_KNOWLEDGE_PATH||'server/private/kv-knowledge.json'));}
+ try{knowledge=await loadKnowledge(path.resolve(projectRoot,process.env.KV_KNOWLEDGE_PATH||'public/assets/kv/knowledge.json'));}
  catch{console.log('KV knowledge is not loaded; import the workbook to enable chat.');}
  const apiKey=process.env.DEEPSEEK_API_KEY||'';
  const service=knowledge?createKvService({knowledge,apiKey,model:process.env.DEEPSEEK_MODEL||'deepseek-chat'}):null;
