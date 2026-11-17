@@ -1,5 +1,5 @@
-import {events,filterEvents} from './data.js?v=royal-20261117';
-import {initShowcases,renderEventRail} from './showcase.js?v=platform-update-20261111';
+import {events,filterEvents} from './data.js?v=neutral-20261117';
+import {initShowcases,renderEventRail} from './showcase.js?v=neutral-20261117';
 export function initHome({iconize}){
  initShowcases({iconize});renderEventRail(events);
  const buttons=[...document.querySelectorAll('.discovery-categories [data-category]')];

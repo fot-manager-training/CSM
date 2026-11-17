@@ -1,4 +1,5 @@
-import {fieldKeys} from './kv-lookup.js?v=kv-minimal-20261116';
+import {fieldKeys} from './kv-lookup.js?v=neutral-20261117';
+import {neutralKnowledge} from './neutral-content.js?v=neutral-20261117';
 
 const MAX_FILE=32*1024*1024,MAX_EXPANDED=64*1024*1024;
 const labels=['КЭС','Продукт','MIN ПВ','ПВ,%','К приб,%','Доля владения,%','НДС,%','ФинРез'];
@@ -101,5 +102,5 @@ export async function readKvWorkbook(file){
   if(!headerFound)fail('В книге отсутствуют заголовки A1:H1.');
  }
  if(!records.length)fail('В книге нет данных КВ.');
- return {schemaVersion:1,filename:file.name,sheets:sheetNames,records,notes:['Использованы сохранённые в Excel значения; внешние формулы не пересчитывались.','Дата действия условий и правило применения MIN ПВ в файле не указаны.']};
+ return neutralKnowledge({schemaVersion:1,filename:file.name,sheets:sheetNames,records,notes:['Использованы сохранённые в Excel значения; внешние формулы не пересчитывались.','Дата действия условий и правило применения MIN ПВ в файле не указаны.']});
 }

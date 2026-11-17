@@ -1,5 +1,5 @@
-import {caseImages,partnerImage} from './media.js?v=platform-update-20261111';
-import {cases,partners,technologies,partnerRoles,caseIndustries,caseProcesses,caseResults,filterCases,filterPartners} from './catalog-data.js?v=platform-update-20261111';
+import {caseImages,partnerImage} from './media.js?v=neutral-20261117';
+import {cases,partners,technologies,partnerRoles,caseIndustries,caseProcesses,caseResults,filterCases,filterPartners} from './catalog-data.js?v=neutral-20261117';
 const $=id=>document.getElementById(id);
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let notify=()=>{},iconize=()=>{},selected=null;

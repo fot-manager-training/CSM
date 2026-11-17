@@ -13,7 +13,7 @@ try{
  assert.match(await b.evaluate('document.getElementById("catalog-dialog-body").textContent'),/не география оказания услуг/);
  await b.evaluate('document.getElementById("catalog-close").click();document.getElementById("partner-reset").click();document.getElementById("partner-role").value="Разработчик";document.getElementById("partner-role").dispatchEvent(new Event("change"))');
  await search('ИНФИНАЙТ СИНЕРДЖИ');assert.equal(await b.evaluate('document.querySelectorAll(".partner-card").length'),1);
- await b.evaluate('document.getElementById("partner-reset").click();document.getElementById("partner-technology").value="Сервисы Сбера (API)";document.getElementById("partner-technology").dispatchEvent(new Event("change"))');await search('LAND PRO');assert.equal(await b.evaluate('document.querySelectorAll(".partner-card").length'),1);
+ await b.evaluate('document.getElementById("partner-reset").click();document.getElementById("partner-technology").value="Корпоративные API";document.getElementById("partner-technology").dispatchEvent(new Event("change"))');await search('LAND PRO');assert.equal(await b.evaluate('document.querySelectorAll(".partner-card").length'),1);
  await b.evaluate('document.getElementById("partner-reset").click();while(!document.getElementById("partner-more").hidden)document.getElementById("partner-more").click()');assert.equal(await b.evaluate('document.querySelectorAll(".partner-card").length'),68);
  for(const width of [1440,390,320]){
   await b.viewport(width);

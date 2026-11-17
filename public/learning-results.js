@@ -1,4 +1,4 @@
-import {assessmentLevels} from './learning-data.js?v=platform-update-20261111';
+import {assessmentLevels} from './learning-data.js?v=neutral-20261117';
 const safe=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function radarGeometry(scores,compact=false){
  if(scores.length!==8||scores.some(c=>!Number.isFinite(c.percent)||c.percent<0||c.percent>100))throw new RangeError('Нужны восемь компетенций с оценкой от 0 до 100');

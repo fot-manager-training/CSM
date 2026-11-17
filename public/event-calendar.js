@@ -1,4 +1,4 @@
-import {eventImages} from './media.js?v=platform-update-20261111';
+import {eventImages} from './media.js?v=neutral-20261117';
 const safe=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const tones={
  kaliningrad:['#c4a3ff','#302545'],murmansk:['#7dc8ff','#1a354d'],lenoblast:['#9ddd9b','#203e32'],

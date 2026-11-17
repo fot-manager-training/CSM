@@ -1,4 +1,4 @@
-// User-supplied catalogs; cases supplemented from AIJ applications, partners from the linked registry.
+// User-supplied catalogs; neutral display names preserve project details and conditions.
 export const partners = [
   {
     "id": "partner-1",
@@ -39,7 +39,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7804018868",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         3
@@ -86,7 +85,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7813670043",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         4
@@ -102,7 +100,7 @@ export const partners = [
     "inn": "7803009412",
     "accreditation": "Аккредитован",
     "gigaCowork": "не уточнено",
-    "description": "Веб-сайты и порталы Геосервисы Искусственный интеллект AI, ML, DL Мобильные приложения На базе решений 1С Облачные технологии Сервисы Сбера (API) Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты RPA",
+    "description": "Веб-сайты и порталы Геосервисы Искусственный интеллект AI, ML, DL Мобильные приложения На базе решений 1С Облачные технологии Корпоративные API Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты RPA",
     "tags": [
       "Искусственный интеллект",
       "Облачные технологии",
@@ -120,10 +118,10 @@ export const partners = [
       "Консультант",
       "Разработчик"
     ],
-    "expertise": "Веб-сайты и порталы Геосервисы Искусственный интеллект AI, ML, DL Мобильные приложения На базе решений 1С Облачные технологии Сервисы Сбера (API) Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты RPA",
+    "expertise": "Веб-сайты и порталы Геосервисы Искусственный интеллект AI, ML, DL Мобильные приложения На базе решений 1С Облачные технологии Корпоративные API Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты RPA",
     "products": [
       "1С",
-      "Сервисы Сбера (API)"
+      "Корпоративные API"
     ],
     "industries": [
       "Government",
@@ -168,7 +166,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7803009412",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         5
@@ -222,7 +219,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7802679750",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         6
@@ -261,7 +257,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-600801000000",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         7
@@ -304,7 +299,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-781438000000",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         8
@@ -342,7 +336,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-390520000000",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         9
@@ -377,7 +370,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7814732180",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         10
@@ -406,7 +398,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-69",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         69
@@ -435,7 +426,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-68",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         68
@@ -451,7 +441,7 @@ export const partners = [
     "inn": "7810076191",
     "accreditation": "Аккредитован",
     "gigaCowork": "не уточнено",
-    "description": "Веб-сайты и порталы Видеоаналитика и видеонаблюдение ИТ-инфраструктура Контроль доступа Мобильные приложения На базе решений 1С Облачные технологии Сервисы Сбера (API) Системное и прикладное ПО",
+    "description": "Веб-сайты и порталы Видеоаналитика и видеонаблюдение ИТ-инфраструктура Контроль доступа Мобильные приложения На базе решений 1С Облачные технологии Корпоративные API Системное и прикладное ПО",
     "tags": [
       "Облачные технологии",
       "ИТ-инфраструктура",
@@ -464,10 +454,10 @@ export const partners = [
       "Интегратор",
       "Разработчик"
     ],
-    "expertise": "Веб-сайты и порталы Видеоаналитика и видеонаблюдение ИТ-инфраструктура Контроль доступа Мобильные приложения На базе решений 1С Облачные технологии Сервисы Сбера (API) Системное и прикладное ПО",
+    "expertise": "Веб-сайты и порталы Видеоаналитика и видеонаблюдение ИТ-инфраструктура Контроль доступа Мобильные приложения На базе решений 1С Облачные технологии Корпоративные API Системное и прикладное ПО",
     "products": [
       "1С",
-      "Сервисы Сбера (API)"
+      "Корпоративные API"
     ],
     "industries": [
       "Инфраструктура",
@@ -487,7 +477,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7810076191",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         11
@@ -503,7 +492,7 @@ export const partners = [
     "inn": "7805327900",
     "accreditation": "Аккредитован",
     "gigaCowork": "не уточнено",
-    "description": "Веб-сайты и порталы Контроль доступа Мобильные приложения На базе решений 1С Сервисы Сбера (API) Системное и прикладное ПО",
+    "description": "Веб-сайты и порталы Контроль доступа Мобильные приложения На базе решений 1С Корпоративные API Системное и прикладное ПО",
     "tags": [
       "Мобильные приложения",
       "Веб-сайты и порталы",
@@ -514,10 +503,10 @@ export const partners = [
       "Интегратор",
       "Разработчик"
     ],
-    "expertise": "Веб-сайты и порталы Контроль доступа Мобильные приложения На базе решений 1С Сервисы Сбера (API) Системное и прикладное ПО",
+    "expertise": "Веб-сайты и порталы Контроль доступа Мобильные приложения На базе решений 1С Корпоративные API Системное и прикладное ПО",
     "products": [
       "1С",
-      "Сервисы Сбера (API)"
+      "Корпоративные API"
     ],
     "industries": [
       "Government",
@@ -551,7 +540,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7805327900",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         12
@@ -618,7 +606,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7805774232",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         13
@@ -634,7 +621,7 @@ export const partners = [
     "inn": "7838433333",
     "accreditation": "Аккредитован",
     "gigaCowork": "не уточнено",
-    "description": "Биометрия (по лицу/голосу/единая биометрическая система) Веб-сайты и порталы Интернет-вещей (IoT) Искусственный интеллект AI, ML, DL ИТ-инфраструктура Мобильные приложения На базе решений 1С Облачные технологии Сервисы Сбера (API) Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты RPA",
+    "description": "Биометрия (по лицу/голосу/единая биометрическая система) Веб-сайты и порталы Интернет-вещей (IoT) Искусственный интеллект AI, ML, DL ИТ-инфраструктура Мобильные приложения На базе решений 1С Облачные технологии Корпоративные API Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты RPA",
     "tags": [
       "Искусственный интеллект",
       "Облачные технологии",
@@ -652,10 +639,10 @@ export const partners = [
       "Консультант",
       "Разработчик"
     ],
-    "expertise": "Биометрия (по лицу/голосу/единая биометрическая система) Веб-сайты и порталы Интернет-вещей (IoT) Искусственный интеллект AI, ML, DL ИТ-инфраструктура Мобильные приложения На базе решений 1С Облачные технологии Сервисы Сбера (API) Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты RPA",
+    "expertise": "Биометрия (по лицу/голосу/единая биометрическая система) Веб-сайты и порталы Интернет-вещей (IoT) Искусственный интеллект AI, ML, DL ИТ-инфраструктура Мобильные приложения На базе решений 1С Облачные технологии Корпоративные API Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты RPA",
     "products": [
       "1С",
-      "Сервисы Сбера (API)"
+      "Корпоративные API"
     ],
     "industries": [
       "ЖКХ",
@@ -678,7 +665,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7838433333",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         14
@@ -753,7 +739,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-3906141969",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         15
@@ -810,7 +795,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7805677969",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         16
@@ -867,7 +851,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7825064174",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         17
@@ -907,7 +890,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7802363308",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         18
@@ -961,7 +943,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7813646121",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         19
@@ -977,7 +958,7 @@ export const partners = [
     "inn": "7802873926",
     "accreditation": "Аккредитован",
     "gigaCowork": "не уточнено",
-    "description": "Биометрия (по лицу/голосу/единая биометрическая система) Веб-сайты и порталы Видеоаналитика и видеонаблюдение Геосервисы Дополненная и виртуальная реальность (AR/VR) Искусственный интеллект AI, ML, DL ИТ-инфраструктура Контроль доступа Мобильные приложения На базе решений 1С Облачные технологии Сервисы Сбера (API) Чат-боты/голосовые роботы/виртуальные ассистенты RPA Цифровая трансформация",
+    "description": "Биометрия (по лицу/голосу/единая биометрическая система) Веб-сайты и порталы Видеоаналитика и видеонаблюдение Геосервисы Дополненная и виртуальная реальность (AR/VR) Искусственный интеллект AI, ML, DL ИТ-инфраструктура Контроль доступа Мобильные приложения На базе решений 1С Облачные технологии Корпоративные API Чат-боты/голосовые роботы/виртуальные ассистенты RPA Цифровая трансформация",
     "tags": [
       "Искусственный интеллект",
       "Облачные технологии",
@@ -996,10 +977,10 @@ export const partners = [
       "Консультант",
       "Разработчик"
     ],
-    "expertise": "Биометрия (по лицу/голосу/единая биометрическая система) Веб-сайты и порталы Видеоаналитика и видеонаблюдение Геосервисы Дополненная и виртуальная реальность (AR/VR) Искусственный интеллект AI, ML, DL ИТ-инфраструктура Контроль доступа Мобильные приложения На базе решений 1С Облачные технологии Сервисы Сбера (API) Чат-боты/голосовые роботы/виртуальные ассистенты RPA Цифровая трансформация",
+    "expertise": "Биометрия (по лицу/голосу/единая биометрическая система) Веб-сайты и порталы Видеоаналитика и видеонаблюдение Геосервисы Дополненная и виртуальная реальность (AR/VR) Искусственный интеллект AI, ML, DL ИТ-инфраструктура Контроль доступа Мобильные приложения На базе решений 1С Облачные технологии Корпоративные API Чат-боты/голосовые роботы/виртуальные ассистенты RPA Цифровая трансформация",
     "products": [
       "1С",
-      "Сервисы Сбера (API)"
+      "Корпоративные API"
     ],
     "industries": [
       "Машиностроение.Автомобильная промышленность"
@@ -1016,7 +997,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7802873926",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         20
@@ -1061,7 +1041,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7838107523",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         21
@@ -1133,7 +1112,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7840515640",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         22
@@ -1176,7 +1154,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7733755982",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         23
@@ -1238,7 +1215,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7806572951",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         24
@@ -1280,7 +1256,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-1001278586",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         25
@@ -1322,7 +1297,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7804324760",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         26
@@ -1364,7 +1338,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7839390330",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         27
@@ -1406,7 +1379,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-1101076336",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         28
@@ -1445,7 +1417,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7841483359",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         29
@@ -1480,7 +1451,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7804698860",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         30
@@ -1525,7 +1495,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7810984732",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         31
@@ -1569,7 +1538,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7811090505",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         32
@@ -1614,7 +1582,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7727343660",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         33
@@ -1661,7 +1628,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-5018151105",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         34
@@ -1710,7 +1676,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7819035190",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         35
@@ -1753,7 +1718,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7814411556",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         36
@@ -1797,7 +1761,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7814396731",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         37
@@ -1842,7 +1805,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7839494297",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         38
@@ -1885,7 +1847,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-9731135070",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         39
@@ -1927,7 +1888,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7810204213",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         40
@@ -1970,7 +1930,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7813635627",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         41
@@ -2012,7 +1971,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-4705094414",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         64
@@ -2058,7 +2016,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7723678030",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         42
@@ -2099,7 +2056,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7839405924",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         43
@@ -2115,20 +2071,20 @@ export const partners = [
     "inn": "7801731929",
     "accreditation": "Аккредитован",
     "gigaCowork": "не уточнено",
-    "description": "Веб-сайты и порталы На базе решений 1С Сервисы Сбера (API)",
+    "description": "Веб-сайты и порталы На базе решений 1С Корпоративные API",
     "tags": [
       "Веб-сайты и порталы",
       "1С",
-      "Сервисы Сбера (API)"
+      "Корпоративные API"
     ],
     "region": "Северо-Западный банк",
     "roles": [
       "Вендор"
     ],
-    "expertise": "Веб-сайты и порталы На базе решений 1С Сервисы Сбера (API)",
+    "expertise": "Веб-сайты и порталы На базе решений 1С Корпоративные API",
     "products": [
       "1С",
-      "Сервисы Сбера (API)"
+      "Корпоративные API"
     ],
     "industries": [
       "Банковский и финансовый сектор"
@@ -2145,7 +2101,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7801731929",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         44
@@ -2189,7 +2144,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7810781250",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         45
@@ -2235,7 +2189,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7806529000",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         63
@@ -2274,7 +2227,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7813668245",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         62
@@ -2317,7 +2269,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7806239326",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         46
@@ -2364,7 +2315,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7722492033",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         47
@@ -2414,7 +2364,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7805312968",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         48
@@ -2459,7 +2408,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-2901292779",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         49
@@ -2503,7 +2451,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7805539408",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         50
@@ -2545,7 +2492,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7814815238",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         51
@@ -2587,7 +2533,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7813667690",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         52
@@ -2632,7 +2577,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7811781326",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         53
@@ -2648,7 +2592,7 @@ export const partners = [
     "inn": "7802888390",
     "accreditation": "Аккредитован",
     "gigaCowork": "не уточнено",
-    "description": "Веб-сайты и порталы Геосервисы ИТ-инфраструктура Мобильные приложения Облачные технологии Сервисы Сбера (API)",
+    "description": "Веб-сайты и порталы Геосервисы ИТ-инфраструктура Мобильные приложения Облачные технологии Корпоративные API",
     "tags": [
       "Облачные технологии",
       "ИТ-инфраструктура",
@@ -2662,9 +2606,9 @@ export const partners = [
       "Интегратор",
       "Разработчик"
     ],
-    "expertise": "Веб-сайты и порталы Геосервисы ИТ-инфраструктура Мобильные приложения Облачные технологии Сервисы Сбера (API)",
+    "expertise": "Веб-сайты и порталы Геосервисы ИТ-инфраструктура Мобильные приложения Облачные технологии Корпоративные API",
     "products": [
-      "Сервисы Сбера (API)"
+      "Корпоративные API"
     ],
     "industries": [
       "Сфера развлечения"
@@ -2681,7 +2625,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7802888390",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         56
@@ -2722,7 +2665,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7807260095",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         54
@@ -2769,7 +2711,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7804538923",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         55
@@ -2810,7 +2751,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7814111979",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         57
@@ -2861,7 +2801,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7801676234",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         58
@@ -2909,7 +2848,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-4715018532",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         59
@@ -2942,7 +2880,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-3906994413",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         60
@@ -2980,7 +2917,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-780156260",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         65
@@ -3028,7 +2964,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-6672235068",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         61
@@ -3057,7 +2992,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-67",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         67
@@ -3086,7 +3020,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-66",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         66
@@ -3102,7 +3035,7 @@ export const partners = [
     "inn": "7802636153",
     "accreditation": "Аккредитован",
     "gigaCowork": "не уточнено",
-    "description": "Веб-сайты и порталы Геосервисы На базе решений 1С Сервисы Сбера (API) Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты Цифровая трансформация",
+    "description": "Веб-сайты и порталы Геосервисы На базе решений 1С Корпоративные API Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты Цифровая трансформация",
     "tags": [
       "Геосервисы",
       "Веб-сайты и порталы",
@@ -3116,10 +3049,10 @@ export const partners = [
       "Консультант",
       "Разработчик"
     ],
-    "expertise": "Веб-сайты и порталы Геосервисы На базе решений 1С Сервисы Сбера (API) Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты Цифровая трансформация",
+    "expertise": "Веб-сайты и порталы Геосервисы На базе решений 1С Корпоративные API Системное и прикладное ПО Чат-боты/голосовые роботы/виртуальные ассистенты Цифровая трансформация",
     "products": [
       "1С",
-      "Сервисы Сбера (API)"
+      "Корпоративные API"
     ],
     "industries": [
       "Производство",
@@ -3143,7 +3076,6 @@ export const partners = [
     "regionMeaning": "Территориальный банк по реестру; не география оказания услуг",
     "sourceRecord": {
       "id": "partner-7802636153",
-      "url": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners",
       "registry": "Партнеры.xlsx · Контакты партнеров",
       "rows": [
         2
@@ -3152,7 +3084,6 @@ export const partners = [
     }
   }
 ];
-
 export const cases = [
   {
     "id": "case-01",
@@ -3169,8 +3100,8 @@ export const cases = [
     "metricKind": "Заявленные показатели",
     "metricValue": "до −90%",
     "metricDescription": "заявленное снижение нагрузки на колл-центр по платежам",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Активное масштабирование",
     "details": [
       "Интеллектуальный агент работает с базой знаний: навигирует сотрудников, отвечает на юридические вопросы и объясняет жителям начисления и задолженность на основе данных биллинга.",
@@ -3196,7 +3127,7 @@ export const cases = [
       ]
     },
     "industry": "ЖКХ и сервисы",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Обслуживание клиентов",
       "Поддержка сотрудников"
@@ -3221,8 +3152,8 @@ export const cases = [
     "metricKind": "Показатели MVP",
     "metricValue": "10 мин",
     "metricDescription": "оценка объекта вместо 4 часов",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "MVP опробирован; внедрение в процессы перемещения экспонатов",
     "details": [
       "Решение усиливает сотрудников ГМЗ Петергоф, оценивающих экспонаты для транспортировки и перемещения. Агент сопоставляет предмет с аналогами по ряду признаков и формирует суждение о страховой стоимости.",
@@ -3248,7 +3179,7 @@ export const cases = [
       ]
     },
     "industry": "Культура и музеи",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Оценка и страхование",
       "Подготовка отчётов"
@@ -3273,8 +3204,8 @@ export const cases = [
     "metricKind": "Целевые показатели",
     "metricValue": "−70%",
     "metricDescription": "целевое время поиска и верификации данных",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Разработка концепции цифрового контура и интеграции с BIM",
     "details": [
       "Цифровое развитие застройщика выстраивается в рамках совместной стратегии. Архитектура ИТ-систем проектируется по аналогии с домом: фасад, монолит и сквозные функции.",
@@ -3305,7 +3236,7 @@ export const cases = [
       ]
     },
     "industry": "Недвижимость",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Проектирование и строительство",
       "Согласование изменений",
@@ -3331,8 +3262,8 @@ export const cases = [
     "metricKind": "Показатели пилотного проекта",
     "metricValue": "−6%",
     "metricDescription": "заявленное снижение операционных затрат на питание",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Пилотирование агентизированного процесса",
     "details": [
       "Агенты вахтовых посёлков и поставщиков взаимодействуют на этапах формирования меню, запросов и закупки продуктов, планирования логистического маршрута и отправки продукции.",
@@ -3353,7 +3284,7 @@ export const cases = [
       ]
     },
     "industry": "Питание и сервисы",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Закупки",
       "Логистика",
@@ -3378,8 +3309,8 @@ export const cases = [
     "metricKind": "Заявленные показатели",
     "metricValue": "1 месяц",
     "metricDescription": "подготовка материалов вместо 6 месяцев",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Масштабирование на преподавательский состав и врачебную практику",
     "details": [
       "«Цифровой ординатор» поддерживает врачебную функцию по широкому профилю и подготовку преподавателей военной медицины.",
@@ -3400,7 +3331,7 @@ export const cases = [
       ]
     },
     "industry": "Медицина и образование",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Обучение и подготовка материалов",
       "Управление знаниями"
@@ -3425,8 +3356,8 @@ export const cases = [
     "metricKind": "Заявленные показатели",
     "metricValue": "×8",
     "metricDescription": "заявленная экономия времени эксперта",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Подготовка базы знаний и ввод в промышленную эксплуатацию",
     "details": [
       "Первый этап цифровой трансформации включает сбор и очистку регламентов и документов, формирование базы данных и ИИ-консультанта по процессам завода, включая инженерный цикл.",
@@ -3452,7 +3383,7 @@ export const cases = [
       ]
     },
     "industry": "Промышленность и торговля",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Управление знаниями",
       "Адаптация сотрудников"
@@ -3477,8 +3408,8 @@ export const cases = [
     "metricKind": "Заявленные показатели",
     "metricValue": "87%",
     "metricDescription": "урожайность партии вместо 79%",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Модель обучена; видеоаналитика и GenAI запланированы",
     "details": [
       "Подготовлена и обучена модель прогнозирования всхожести и роста шампиньонов с учётом влажности, температуры, времени года и полива.",
@@ -3509,7 +3440,7 @@ export const cases = [
       ]
     },
     "industry": "Агропромышленность",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Планирование производства",
       "Контроль производства"
@@ -3534,8 +3465,8 @@ export const cases = [
     "metricKind": "Заявленные показатели",
     "metricValue": "−50%",
     "metricDescription": "заявленное снижение текучести персонала",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Автоматизация процессов и тестирование модели работоспособности",
     "details": [
       "Цифровой бэк-офис включает перевод логов 1С в технические задания, формулирование бизнес-задач в ИТ-бэклоге и работу с метрологией.",
@@ -3561,7 +3492,7 @@ export const cases = [
       ]
     },
     "industry": "Транспорт и логистика",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Автоматизация бэк-офиса",
       "Адаптация сотрудников"
@@ -3586,8 +3517,8 @@ export const cases = [
     "metricKind": "Заявленные показатели",
     "metricValue": "2–3 часа",
     "metricDescription": "проверка вместо 2 недель по заявке",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Совместная разработка с исследовательской командой AIRI",
     "details": [
       "Автоматическая проверка должна выявлять неполноту комплекта документов и несоответствия государственным нормативным требованиям.",
@@ -3608,7 +3539,7 @@ export const cases = [
       ]
     },
     "industry": "Недвижимость",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Проверка документации"
     ],
@@ -3631,8 +3562,8 @@ export const cases = [
     "metricKind": "Заявленные показатели",
     "metricValue": "3–4 часа",
     "metricDescription": "дефектовка и оцифровка вместо 24 часов",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Создание автоматизированной системы анализа шахт",
     "details": [
       "Система разрабатывается для обследования шахт при помощи дронов на базе цифрового зрения совместно с командой Эвотор и партнёром Инноспектор.",
@@ -3653,7 +3584,7 @@ export const cases = [
       ]
     },
     "industry": "Промышленность и торговля",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Контроль качества",
       "Обследование объектов"
@@ -3677,8 +3608,8 @@ export const cases = [
     "metricKind": "Целевые показатели",
     "metricValue": "10–15 мин",
     "metricDescription": "целевое оформление заказа вместо 4–5 часов",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Пилот планируется к реализации на Giga Network",
     "details": [
       "Два ИИ-агента представляют сеть пиццерий Додо и её ключевого поставщика продуктового сырья «Восток-Запад».",
@@ -3709,7 +3640,7 @@ export const cases = [
       ]
     },
     "industry": "Питание и сервисы",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Закупки",
       "Логистика"
@@ -3735,8 +3666,8 @@ export const cases = [
     "metricKind": "Целевые показатели",
     "metricValue": "2–5 мин",
     "metricDescription": "целевое подтверждение рейса вместо 2–3 часов",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Пилот планируется к реализации на Giga Network",
     "details": [
       "Агенты на стороне ATI.SU и крупнейшего постоянного перевозчика должны согласовывать подбор перевозчика, бронирование и документы в A2A-процессе.",
@@ -3767,7 +3698,7 @@ export const cases = [
       ]
     },
     "industry": "Транспорт и логистика",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Подбор перевозчика",
       "Логистика",
@@ -3793,11 +3724,11 @@ export const cases = [
     "metricKind": "Заявленные показатели",
     "metricValue": "−60–70%",
     "metricDescription": "заявленное время заполнения CRM-карточек",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "MCP-протокол опробирован; обсуждается вывод в промышленную эксплуатацию",
     "details": [
-      "Команда DTaaS СЗБ подготовила и опробовала MCP-протокол для прямой передачи данных между Bitrix и Giga CoWork.",
+      "Команда DTaaS подготовила и опробовала MCP-протокол для прямой передачи данных между Bitrix и Giga CoWork.",
       "Решение объединяет работу с данными продаж, поиск контекста по клиенту и документам, заполнение CRM-карточек. На момент заявки ведётся диалог о выводе протокола в промышленную эксплуатацию."
     ],
     "metrics": [
@@ -3830,7 +3761,7 @@ export const cases = [
       ]
     },
     "industry": "Промышленность и торговля",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Управление продажами",
       "Ведение CRM",
@@ -3856,8 +3787,8 @@ export const cases = [
     "metricKind": "Качественный эффект",
     "metricValue": "Бренд-контроль",
     "metricDescription": "проверка текста и изображений",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Проект внедрения мультимодального ИИ-агента",
     "details": [
       "Система переводит статичный брендбук в исполняемый код и математически оценивает отклонения текста и визуала от эталона и визуального ДНК бренда прямо в интерфейсе редактора.",
@@ -3888,7 +3819,7 @@ export const cases = [
       ]
     },
     "industry": "HR и коммуникации",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Маркетинг и коммуникации",
       "Контроль контента"
@@ -3914,8 +3845,8 @@ export const cases = [
     "metricKind": "Пилот и ожидаемые показатели",
     "metricValue": "25 ч/мес.",
     "metricDescription": "заявленная экономия рабочего времени",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Пилот; в презентации показатели обозначены как ожидаемые и подтверждённые в пилоте",
     "details": [
       "Ассистент работает внутри платформы электронного документооборота и предназначен для внешних клиентов — юридических лиц.",
@@ -3961,7 +3892,7 @@ export const cases = [
       ]
     },
     "industry": "HR и коммуникации",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Кадровый документооборот"
     ],
@@ -3986,8 +3917,8 @@ export const cases = [
     "metricKind": "Количественные метрики не указаны",
     "metricValue": "ИИ-тренажёр",
     "metricDescription": "тренировка на виртуальных пациентах",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "В презентации этап внедрения не указан",
     "details": [
       "Тренажёр предназначен для практики клинического приёма иностранными студентами, ординаторами и начинающими врачами.",
@@ -4001,7 +3932,7 @@ export const cases = [
       ]
     },
     "industry": "Медицина и образование",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Обучение и подготовка материалов"
     ],
@@ -4024,8 +3955,8 @@ export const cases = [
     "metricKind": "Результаты и цели",
     "metricValue": "3 сек",
     "metricDescription": "среднее распознавание одного счёта",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Распознавание счетов; развитие интеграции с 1С",
     "details": [
       "ИИ-контроллер автоматизирует распознавание счетов, формирование Excel-сводки, обработку и классификацию налоговых документов через интеграцию с 1С.",
@@ -4071,7 +4002,7 @@ export const cases = [
       ]
     },
     "industry": "Финансы и учёт",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Обработка счетов",
       "Налоговая отчётность"
@@ -4097,8 +4028,8 @@ export const cases = [
     "metricKind": "Заявленные показатели",
     "metricValue": "30–40 мин",
     "metricDescription": "финансовые операции вместо 2–3 часов",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "Четыре сценария автоматизированы; расширяется финансовый контур",
     "details": [
       "Автоматизированы формирование доверенностей, проверка актов сверок, обмен данными с налоговыми органами и формирование внутригрупповых операций.",
@@ -4124,7 +4055,7 @@ export const cases = [
       ]
     },
     "industry": "Недвижимость",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Финансовый учёт",
       "Документооборот"
@@ -4149,8 +4080,8 @@ export const cases = [
     "metricKind": "Результаты пилота",
     "metricValue": "4 сек",
     "metricDescription": "проверка платы вместо 60 секунд в пилоте",
-    "portfolio": "Портфель Северо-Западного банка",
-    "source": "Портфель Северо-Западного банка",
+    "portfolio": "Портфель банка",
+    "source": "Портфель банка",
     "stage": "ML/CV-модель разработана и обучена; пилот проведён",
     "details": [
       "Гибридная AI-платформа объединяет компьютерное зрение для обнаружения и классификации дефектов с генеративным слоем для объяснений и аналитических отчётов.",
@@ -4175,7 +4106,7 @@ export const cases = [
       ]
     },
     "industry": "Промышленность и образование",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Контроль качества",
       "Контроль производства"
@@ -4201,9 +4132,9 @@ export const cases = [
     "metricValue": "−21%",
     "metricDescription": "затрат на доставку в РЦ",
     "portfolio": "В том числе Северо-Запад",
-    "source": "Практика из СберПро",
+    "source": "Отраслевая практика",
     "industry": "Транспорт и логистика",
-    "industrySource": "https://sber-northwest-casebook.tenderlion1.chatgpt.site/#practice",
+    "industrySource": "Каталог проектов",
     "processes": [
       "Логистика",
       "Консолидация поставок"

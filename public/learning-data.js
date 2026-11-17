@@ -18,7 +18,7 @@ export const assessmentLevels=[
  {title:'Продвинутый',min:60,color:'#007d75',message:'Отличный результат! Вы готовы обсуждать с клиентом внедрение ИИ и его бизнес-эффект.'},
  {title:'Высокий',min:80,color:'#075760',message:'Поздравляем! Вы уверенно ориентируетесь в вопросах ИИ-трансформации и технологического развития.'}
 ];
-const file=(name,title)=>({href:`./assets/learning/${name}.pdf`,title});
+const file=(name,title)=>({href:`./assets/learning/${name}.pdf?v=neutral-20261117`,title});
 export const courses=[
  {id:'genai-sales',title:'Как продавать GenAI',subtitle:'Разговор о бизнесе вместо презентации технологии',time:'20 минут',tag:'Клиент и ценность',competencies:['strategy','value'],summary:'Найти реальную задачу, выбрать первый полезный этап и договориться, как клиент примет результат.',
   sections:[

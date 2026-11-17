@@ -1,3 +1,4 @@
+import {neutralText} from './neutral-content.js?v=neutral-20261117';
 export const fieldKeys=['minPv','pvRate','profitRate','ownership','vatRate','finResult'];
 export function validateKnowledge(data){
  if(data?.schemaVersion!==1||!Array.isArray(data.records)||!data.records.length||data.records.length>5000)throw Error('Invalid knowledge file');
@@ -22,7 +23,7 @@ export function groupSources(rows){
  return [...products.values()].map(({conditions,...product})=>product);
 }
 export function normalize(value){
- return String(value).normalize('NFKC').toLocaleLowerCase('ru').replace(/ё/g,'е')
+ return neutralText(String(value)).normalize('NFKC').toLocaleLowerCase('ru').replace(/ё/g,'е')
   .replace(/giga[\s-]*chat|гига[\s-]*чат(?:а|у|ом|е)?/gu,'гигачат')
   .replace(/giga[\s-]*code|гига[\s-]*код(?:а|у|ом|е)?/gu,'gigacode')
   .replace(/cloud[.\s]*ru|клауд(?:\.ру|ру)?/gu,'клаудру').replace(/2gis/gu,'2гис')

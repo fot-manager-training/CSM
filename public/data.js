@@ -47,7 +47,7 @@ export const events = [
       {
         "time": "13:15–13:30",
         "title": "Приветственное слово",
-        "description": "Ирина Илларионовна Колесниченко, заместитель управляющего Мурманского отделения Сбербанка."
+        "description": "Ирина Илларионовна Колесниченко, заместитель управляющего Мурманского отделения банка."
       },
       {
         "time": "13:30–14:50",
@@ -61,7 +61,7 @@ export const events = [
       {
         "time": "15:20–15:50",
         "title": "GigaARPA: умная автоматизация бизнес-процессов с RPA",
-        "description": "Михаил Нестеров, руководитель проектов по роботизации, Сбер-Сервис."
+        "description": "Михаил Нестеров, руководитель проектов по роботизации."
       },
       {
         "time": "15:50–16:10",
@@ -72,7 +72,7 @@ export const events = [
     "speakers": [
       {
         "name": "Ирина Илларионовна Колесниченко",
-        "role": "Заместитель управляющего Мурманского отделения Сбербанка",
+        "role": "Заместитель управляющего Мурманского отделения банка",
         "topic": "Приветственное слово"
       },
       {
@@ -82,7 +82,7 @@ export const events = [
       },
       {
         "name": "Михаил Нестеров",
-        "role": "Руководитель проектов по роботизации, Сбер-Сервис",
+        "role": "Руководитель проектов по роботизации",
         "topic": "GigaARPA: умная автоматизация бизнес-процессов с RPA"
       },
       {
@@ -123,7 +123,7 @@ export const events = [
     "background": "#ffc6ab",
     "color": "#35251e",
     "art": "accelerator",
-    "description": "Практический акселератор Сбера для клиентов и партнёров о GenAI и агентной трансформации бизнеса: тренды, AI в PDLC, агентизация бизнес-процессов и цифровые агенты. Организатор — Управление технологического развития и GenAI-трансформации.",
+    "description": "Практический акселератор для клиентов и партнёров о GenAI и агентной трансформации бизнеса: тренды, AI в PDLC, агентизация бизнес-процессов и цифровые агенты. Организатор — Управление технологического развития и GenAI-трансформации.",
     "venue": "Конференц-зал отеля CORT INN",
     "address": "Санкт-Петербург, набережная канала Грибоедова, 166А",
     "time": "10:00–15:30 (мск)",
@@ -141,7 +141,7 @@ export const events = [
       {
         "time": "10:30–10:35",
         "title": "Приветственное слово",
-        "description": "Д. Е. Суховерхов, Председатель Северо-Западного банка."
+        "description": "Д. Е. Суховерхов, Председатель банка."
       },
       {
         "time": "10:35–10:55",
@@ -179,7 +179,7 @@ export const events = [
     "speakers": [
       {
         "name": "Д. Е. Суховерхов",
-        "role": "Председатель Северо-Западного банка",
+        "role": "Председатель банка",
         "topic": "Приветственное слово"
       },
       {
@@ -202,7 +202,7 @@ export const events = [
     "documents": [
       {
         "title": "Программа акселератора (PDF)",
-        "href": "./assets/events/materials/royal-accelerator-program.pdf"
+        "href": "./assets/events/materials/royal-accelerator-program.pdf?v=neutral-20261117"
       }
     ]
   },
@@ -224,7 +224,7 @@ export const events = [
   },
   {
     "id": "business-dinner",
-    "title": "От пилотов к результату: бизнес-ужин Сбера",
+    "title": "От пилотов к результату: бизнес-ужин",
     "city": "Санкт-Петербург",
     "category": "business",
     "type": "Бизнес-ужин",
@@ -232,7 +232,7 @@ export const events = [
     "end": "2026-12-02",
     "date": "2 декабря",
     "summary": "Практическое внедрение GenAI, ИИ-агенты и экономика ИИ-проектов в Юсуповском дворце.",
-    "description": "Закрытый бизнес-ужин Сбера о практическом внедрении GenAI в бизнесе: переходе от личного опыта к системной агентной трансформации, перестройке процессов и взаимодействию с рынком.",
+    "description": "Закрытый бизнес-ужин о практическом внедрении GenAI в бизнесе: переходе от личного опыта к системной агентной трансформации, перестройке процессов и взаимодействию с рынком.",
     "venue": "Юсуповский дворец",
     "address": "Санкт-Петербург, набережная реки Мойки, 94. Вход с набережной Мойки.",
     "time": "17:00–23:30",
@@ -267,7 +267,7 @@ export const events = [
     "speakers": [
       {
         "name": "Андрей Кутуков",
-        "role": "Директор центра технологического бизнеса, Сбер",
+        "role": "Директор центра технологического бизнеса",
         "topic": "От личного агента к агентной экономике"
       },
       {
@@ -293,7 +293,7 @@ export const events = [
     "documents": [
       {
         "title": "Деловая программа (PDF)",
-        "href": "./assets/events/materials/business-dinner-program.pdf"
+        "href": "./assets/events/materials/business-dinner-program.pdf?v=neutral-20261117"
       }
     ]
   },
@@ -306,15 +306,15 @@ export const events = [
     "start": "2026-05-28",
     "end": "2026-05-31",
     "date": "28–31 мая",
-    "summary": "Четыре дня о цифровой стратегии, GenAI, бизнес-моделях и лидерстве от СберУниверситета.",
-    "description": "Программа СберУниверситета для собственников бизнеса, руководителей, топ-менеджеров и лидеров с управленческим опытом от трёх лет. Тренды инновационной экономики, цифровые технологии и компетенции лидера цифровой трансформации бизнеса.",
+    "summary": "Четыре дня о цифровой стратегии, GenAI, бизнес-моделях и лидерстве.",
+    "description": "Образовательная программа для собственников бизнеса, руководителей, топ-менеджеров и лидеров с управленческим опытом от трёх лет. Тренды инновационной экономики, цифровые технологии и компетенции лидера цифровой трансформации бизнеса.",
     "venue": "Гранд Отель Европа",
     "time": "28 мая — 10:00–21:30; 29 мая — 09:00–18:00; 30 мая — 10:00–18:00; 31 мая — 10:00–15:00",
     "program": [
       {
         "time": "28 мая · 10:00–21:30",
         "title": "Тренды инноваций и цифровые технологии",
-        "description": "Технологическая революция, новые модели управления, компетенции лидера, подход Сбера к цифровой трансформации и клиентские кейсы. Вечером — прогулка на теплоходе."
+        "description": "Технологическая революция, новые модели управления, компетенции лидера, подход к цифровой трансформации и клиентские кейсы. Вечером — прогулка на теплоходе."
       },
       {
         "time": "29 мая · 09:00–18:00",
@@ -341,13 +341,12 @@ export const events = [
     "registrationText": "По вопросам программы и участия: Сергей Громов.",
     "contact": {
       "name": "Сергей Громов",
-      "phone": "+7 928 007 55 35",
-      "email": "SAnGromov@sberbank.ru"
+      "phone": "+7 928 007 55 35"
     },
     "documents": [
       {
         "title": "Программа обучения (PDF)",
-        "href": "./assets/events/materials/dss-spb-program.pdf"
+        "href": "./assets/events/materials/dss-spb-program.pdf?v=neutral-20261117"
       }
     ]
   },
@@ -366,13 +365,12 @@ export const events = [
     "venue": "Уточните на сайте",
     "registrationText": "Дата, время и площадка пока не подтверждены на платформе. Уточните информацию на сайте мероприятия.",
     "websiteUrl": "https://arhangelsk-digitalday.ru",
-    "qrImage": "./assets/events/arkhangelsk-qr.jpg"
+    "qrImage": "./assets/events/arkhangelsk-qr.jpg?v=neutral-20261117"
   }
 ];
 export const eventYear=2026;
 export const eventMonthBounds={min:Math.min(...events.filter(e=>e.start).map(e=>Number(e.start.slice(5,7)))),max:Math.max(...events.filter(e=>e.end).map(e=>Number(e.end.slice(5,7))))};
 export const eventMonths=[...new Set(events.filter(e=>e.start&&e.end).flatMap(e=>[e.start.slice(5,7),e.end.slice(5,7)]))].sort();
-export const sourceUrl = 'https://sber-northwest-casebook.tenderlion1.chatgpt.site/';
 export function filterEvents(items, { category='all', query='', region='all', month='all', day='all', savedOnly=false, saved=[] }={}) {
   const normalized = query.trim().toLocaleLowerCase('ru');
   return items.filter(e => (category==='all'||e.category===category) && (region==='all'||(region==='unknown' ? !e.city : e.city===region)) && (month==='all'||e.start?.slice(5,7)===month) && (day==='all'||(e.start&&e.end&&e.start<=day&&e.end>=day)) && (!savedOnly||saved.includes(e.id)) && (!normalized||`${e.title} ${e.city||''} ${e.summary} ${e.type} ${e.venue||''} ${(e.topics||[]).join(' ')} ${e.id==='aij'?'AIJ искусственный интеллект':''}`.toLocaleLowerCase('ru').includes(normalized)));
@@ -392,5 +390,5 @@ export function calendarText(e) {
   ];
   const location=[e.venue,e.address||e.city].filter(Boolean).join(', ');
   const description=[e.description,e.time,e.registrationText].filter(Boolean).join('\n');
-  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//DTaaS SZB//Events//RU','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${e.id}-${e.start.slice(0,4)}@dtaas.local`,`DTSTAMP:${stamp(new Date())}`,...dates,`SUMMARY:${escape(e.title)}`,`DESCRIPTION:${escape(description)}`,...(location?[`LOCATION:${escape(location)}`]:[]),...(e.websiteUrl?[`URL:${escape(e.websiteUrl)}`]:[]),'END:VEVENT','END:VCALENDAR',''].join('\r\n');
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//DTaaS//Events//RU','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${e.id}-${e.start.slice(0,4)}@dtaas.local`,`DTSTAMP:${stamp(new Date())}`,...dates,`SUMMARY:${escape(e.title)}`,`DESCRIPTION:${escape(description)}`,...(location?[`LOCATION:${escape(location)}`]:[]),...(e.websiteUrl?[`URL:${escape(e.websiteUrl)}`]:[]),'END:VEVENT','END:VCALENDAR',''].join('\r\n');
 }

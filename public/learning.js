@@ -1,6 +1,6 @@
-import {animateCheckup,initResultInteractions} from './learning-motion.js?v=platform-update-20261111';
-import {renderAssessmentResult} from './learning-results.js?v=platform-update-20261111';
-import {assessmentVersion,competencies,courses,questions,gradeAssessment,recommendCourses,fotTrainingUrl} from './learning-data.js?v=platform-update-20261111';
+import {animateCheckup,initResultInteractions} from './learning-motion.js?v=neutral-20261117';
+import {renderAssessmentResult} from './learning-results.js?v=neutral-20261117';
+import {assessmentVersion,competencies,courses,questions,gradeAssessment,recommendCourses,fotTrainingUrl} from './learning-data.js?v=neutral-20261117';
 const $=id=>document.getElementById(id);
 const safe=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const storageKey='dtaas-csm-checkup-v2',courseKey='dtaas-csm-completed-v1';

@@ -13,7 +13,7 @@ test('targets, MVP and pilot figures keep source context',()=>{
  assert.equal(cases.find(c=>c.client==='ГМЗ Петергоф').metricKind,'Показатели MVP');
  assert.equal(cases.find(c=>c.client==='ВКА им. Можайского').metricKind,'Результаты пилота');
  assert.equal(cases.find(c=>c.client==='БФУ им. Канта').metricKind,'Количественные метрики не указаны');
- assert.equal(cases.find(c=>c.client==='Самокат').source,'Практика из СберПро');
+ assert.equal(cases.find(c=>c.client==='Самокат').source,'Отраслевая практика');
 });
 test('case filters combine search, task, metric context and saved cases',()=>{
  assert.equal(filterCases({query:'петергоф'})[0].metricValue,'10 мин');
@@ -77,7 +77,7 @@ test('partner enrichment keeps all 68 stable records and adds only sourced detai
  assert.equal(partners.filter(p=>p.contacts.length).length,60);
  assert.equal(partners.filter(p=>p.industries.length).length,61);
  for(const p of partners){
-  assert.equal(p.sourceRecord.url,'https://sber-northwest-casebook.tenderlion1.chatgpt.site/#partners');
+  assert.equal(p.sourceRecord.url,undefined);
   assert.equal(p.sourceRecord.checkedAt,'2026-11-09');
   if(p.website)assert.equal(new URL(p.website).protocol,'https:');
  }
@@ -90,7 +90,7 @@ test('partner search covers sourced industries, contacts, products and full role
  assert.ok(filterPartners({query:'Петров Вадим'}).some(p=>p.id==='partner-1'));
  assert.equal(filterPartners({query:'ИНФИНАЙТ СИНЕРДЖИ',role:'Разработчик'}).length,1);
  assert.equal(filterPartners({query:'ИНФИНАЙТ СИНЕРДЖИ',role:'Интегратор'}).length,0);
- assert.equal(filterPartners({query:'LAND PRO',technology:'Сервисы Сбера (API)'}).length,1);
+ assert.equal(filterPartners({query:'LAND PRO',technology:'Корпоративные API'}).length,1);
  assert.ok(filterPartners({role:'Консультант'}).some(p=>p.id==='partner-1'));
  assert.ok(partners.every(p=>p.gigaCowork==='не уточнено'));
 });
