@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {Readable} from 'node:stream';
 import {EventEmitter} from 'node:events';
-import {retrieve,publicRecord,tableAnswer,groupSources} from '../server/kv-knowledge.mjs';
+import {retrieve,publicRecord,tableAnswer,groupSources,conversationReply,overviewAnswer} from '../server/kv-knowledge.mjs';
 import {createKvService} from '../server/kv-service.mjs';
 import {createKvApi} from '../server/kv-api.mjs';
 import {createSiteServer} from '../server.mjs';
@@ -37,6 +37,43 @@ test('product cards merge identical rows, retain references and preserve genuine
 test('without a provider key the assistant truthfully returns table lookup and no network call',async()=>{
  const service=createKvService({knowledge,fetchImpl:()=>assert.fail('Unexpected external call')});const result=await service.ask('ГигаЧат ПАК');assert.equal(result.mode,'lookup');assert.equal(result.sources.length,2);
  const missing=await service.ask('Незнакомый продукт');assert.equal(missing.sources.length,0);assert.match(missing.answer,/не нашлось/);
+});
+test('greetings and capability questions receive conversational fallback without unrelated cards',async()=>{
+ const service=createKvService({knowledge,fetchImpl:()=>assert.fail('Unexpected provider call')});
+ for(const question of ['привет','Здравствуйте!','что ты умеешь?','Что можешь?','расскажи о себе','спасибо']){
+  const result=await service.ask(question,[{role:'user',content:'ГигаЧат ПАК'}]);
+  assert.equal(result.mode,'guide');assert.deepEqual(result.sources,[]);
+  assert.doesNotMatch(result.answer,/не нашлось|MIN ПВ в файле|внешними ссылками/);
+ }
+ assert.equal(conversationReply('Привет, какие условия ГигаЧат ПАК?'),null);
+ assert.equal(conversationReply('Что ты можешь рассказать об условиях Портал DA?'),null);
+ assert.equal(overviewAnswer(knowledge,'Что такое неизвестный сервис?'),null);
+});
+test('DeepSeek handles greetings, capabilities and unclear questions even without matching product rows',async()=>{
+ let calls=0;
+ const service=createKvService({knowledge,apiKey:'unit-dialog-key',fetchImpl:async(url,options)=>{
+  calls++;const input=JSON.parse(JSON.parse(options.body).messages[1].content);
+  assert.deepEqual(input.facts,[]);assert.ok(input.catalog.some(p=>p.product==='Портал DA'));assert.ok(input.reference.capabilities.length);
+  assert.doesNotMatch(options.body,/PRIVATE_FORMULA|unit-dialog-key/);
+  return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({answer:'Здравствуйте! Помогу найти и сравнить условия КВ. Какой продукт вас интересует?',sourceIds:[]})}}]}));
+ }});
+ for(const question of ['привет','что ты умеешь?','Как выбрать подходящий продукт?']){
+  const result=await service.ask(question);assert.equal(result.mode,'deepseek');assert.deepEqual(result.sources,[]);assert.deepEqual(result.citedIds,[]);
+ }
+ assert.equal(calls,3);
+});
+test('empty-context dialogue cannot introduce invented rates or source references',async()=>{
+ for(const answer of [{answer:'Ваша ставка — 99%.',sourceIds:[]},{answer:'Условия найдены.',sourceIds:['s1-r2']}]){
+  const service=createKvService({knowledge,apiKey:'unit-dialog-key',fetchImpl:async()=>new Response(JSON.stringify({choices:[{message:{content:JSON.stringify(answer)}}]}))});
+  const result=await service.ask('привет');assert.equal(result.mode,'guide');assert.deepEqual(result.sources,[]);assert.doesNotMatch(result.answer,/99/);
+ }
+});
+test('digits in verified product names do not reject a valid model answer but invented rates still do',async()=>{
+ const numbered={...knowledge,records:[row(9,'1С: Распознавание документов')]};
+ for(const [text,mode]of [['Найдены условия для «1С: Распознавание документов».','deepseek'],['Для «1С: Распознавание документов» ставка — 99%.','lookup']]){
+  const service=createKvService({knowledge:numbered,apiKey:'unit-dialog-key',fetchImpl:async()=>new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({answer:text,sourceIds:['s1-r9']})}}]}))});
+  const result=await service.ask('1С: Распознавание документов');assert.equal(result.mode,mode);assert.doesNotMatch(JSON.stringify(result),/99%/);
+ }
 });
 test('DeepSeek receives server-owned facts, uses a server key and returns validated citations',async()=>{
  let called=false;const service=createKvService({knowledge,apiKey:'unit-test-key',fetchImpl:async(url,options)=>{

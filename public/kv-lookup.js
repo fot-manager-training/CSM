@@ -58,10 +58,18 @@ export function retrieve(knowledge,question,history=[],limit=12){
  if(vat!==undefined)matches=matches.filter(row=>Math.abs(row.fields.vatRate.value-Number(String(vat).replace(',','.'))/100)<1e-9);
  return {records:matches.slice(0,limit),total:matches.length,ranking:order,vatRequested:vat!==undefined};
 }
+export function conversationReply(question){
+ const q=normalize(question);
+ if(/^(?:привет(?:ик)?|здравствуй(?:те)?|добрый (?:день|вечер)|доброе утро|hello|hi|hey)(?: всем)?$/u.test(q))return 'Здравствуйте! Помогу разобраться в КВ: найти условия продукта, сравнить варианты и уточнить показатели. Что вас интересует?';
+ if(/^(?:спасибо(?: большое)?|благодарю|понятно спасибо|ок спасибо)$/u.test(q))return 'Пожалуйста! Если понадобится сравнить условия или найти другой продукт — напишите.';
+ if(/что (?:ты |вы )?(?:можешь|можете) (?:рассказать|сказать|посоветовать)/u.test(q))return null;
+ if(/^(?:помощь|help)$/u.test(q)||/(?:что (?:ты |вы )?(?:умеешь|умеете|можешь|можете)|чем (?:ты |вы )?(?:поможешь|можешь помочь|можете помочь)|кто (?:ты|вы)|расскажи о себе|твои возможности|ваши возможности|как (?:ты работаешь|вы работаете))/u.test(q))return 'Помогаю находить условия КВ по компании и продукту, сравнивать варианты, уточнять ПВ, MIN ПВ, НДС и ФинРез. Например, спросите: «Какие условия у ГигаЧат для бизнеса ПАК?»';
+ return null;
+}
 export function overviewAnswer(knowledge,question){
- const q=normalize(question),sheet=knowledge.sheets?.[0]||'Лист1';
- if(/(?:какие|список|перечисли).*компани|компани.*(?:есть|файле|таблице)/u.test(q))return `В файле представлены компании:\n${[...new Set(knowledge.records.map(r=>r.provider))].join(', ')}.\nИсточник: ${knowledge.filename} · ${sheet}!A2:A${Math.max(...knowledge.records.map(r=>r.row))}.`;
- if(/что (?:такое|значит)|расшифру|обознача|какие.*(?:поля|показатели|столбцы)/u.test(q))return `В файле указаны: КЭС, продукт, MIN ПВ, ПВ,%, К приб,%, доля владения, НДС и ФинРез. MIN ПВ берётся из поля фиксированного вознаграждения во внешнем калькуляторе; правило его применения здесь не описано. ПВ и К приб — отдельные показатели. ФинРез указан в процентах, а не в рублях. Полной расшифровки сокращений и правил выплаты в файле нет.\nИсточник: ${knowledge.filename} · ${sheet}!A1:H1; формулы столбцов C:H.`;
+ const q=normalize(question);
+ if(/(?:какие|список|перечисли).*компани|компани.*(?:есть|файле|таблице|базе)/u.test(q))return `В базе представлены компании:\n${[...new Set(knowledge.records.map(r=>r.provider))].join(', ')}.`;
+ if(/(?:что (?:такое|значит)|расшифру|обознача|какие)/u.test(q)&&/(?:\bmin\b|пв|ндс|финрез|поля|показатели|столбцы)/u.test(q))return 'В базе есть MIN ПВ, ПВ, К приб, доля владения, НДС и ФинРез. MIN ПВ указан в рублях, остальные показатели — в процентах. ПВ и К приб — отдельные показатели. Какой показатель разобрать подробнее?';
  return null;
 }
 export function publicRecord(row){
@@ -69,7 +77,7 @@ export function publicRecord(row){
   fields:fieldKeys.map(key=>({key,label:row.fields[key].label,value:row.fields[key].display,cell:row.fields[key].cell}))};
 }
 export function tableAnswer(result){
- if(!result.records.length)return 'В таблице не нашлось подходящих условий. Уточните компанию и полное название продукта. Правила выплаты, дата действия ставок и порядок применения MIN ПВ в файле не описаны.';
+ if(!result.records.length)return 'В базе не нашлось подходящего продукта. Уточните его название или компанию — помогу найти условия.';
  const variant=groupSources(result.records.map(publicRecord)).some(product=>product.variants.length>1)?' В файле есть несколько вариантов условий для одного продукта. Выберите вариант внутри карточки.':'';
  return `${result.ranking?'Подобраны строки по указанному показателю.':'Условия из загруженной таблицы приведены ниже.'}${variant}${result.total>result.records.length?` Показано ${result.records.length} из ${result.total} строк; уточните запрос, чтобы сузить подбор.`:''}`;
 }

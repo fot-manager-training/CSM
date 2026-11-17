@@ -8,7 +8,11 @@ async function unobscured(){
  const result=await b.evaluate(`(()=>{const panel=${panel},r=panel.getBoundingClientRect(),fail=[];for(let x=r.left+24;x<r.right-20;x+=45)for(let y=r.top+24;y<r.bottom-20;y+=45){const node=document.elementFromPoint(x,y);if(!node||!panel.contains(node))fail.push({x,y,tag:node?.className});}return fail})()`);assert.deepEqual(result,[],'Site cards or navigation cover the chat');
  for(const selector of ['#kv-chat-close','#kv-chat-send']){const rect=await b.bounds(selector);assert.equal(await b.evaluate(`document.querySelector(${JSON.stringify(selector)}).contains(document.elementFromPoint(${rect.x+rect.width/2},${rect.y+rect.height/2}))`),true,selector+' is obscured');}
 }
-async function within(width,height){const r=await b.bounds('#kv-chat-panel');assert.ok(r.left>=0&&r.right<=width+.5&&r.top>=0&&r.bottom<=height+.5,JSON.stringify(r));assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth'),true);await unobscured();}
+async function within(width,height){const r=await b.bounds('#kv-chat-panel');assert.ok(r.left>=0&&r.right<=width+.5&&r.top>=0&&r.bottom<=height+.5,JSON.stringify(r));assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth'),true);await unobscured();
+ const centers=await b.evaluate('["kv-chat-attach","kv-chat-input","kv-chat-send"].map(id=>{const r=document.getElementById(id).getBoundingClientRect();return r.top+r.height/2})');
+ assert.ok(Math.max(...centers)-Math.min(...centers)<=1,'Composer icon, text and send button must share a vertical center');
+ const svg=await b.bounds('#kv-chat-send svg'),button=await b.bounds('#kv-chat-send');assert.ok(Math.abs(svg.y+svg.height/2-button.y-button.height/2)<=1,'Send arrow must be centered');
+}
 try{
  await b.viewport(1440,900);await b.navigate('index.html','document.querySelectorAll(".circle-cover").length===8');await b.evaluate('document.getElementById("circle-stage").scrollIntoView({block:"center",behavior:"instant"})');await open();
  assert.equal(await b.evaluate(`${panel}.matches(':popover-open')`),true);await within(1440,900);const initial=await b.bounds('#kv-chat-panel');assert.ok(initial.width<=440&&initial.height<=640);
