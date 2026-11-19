@@ -7,7 +7,7 @@ try{
  assert.equal(await b.evaluate('(()=>{const t=document.getElementById("date-track");t.scrollTop=50;return t.scrollTop})()'),0);
  for(const id of ['date-track','spotlight-track'])assert.equal(await b.evaluate(`getComputedStyle(document.getElementById('${id}'),'::-webkit-scrollbar').display`),'none');
  await b.evaluate('document.getElementById("calendar-view").click()');
- assert.equal(await b.evaluate('document.querySelectorAll(".calendar-event img").length'),5);
+ assert.equal(await b.evaluate('document.querySelectorAll(".calendar-event img").length'),6);
  assert.equal(await b.evaluate('document.querySelectorAll(".calendar-legend li").length'),4);
  assert.equal(await b.evaluate('new Set([...document.querySelectorAll(".calendar-event")].map(e=>getComputedStyle(e).backgroundColor)).size'),4);
  assert.equal(await b.evaluate('new Set([...document.querySelectorAll(\'.calendar-event[data-open="aij"]\')].map(e=>getComputedStyle(e).backgroundColor)).size'),1);

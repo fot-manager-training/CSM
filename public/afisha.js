@@ -1,4 +1,5 @@
-import {eventYear,eventMonthBounds} from './data.js?v=event-cleanup-20261117';
+import {invitationButton} from './event-invitations.js?v=events-footer-20261119';
+import {eventYear,eventMonthBounds} from './data.js?v=events-footer-20261119';
 const $=id=>document.getElementById(id);
 const safe=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
@@ -39,7 +40,7 @@ export function initAfisha({state,onChange,images,iconize,setMonth}){
    const count=[state.category!=='all',state.region!=='all',state.month!=='all',state.day!=='all',!!state.query,state.savedOnly].filter(Boolean).length;$('active-filter-count').hidden=count===0;$('active-filter-count').textContent=count;
    const cards=['business-dinner','arkhangelsk','royal','aij','kaliningrad','murmansk','lenoblast','dss-spb'].map(id=>list.find(event=>event.id===id)).filter(Boolean),key=cards.map(event=>event.id).join('|');
    document.querySelector('.afisha-spotlight').hidden=!cards.length;
-   if(key!==lastCards){lastCards=key;spotlight.innerHTML=cards.map(event=>`<button class="spotlight-card" data-open="${event.id}"><img src="${images[event.id]}" alt="" width="1536" height="1024" loading="lazy"><span class="spotlight-copy"><span>${safe(event.type)} · ${safe(event.date)}</span><strong>${safe(event.title)}</strong><span>${safe(event.city||'Искусственный интеллект')}</span></span><span class="spotlight-action">Подробнее ↗</span></button>`).join('');spotlight.scrollLeft=0;iconize(spotlight);}
+   if(key!==lastCards){lastCards=key;spotlight.innerHTML=cards.map(event=>`<article class="spotlight-card"><button type="button" class="spotlight-open" data-open="${event.id}" aria-label="Подробнее: ${safe(event.title)}"></button><img src="${images[event.id]}" alt="" width="1536" height="1024" loading="lazy"><span class="spotlight-copy"><span>${safe(event.type)} · ${safe(event.date)}</span><strong>${safe(event.title)}</strong><span>${safe(event.city||'Искусственный интеллект')}</span></span><span class="spotlight-action">Подробнее ↗</span>${invitationButton(event,'spotlight-invite')}</article>`).join('');spotlight.scrollLeft=0;iconize(spotlight);}
    updateSpotlight();
   },
   reset(){shownMonth=11;builtMonth=0;}

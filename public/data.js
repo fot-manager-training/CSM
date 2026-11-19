@@ -207,17 +207,22 @@ export const events = [
     "id": "aij",
     "title": "AI Journey",
     "posterTitle": "AI<br>JOURNEY",
-    "city": null,
+    "city": "Москва",
     "category": "forum",
     "type": "Форум",
-    "start": "2026-11-27",
+    "start": "2026-11-26",
     "end": "2026-11-28",
-    "date": "27–28 ноября",
-    "summary": "Два дня в мире искусственного интеллекта.",
+    "date": "26–28 ноября",
+    "summary": "Три дня об искусственном интеллекте в Москве.",
     "background": "#29242f",
     "color": "#edddff",
     "art": "ai",
-    "description": "AIJ — событие об искусственном интеллекте 27 и 28 ноября. Даты указаны по вашему календарю событий; программа, место проведения и регистрация требуют подтверждения."
+    "description": "AI Journey (AIJ) пройдёт 26–28 ноября 2026 года в Москве. Подробная программа по дням и сценам доступна на официальном сайте мероприятия.",
+    "venue": "Кутузовский проспект, 32, корп. 1",
+    "metro": "Кутузовская",
+    "websiteUrl": "https://aij.ru/",
+    "programOnWebsite": true,
+    "registrationText": "Программа по дням и сценам, условия участия и регистрация — на сайте мероприятия."
   },
   {
     "id": "business-dinner",
@@ -387,7 +392,7 @@ export function calendarText(e) {
     'DTSTART;VALUE=DATE:'+e.start.replaceAll('-',''),
     'DTEND;VALUE=DATE:'+dayAfter.toISOString().slice(0,10).replaceAll('-','')
   ];
-  const location=[e.venue,e.address||e.city].filter(Boolean).join(', ');
+  const location=[e.venue,e.address||e.city,e.metro?'метро «'+e.metro+'»':null].filter(Boolean).join(', ');
   const description=[e.description,e.time,e.registrationText].filter(Boolean).join('\n');
   return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//DTaaS//Events//RU','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${e.id}-${e.start.slice(0,4)}@dtaas.local`,`DTSTAMP:${stamp(new Date())}`,...dates,`SUMMARY:${escape(e.title)}`,`DESCRIPTION:${escape(description)}`,...(location?[`LOCATION:${escape(location)}`]:[]),...(e.websiteUrl?[`URL:${escape(e.websiteUrl)}`]:[]),'END:VEVENT','END:VCALENDAR',''].join('\r\n');
 }

@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {browser} from './browser-support.mjs';
+const b=await browser();
+try{
+ await b.viewport(1440,1000);await b.navigate('events.html','document.querySelectorAll(".event-card").length===8');
+ await b.evaluate('window.copied=[];Object.defineProperty(navigator,"clipboard",{configurable:true,value:{writeText:async text=>window.copied.push(text)}})');
+ assert.equal(await b.evaluate('document.querySelectorAll(".event-card [data-copy-invitation]").length'),8);
+ await b.evaluate('document.querySelector(".event-card [data-copy-invitation=aij]").click()');await b.wait('window.copied.length===1');
+ assert.match(await b.evaluate('window.copied[0]'),/26–28 ноября 2026/);assert.match(await b.evaluate('window.copied[0]'),/Москва, Кутузовский проспект, 32, корп. 1/);assert.equal(await b.evaluate('document.getElementById("event-dialog").open'),false);
+ await b.evaluate('document.querySelector(".spotlight-invite").click()');await b.wait('window.copied.length===2');assert.equal(await b.evaluate('document.getElementById("event-dialog").open'),false);
+ await b.evaluate('document.querySelector("[data-open=aij]").click()');await b.wait('document.getElementById("event-dialog").open');assert.match(await b.evaluate('document.getElementById("dialog-body").textContent'),/Метро «Кутузовская»/);assert.equal(await b.evaluate('document.querySelector(".event-documents a").href'),'https://aij.ru/');assert.match(await b.evaluate('document.querySelector(".event-documents a").textContent'),/Программа по дням и сценам/);
+ await b.evaluate('document.querySelector(".dialog-actions [data-copy-invitation]").click()');await b.wait('window.copied.length===3');assert.equal(await b.evaluate('window.copied[0]===window.copied[2]'),true);
+ await b.evaluate('navigator.clipboard.writeText=async()=>{throw Error("denied")};document.execCommand=()=>false;document.querySelector(".dialog-actions [data-copy-invitation]").click()');await b.wait('document.querySelector(".invitation-dialog")?.open');assert.match(await b.evaluate('document.getElementById("invitation-text").value'),/Приглашаем вас на мероприятие «AI Journey»/);await b.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});await b.send('Input.dispatchKeyEvent',{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});await b.wait('!document.querySelector(".invitation-dialog").open');await b.evaluate('document.getElementById("dialog-close").click()');
+ await b.evaluate('document.getElementById("region").value="Москва";document.getElementById("region").dispatchEvent(new Event("change"))');assert.equal(await b.evaluate('document.querySelectorAll(".event-card").length'),1);await b.evaluate('document.getElementById("calendar-view").click()');assert.deepEqual(await b.evaluate('[...document.querySelectorAll(".calendar-day")].filter(x=>x.querySelector("[data-open=aij]")).map(x=>x.querySelector("span").textContent)'),['26','27','28']);
+ await b.navigate('index.html','document.querySelector(".circle-caption [data-copy-invitation]")');await b.evaluate('window.copied=[];Object.defineProperty(navigator,"clipboard",{configurable:true,value:{writeText:async text=>window.copied.push(text)}});document.querySelector(".circle-caption [data-copy-invitation]").click()');await b.wait('window.copied.length===1');assert.match(await b.evaluate('window.copied[0]'),/Приглашаем вас на мероприятие/);
+ for(const width of [320,390,768,1440]){
+  await b.viewport(width);for(const page of ['index','events','cases','partners','learning']){
+   await b.navigate(page+'.html','document.querySelector(".arka-credit")&&document.readyState==="complete"');await b.evaluate('document.fonts.ready');
+   assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth'),true,`${page} overflow at ${width}`);
+   assert.equal(await b.evaluate('[...document.querySelectorAll(".brand .dtaas-logo")].every(img=>img.complete&&img.naturalWidth>0)'),true);
+   assert.equal(await b.evaluate('document.querySelectorAll(".brand .dtaas-region").length'),2);
+   assert.equal(await b.evaluate('document.querySelectorAll("#feedback a").length'),2);
+   const fits=await b.evaluate('(()=>{const a=document.querySelector(".header .brand").getBoundingClientRect(),b=document.querySelector(".header-actions").getBoundingClientRect();return a.right<=b.left&&a.left>=0})()');assert.equal(fits,true,`${page} brand/actions overlap ${width}`);
+  }
+ }
+ await b.viewport(1440,1000);await b.navigate('index.html','document.querySelector(".circle-caption [data-copy-invitation]")');await b.evaluate('document.getElementById("feedback").scrollIntoView({behavior:"instant"})');await b.delay(150);await b.screenshot('feedback-logo-desktop');
+ await b.evaluate('document.querySelector(".arka-credit").scrollIntoView({block:"center",behavior:"instant"})');const rect=await b.bounds('.arka-credit');await b.send('Input.dispatchMouseEvent',{type:'mouseMoved',x:rect.x+rect.width/2,y:rect.y+rect.height/2});await b.wait('document.querySelector(".arka-credit").getAttribute("aria-expanded")==="true"');assert.equal(await b.evaluate('document.querySelector(".arka-expanded").textContent'),'made by ARKA');await b.key('Escape');
+ await b.send('Input.dispatchMouseEvent',{type:'mouseMoved',x:0,y:0});await b.evaluate('document.querySelector(".arka-credit").focus()');await b.wait('document.querySelector(".arka-credit").getAttribute("aria-expanded")==="true"');await b.key('Escape');await b.wait('document.querySelector(".arka-credit").getAttribute("aria-expanded")==="false"');
+ await b.viewport(390,844);await b.evaluate('document.querySelector(".arka-credit").blur();window.scrollTo({top:0,behavior:"instant"})');await b.delay(150);await b.screenshot('restored-logo-mobile');await b.evaluate('document.getElementById("feedback").scrollIntoView({behavior:"instant"})');await b.delay(150);await b.screenshot('feedback-logo-mobile');
+ assert.deepEqual(b.errors,[]);console.log('PASS: invitations across grid, spotlight, modal, carousel; manual copy fallback; AIJ program, Moscow filter and three calendar days; brand and feedback on five pages at four widths; ARKA hover, keyboard and Escape.');
+}finally{b.close();}

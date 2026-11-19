@@ -1,6 +1,6 @@
 import {cases,partners} from './content.js?v=neutral-20261117';
 import {caseImages,partnerImage} from './media.js?v=neutral-20261117';
-import {EventCarousel} from './carousel.js?v=neutral-20261117';
+import {EventCarousel} from './carousel.js?v=events-footer-20261119';
 const $=id=>document.getElementById(id);
 const safe=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let iconize=()=>{},carousel;

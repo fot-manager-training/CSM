@@ -1,3 +1,4 @@
+import {invitationButton} from './event-invitations.js?v=events-footer-20261119';
 import {eventImages} from './media.js?v=neutral-20261117';
 const safe=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const modulo=(value,length)=>((value%length)+length)%length;
@@ -70,7 +71,7 @@ export class EventCarousel {
     if(index!==this.lastSelected||!count){
       this.lastSelected=index;const current=this.items[index];
       this.counter.textContent=count?`${index+1} / ${count}`:'0 / 0';
-      this.caption.innerHTML=current?`<span>${safe(current.date)}</span><strong>${safe(current.title)}</strong>`:'Попробуйте другой формат или сбросьте фильтры.';
+      this.caption.innerHTML=current?`<span>${safe(current.date)}</span><strong>${safe(current.title)}</strong><div>${invitationButton(current)}</div>`:'Попробуйте другой формат или сбросьте фильтры.';
     }
     this.stage.dataset.currentId=this.items[index]?.id||'';
   }

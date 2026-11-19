@@ -1,3 +1,4 @@
+import {initSiteFooter} from './site-footer.js?v=events-footer-20261119';
 import {initKvChat} from './kv-chat.js?v=no-model-caption-20261117';
 import './motion.js?v=neutral-20261117';
 import {initNavigation} from './navigation.js?v=neutral-20261117';
@@ -13,15 +14,16 @@ function notify(text){$('toast').textContent=text;$('toast').classList.add('visi
 function updateSavedCount(){try{const saved=JSON.parse(localStorage.getItem('dtaas-favorites')||'[]');$('saved-count').textContent=Array.isArray(saved)?saved.length:0;}catch{$('saved-count').textContent='0';}}
 // Keep older shared links working while each section now has a standalone URL.
 function migrateLegacyRoute(){const hash=location.hash.slice(1);const target=hash.startsWith('event/')?'events':hash.startsWith('case/')?'cases':hash.startsWith('partner/')?'partners':['home','events','cases','partners','learning'].includes(hash)?hash:null;if(target&&target!==page){location.replace(`./${target==='home'?'index':target}.html${hash.includes('/')?'#'+hash:''}`);return true;}return false;}
-initNavigation();updateSavedCount();iconize();initKvChat();
+initSiteFooter();initNavigation();updateSavedCount();iconize();initKvChat();
 window.addEventListener('storage',updateSavedCount);
+if(page==='home'||page==='events'){const [{events},{initEventInvitations}]=await Promise.all([import('./data.js?v=events-footer-20261119'),import('./event-invitations.js?v=events-footer-20261119')]);initEventInvitations({events,notify});}
 if(!migrateLegacyRoute()){
  if(page==='home'){
   $('saved-button').onclick=()=>{location.href='./events.html?saved=1';};
-  const {initHome}=await import('./home.js?v=event-cleanup-20261117');initHome({iconize});
+  const {initHome}=await import('./home.js?v=events-footer-20261119');initHome({iconize});
   window.addEventListener('hashchange',migrateLegacyRoute);
  }else if(page==='events'){
-  const {initEvents,routeEvent}=await import('./events-ui.js?v=event-cleanup-20261117');
+  const {initEvents,routeEvent}=await import('./events-ui.js?v=events-footer-20261119');
   initEvents({iconize,notify});routeEvent();window.addEventListener('hashchange',()=>{if(!migrateLegacyRoute())routeEvent();});
 
  }else if(page==='learning'){
